@@ -415,128 +415,123 @@
                     </a>
                 </div>
             </section>
-<!-- SEÇÃO 6: PRODUTOS (Carrossel com Fade) -->
-<section class="space-y-6">
-    <div class="flex items-center justify-between px-2">
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nossos Produtos</h2>
-        <div class="flex items-center gap-2">
-            <span class="text-xs font-bold text-plumare-blue uppercase tracking-wider">Navegue</span>
-            <div class="flex gap-2">
-                <button id="prev-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                </button>
-                <button id="next-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-   <!-- SEÇÃO 6: PRODUTOS (Carrossel com Fade) -->
-<section class="space-y-6">
-    <div class="flex items-center justify-between px-2">
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nossos Produtos</h2>
-        <div class="flex items-center gap-2">
-            <span class="text-xs font-bold text-plumare-blue uppercase tracking-wider">Navegue</span>
-            <div class="flex gap-2">
-                <button id="prev-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                </button>
-                <button id="next-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Carrossel Container -->
-    <div class="relative overflow-hidden">
-        <div id="products-carousel" class="flex transition-opacity duration-500">
-            <!-- PRODUTO 1 -->
-            <div class="product-item min-w-full flex gap-4 px-2">
-                <div class="flex-1 glass-panel p-2 rounded-2xl transition-transform hover:-translate-y-1">
-                    <div class="h-56 rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800">
-                        <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_jxtecyjxtecyjxte%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2Vfanh0ZWN5anh0ZWN5anh0ZSAyLmpwZyIsImlhdCI6MTc3MDA0NDE2OCwiZXhwIjoxODAxNTgwMTY4fQ.wVGB9cADu8xnDszgKs4qg3-JqJtH_OeeyWFyo9n2YFw" class="w-full h-full object-cover" alt="Produto Plumare">
-                    </div>
-                    <div class="px-2 pb-2">
-                        <h3 class="font-bold text-gray-800 dark:text-white">Cama Premium</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">200 Fios</p>
+   <!-- SEÇÃO 5: PRODUTOS (Carrossel Estilo Instagram - CORRIGIDO) -->
+            <section class="space-y-6">
+                <div class="flex items-center justify-between px-2">
+                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nossos Produtos</h2>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-plumare-blue uppercase tracking-wider">Navegue</span>
+                        <div class="flex gap-2">
+                            <button id="prev-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                            </button>
+                            <button id="next-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+                
+                <!-- Carrossel Container -->
+                <div class="relative overflow-hidden">
+                    <div id="products-carousel" class="flex transition-opacity duration-500">
+                        <!-- PRODUTO 1 -->
+                        <div class="product-item min-w-full flex justify-center px-2">
+                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
+                                <!-- MUDANÇA: aspect-square para formato Instagram (Quadrado) -->
+                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
+                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_jxtecyjxtecyjxte%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2Vfanh0ZWN5anh0ZWN5anh0ZSAyLmpwZyIsImlhdCI6MTc3MDA0NDE2OCwiZXhwIjoxODAxNTgwMTY4fQ.wVGB9cADu8xnDszgKs4qg3-JqJtH_OeeyWFyo9n2YFw" class="w-full h-full object-cover" alt="Cama Premium">
+                                </div>
+                                <div class="px-2 pb-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Cama Premium</h3>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">200 Fios</p>
+                                        </div>
+                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-            <!-- PRODUTO 2 -->
-            <div class="product-item min-w-full flex gap-4 px-2 hidden">
-                <div class="flex-1 glass-panel p-2 rounded-2xl transition-transform hover:-translate-y-1">
-                    <div class="h-56 rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800">
-                        <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_n3ijlrn3ijlrn3ij.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfbjNpamxybjNpamxybjNpai5qcGciLCJpYXQiOjE3NzAwNDQxOTQsImV4cCI6MTgwMTU4MDE5NH0.QxIIxsRF8yFkAUj8TU-tQbSWOwA_PDMLiqMvRsxrMms" class="w-full h-full object-cover" alt="Produto Plumare">
-                    </div>
-                    <div class="px-2 pb-2">
-                        <h3 class="font-bold text-gray-800 dark:text-white">Linha Banho</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Algodão Egípcio</p>
+                        <!-- PRODUTO 2 -->
+                        <div class="product-item min-w-full flex justify-center px-2 hidden">
+                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
+                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
+                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_n3ijlrn3ijlrn3ij.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfbjNpamxybjNpamxybjNpai5qcGciLCJpYXQiOjE3NzAwNDQxOTQsImV4cCI6MTgwMTU4MDE5NH0.QxIIxsRF8yFkAUj8TU-tQbSWOwA_PDMLiqMvRsxrMms" class="w-full h-full object-cover" alt="Linha Banho">
+                                </div>
+                                <div class="px-2 pb-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Linha Banho</h3>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Algodão Egípcio</p>
+                                        </div>
+                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PRODUTO 3 -->
+                        <div class="product-item min-w-full flex justify-center px-2 hidden">
+                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
+                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
+                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_41hpfs41hpfs41hp%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfNDFocGZzNDFocGZzNDFocCAyLmpwZyIsImlhdCI6MTc3MDA0NDIwOSwiZXhwIjoxODAxNTgwMjA5fQ.z39kE4AkVXpYnCRvY_-zS5DRNyIHu6kkW307agT-3A8" class="w-full h-full object-cover" alt="Travesseiros">
+                                </div>
+                                <div class="px-2 pb-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Travesseiros</h3>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Toque de Pluma</p>
+                                        </div>
+                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- PRODUTO 4 -->
+                        <div class="product-item min-w-full flex justify-center px-2 hidden">
+                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
+                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
+                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_fri0upfri0upfri0%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfZnJpMHVwZnJpMHVwZnJpMCAyLmpwZyIsImlhdCI6MTc3MDA0NDIyMiwiZXhwIjoxODAxNTgwMjIyfQ.lCXm2UJuA6ane_e2eJhH-RwkqP-z0MmaPgM6uU3RnlI" class="w-full h-full object-cover" alt="Edredom Luxo">
+                                </div>
+                                <div class="px-2 pb-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Edredom Luxo</h3>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Plumas Naturais</p>
+                                        </div>
+                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <!-- PRODUTO 5 -->
+                        <div class="product-item min-w-full flex justify-center px-2 hidden">
+                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
+                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
+                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_hp837ahp837ahp83%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfaHA4MzdhaHA4MzdhaHA4MyAyLmpwZyIsImlhdCI6MTc3MDA0NDIzMCwiZXhwIjoxODAxNTgwMjMwfQ.b58AZRDGec1VsnZ1lgbWV1cwj9f8t-hplQWSWLlZV64" class="w-full h-full object-cover" alt="Toalhas Premium">
+                                </div>
+                                <div class="px-2 pb-1">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Toalhas Premium</h3>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Maciez Extrema</p>
+                                        </div>
+                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- PRODUTO 3 -->
-            <div class="product-item min-w-full flex gap-4 px-2 hidden">
-                <div class="flex-1 glass-panel p-2 rounded-2xl transition-transform hover:-translate-y-1">
-                    <div class="h-56 rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800">
-                        <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_41hpfs41hpfs41hp%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfNDFocGZzNDFocGZzNDFocCAyLmpwZyIsImlhdCI6MTc3MDA0NDIwOSwiZXhwIjoxODAxNTgwMjA5fQ.z39kE4AkVXpYnCRvY_-zS5DRNyIHu6kkW307agT-3A8" class="w-full h-full object-cover" alt="Produto Plumare">
-                    </div>
-                    <div class="px-2 pb-2">
-                        <h3 class="font-bold text-gray-800 dark:text-white">Travesseiros</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Toque de Pluma</p>
-                    </div>
+                <!-- Indicadores -->
+                <div class="flex justify-center gap-2 mt-4">
+                    <div id="product-indicators" class="flex gap-2"></div>
                 </div>
-            </div>
-
-            <!-- PRODUTO 4 -->
-            <div class="product-item min-w-full flex gap-4 px-2 hidden">
-                <div class="flex-1 glass-panel p-2 rounded-2xl transition-transform hover:-translate-y-1">
-                    <div class="h-56 rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800">
-                        <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_fri0upfri0upfri0%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfZnJpMHVwZnJpMHVwZnJpMCAyLmpwZyIsImlhdCI6MTc3MDA0NDIyMiwiZXhwIjoxODAxNTgwMjIyfQ.lCXm2UJuA6ane_e2eJhH-RwkqP-z0MmaPgM6uU3RnlI" class="w-full h-full object-cover" alt="Produto Plumare">
-                    </div>
-                    <div class="px-2 pb-2">
-                        <h3 class="font-bold text-gray-800 dark:text-white">Edredom Luxo</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Plumas Naturais</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PRODUTO 5 -->
-            <div class="product-item min-w-full flex gap-4 px-2 hidden">
-                <div class="flex-1 glass-panel p-2 rounded-2xl transition-transform hover:-translate-y-1">
-                    <div class="h-56 rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800">
-                        <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_hp837ahp837ahp83%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfaHA4MzdhaHA4MzdhaHA4MyAyLmpwZyIsImlhdCI6MTc3MDA0NDIzMCwiZXhwIjoxODAxNTgwMjMwfQ.b58AZRDGec1VsnZ1lgbWV1cwj9f8t-hplQWSWLlZV64" class="w-full h-full object-cover" alt="Produto Plumare">
-                    </div>
-                    <div class="px-2 pb-2">
-                        <h3 class="font-bold text-gray-800 dark:text-white">Toalhas Premium</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Maciez Extrema</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- PRODUTO 6 -->
-            <div class="product-item min-w-full flex gap-4 px-2 hidden">
-                <div class="flex-1 glass-panel p-2 rounded-2xl transition-transform hover:-translate-y-1">
-                    <div class="h-56 rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800">
-                        <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_n3ijlrn3ijlrn3ij.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfbjNpamxybjNpamxybjNpai5qcGciLCJpYXQiOjE3NzAwNDQxOTQsImV4cCI6MTgwMTU4MDE5NH0.QxIIxsRF8yFkAUj8TU-tQbSWOwA_PDMLiqMvRsxrMms" class="w-full h-full object-cover" alt="Produto Plumare">
-                    </div>
-                    <div class="px-2 pb-2">
-                        <h3 class="font-bold text-gray-800 dark:text-white">Roupão Spa</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Conforto Total</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Indicadores -->
-    <div class="flex justify-center gap-2 mt-4">
-        <div id="product-indicators" class="flex gap-2"></div>
-    </div>
-</section>
+            </section>
 
 <!-- JAVASCRIPT DO CARROSSEL -->
 <script>
