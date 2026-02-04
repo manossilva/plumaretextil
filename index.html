@@ -19,7 +19,7 @@
     <!-- Configurações do Tema -->
     <script>
         tailwind.config = {
-            darkMode: 'class', // Habilita modo escuro manual
+            darkMode: 'class', 
             theme: {
                 extend: {
                     colors: {
@@ -27,8 +27,8 @@
                             blue: '#5EB2F0',
                             green: '#6EEBCC',
                             black: '#000000',
-                            bg: '#fbfbfd', // Fundo Claro
-                            dark: '#0f0f11', // Fundo Escuro
+                            bg: '#fbfbfd',
+                            dark: '#0f0f11',
                         },
                         shopee: '#EE4D2D',
                         whatsapp: '#25D366',
@@ -59,7 +59,6 @@
 
     <style>
         body {
-            /* Fundo Claro Padrão */
             background-color: #fbfbfd;
             background-image: 
                 radial-gradient(at 0% 0%, rgba(94, 178, 240, 0.08) 0px, transparent 50%),
@@ -70,7 +69,6 @@
             transition: background-color 0.5s ease;
         }
 
-        /* Fundo Modo Escuro */
         .dark body {
             background-color: #0f0f11;
             background-image: 
@@ -78,7 +76,6 @@
                 radial-gradient(at 100% 100%, rgba(110, 235, 204, 0.15) 0px, transparent 50%);
         }
 
-        /* Painel de Vidro (Adaptativo Claro/Escuro) */
         .glass-panel {
             background: rgba(255, 255, 255, 0.65);
             backdrop-filter: saturate(180%) blur(25px);
@@ -94,7 +91,6 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
-        /* Botões Glass */
         .glass-button {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
@@ -116,21 +112,19 @@
             background: rgba(40, 40, 45, 0.9);
         }
 
-        /* Elementos Flutuantes - CORREÇÃO DE VISIBILIDADE */
         .floating-element {
             position: absolute;
             z-index: -1;
-            opacity: 0.6; /* Aumentado de 0.3 para 0.6 para evitar aspecto "borrado" */
+            opacity: 0.6;
             pointer-events: none;
         }
         .dark .floating-element {
-            opacity: 0.3; /* Ajuste para modo escuro */
+            opacity: 0.3;
         }
 
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Texto Gradiente */
         .text-gradient {
             background-clip: text;
             -webkit-background-clip: text;
@@ -141,7 +135,6 @@
             background-image: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
         }
         
-        /* Navbar Slim */
         .nav-slim {
             height: 70px;
         }
@@ -153,43 +146,26 @@
     <div class="fixed inset-0 overflow-hidden pointer-events-none">
         <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-plumare-blue/5 rounded-full filter blur-[100px] animate-float"></div>
         <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-plumare-green/5 rounded-full filter blur-[80px] animate-float-delayed"></div>
-        
-        <!-- Elementos 2D - CORREÇÃO: Stroke normal para nitidez -->
-        <div class="floating-element top-20 right-[10%] w-12 h-12 text-plumare-blue animate-float">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/><circle cx="15" cy="15" r="1"/></svg>
-        </div>
-        <div class="floating-element bottom-40 left-[5%] w-20 h-20 text-gray-400 animate-float-delayed rotate-45">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-        </div>
     </div>
 
-    <!-- HEADER SLIM (NOVO DESIGN) -->
+    <!-- HEADER SLIM -->
     <header class="fixed top-0 w-full z-50 glass-panel border-b border-white/20 dark:border-white/5 nav-slim transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
-            
-            <!-- ÁREA DA LOGO E NOME (Lado Esquerdo) -->
-            <div class="flex items-center gap-3 group cursor-pointer" onclick="document.getElementById('logo-upload').click()">
-                <!-- Logo Pequena e Elegante -->
+            <div class="flex items-center gap-3 group">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-plumare-blue/20 to-plumare-green/20 flex items-center justify-center overflow-hidden border border-white/50 dark:border-white/10 relative">
-                    <!-- [IMAGEM] LOGO: Cole o link da sua logo do Supabase no 'src' abaixo -->
                     <img id="logo-preview" src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2xvZ28ucG5nIiwiaWF0IjoxNzcwMDM1MzIzLCJleHAiOjE4MDE1NzEzMjN9.sOgLySmkvZ99jL1ZYZ4vkldr7fn_DvvaXDGtWm-phak" alt="Logo" class="w-full h-full object-cover p-1">
                 </div>
-
                 <div class="flex flex-col">
-                    <span class="text-lg font-bold tracking-tight text-plumare-blue dark:text-plumare-blue leading-none">PLUMARE</span>
+                    <span class="text-lg font-bold tracking-tight text-plumare-blue leading-none">PLUMARE</span>
                     <span class="text-[0.6rem] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em]">Textil</span>
                 </div>
             </div>
 
-            <!-- BOTÕES DE AÇÃO (Lado Direito) -->
             <div class="flex items-center gap-3">
-                <!-- Botão Dark Mode -->
-                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-gray-600 dark:text-gray-300" title="Alternar Tema">
-                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i> <!-- Lua no modo claro -->
-                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>   <!-- Sol no modo escuro -->
+                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-gray-600 dark:text-gray-300">
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
                 </button>
-
-                <!-- [LINK] INSTAGRAM: Cole seu link aqui -->
                 <a href="https://instagram.com/plumaremkt" target="_blank" class="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 dark:bg-white/10 hover:bg-instagram-gradient hover:text-white transition-all text-xs font-bold text-gray-600 dark:text-gray-300">
                     <i data-lucide="instagram" class="w-4 h-4"></i>
                     @plumaremkt
@@ -198,18 +174,15 @@
         </div>
     </header>
 
-    <!-- Espaçamento para o conteúdo não ficar escondido pelo header fixo -->
     <div class="pt-24"></div>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="relative z-10 pb-24 px-4">
-        <div class="max-w-4xl mx-auto space-y-24">
+    <!-- CONTEÚDO PRINCIPAL (pb-12 para reduzir o espaço no fim) -->
+    <main class="relative z-10 pb-12 px-4">
+        <div class="max-w-4xl mx-auto space-y-16 md:space-y-24">
 
-            <!-- SEÇÃO 1: BOTÕES PRINCIPAIS -->
+            <!-- SEÇÃO 1: BOTÕES -->
             <section class="animate-fade-in-up">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                    
-                    <!-- [LINK] ATACADO (WHATSAPP) -->
                     <a href="https://api.whatsapp.com/message/2RURQPNHQBRPI1?autoload=1&app_absent=0" target="_blank" class="glass-button p-5 rounded-2xl flex items-center gap-4 group">
                         <div class="w-12 h-12 rounded-full bg-whatsapp/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i data-lucide="message-circle" class="w-6 h-6 text-whatsapp"></i>
@@ -218,10 +191,9 @@
                             <h3 class="font-bold text-lg text-gray-800 dark:text-white">Atacado</h3>
                             <p class="text-xs text-gray-500 dark:text-gray-400">Fale com Vendedor</p>
                         </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto group-hover:text-whatsapp transition-colors"></i>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto"></i>
                     </a>
 
-                    <!-- [LINK] GRUPO VIP -->
                     <a href="https://chat.whatsapp.com/I7re1TmYKaRGUVm2SUMSku" class="glass-button p-5 rounded-2xl flex items-center gap-4 group">
                         <div class="w-12 h-12 rounded-full bg-plumare-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i data-lucide="users" class="w-6 h-6 text-plumare-blue"></i>
@@ -230,10 +202,9 @@
                             <h3 class="font-bold text-lg text-gray-800 dark:text-white">Grupo VIP</h3>
                             <p class="text-xs text-gray-500 dark:text-gray-400">Ofertas Exclusivas</p>
                         </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto group-hover:text-plumare-blue transition-colors"></i>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto"></i>
                     </a>
 
-                    <!-- [LINK] SHOPEE -->
                     <a href="https://shopee.com.br/plumaretextil" class="glass-button p-5 rounded-2xl flex items-center gap-4 group">
                         <div class="w-12 h-12 rounded-full bg-shopee/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i data-lucide="shopping-bag" class="w-6 h-6 text-shopee"></i>
@@ -242,10 +213,9 @@
                             <h3 class="font-bold text-lg text-gray-800 dark:text-white">Shopee</h3>
                             <p class="text-xs text-gray-500 dark:text-gray-400">Varejo Online</p>
                         </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto group-hover:text-shopee transition-colors"></i>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto"></i>
                     </a>
 
-                    <!-- [LINK] REPRESENTANTE (Vai para o formulário abaixo) -->
                     <a href="#historia" class="glass-button p-5 rounded-2xl flex items-center gap-4 group">
                         <div class="w-12 h-12 rounded-full bg-plumare-green/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i data-lucide="briefcase" class="w-6 h-6 text-plumare-green"></i>
@@ -254,76 +224,57 @@
                             <h3 class="font-bold text-lg text-gray-800 dark:text-white">Nossa história</h3>
                             <p class="text-xs text-gray-500 dark:text-gray-400">Conheça a Plumare</p>
                         </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto group-hover:text-plumare-green transition-colors"></i>
+                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto"></i>
                     </a>
                 </div>
             </section>
-<!-- SEÇÃO DE VÍDEO - FORMATO REELS -->
-<section class="glass-panel p-6 rounded-[2rem]">
-    <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold text-plumare-blue mb-2">Conheça Nossa História</h2>
-        <p class="text-gray-600 dark:text-gray-300">Descubra como transformamos sonhos em realidade</p>
-    </div>
 
-    <!-- Video Player Container -->
-    <div class="relative w-full max-w-md mx-auto">
-        <!-- Video Element -->
-        <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
-            <video 
-                id="plumare-video" 
-                class="w-full aspect-[9/16]"
-                poster="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ">
-                <!-- 🎥 COLE O LINK DO SEU VÍDEO DO SUPABASE AQUI 👇 -->
-                <source src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/video%20institucional%20.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL3ZpZGVvIGluc3RpdHVjaW9uYWwgLm1wNCIsImlhdCI6MTc3MDA0MzUyMiwiZXhwIjoxODAxNTc5NTIyfQ.OTf7lzj7_gJRZhQQ0Z2hq7IxXcYaKF3XmpAu6k9nVK4" type="video/mp4">
-                Seu navegador não suporta a reprodução de vídeo.
-            </video>
-
-            <!-- Custom Controls Overlay -->
-            <div id="video-controls" class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm transition-opacity duration-300 opacity-0">
-                <!-- Play/Pause Button -->
-                <button id="play-pause-btn" class="glass-panel w-20 h-20 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-2xl">
-                    <i id="play-icon" data-lucide="play" class="w-10 h-10 text-plumare-blue"></i>
-                    <i id="pause-icon" data-lucide="pause" class="w-10 h-10 text-plumare-blue hidden"></i>
-                </button>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                <div class="flex items-center gap-3">
-                    <!-- Time Display -->
-                    <span id="current-time" class="text-white text-xs font-mono min-w-[40px]">0:00</span>
-                    
-                    <!-- Progress Bar -->
-                    <div class="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden cursor-pointer group" id="progress-bar">
-                        <div id="progress-fill" class="h-full bg-gradient-to-r from-plumare-blue to-plumare-green rounded-full w-0 transition-all group-hover:h-2"></div>
-                    </div>
-                    
-                    <!-- Duration -->
-                    <span id="duration" class="text-white text-xs font-mono min-w-[40px]">0:00</span>
-                    
-                    <!-- Volume Button -->
-                    <button id="mute-btn" class="text-white hover:text-plumare-green transition-colors">
-                        <i id="volume-icon" data-lucide="volume-2" class="w-5 h-5"></i>
-                        <i id="mute-icon" data-lucide="volume-x" class="w-5 h-5 hidden"></i>
-                    </button>
-                    
-                    <!-- Fullscreen Button -->
-                    <button id="fullscreen-btn" class="text-white hover:text-plumare-blue transition-colors">
-                        <i data-lucide="maximize" class="w-5 h-5"></i>
-                    </button>
+            <!-- SEÇÃO DE VÍDEO -->
+            <section class="glass-panel p-6 rounded-[2rem]">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-plumare-blue mb-2">Conheça Nossa História</h2>
+                    <p class="text-gray-600 dark:text-gray-300">Descubra como transformamos sonhos em realidade</p>
                 </div>
-            </div>
-        </div>
 
-        <!-- Video Info -->
-        <div class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-            <i data-lucide="info" class="w-4 h-4 inline mr-1"></i>
-            Toque no vídeo para assistir
-        </div>
-    </div>
-</section>
-            <!-- SEÇÃO 2: NOSSA HISTÓRIA -->
-            <section class="glass-panel p-8 md:p-12 rounded-[2rem]">
+                <div class="relative w-full max-w-md mx-auto">
+                    <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
+                        <video id="plumare-video" class="w-full aspect-[9/16]" poster="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ">
+                            <source src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/video%20institucional%20.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL3ZpZGVvIGluc3RpdHVjaW9uYWwgLm1wNCIsImlhdCI6MTc3MDA0MzUyMiwiZXhwIjoxODAxNTc5NTIyfQ.OTf7lzj7_gJRZhQQ0Z2hq7IxXcYaKF3XmpAu6k9nVK4" type="video/mp4">
+                        </video>
+
+                        <div id="video-controls" class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm transition-opacity duration-300 opacity-0">
+                            <button id="play-pause-btn" class="glass-panel w-20 h-20 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-2xl">
+                                <i id="play-icon" data-lucide="play" class="w-10 h-10 text-plumare-blue"></i>
+                                <i id="pause-icon" data-lucide="pause" class="w-10 h-10 text-plumare-blue hidden"></i>
+                            </button>
+                        </div>
+
+                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                            <div class="flex items-center gap-3">
+                                <span id="current-time" class="text-white text-xs font-mono min-w-[40px]">0:00</span>
+                                <div class="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden cursor-pointer" id="progress-bar">
+                                    <div id="progress-fill" class="h-full bg-gradient-to-r from-plumare-blue to-plumare-green rounded-full w-0 transition-all"></div>
+                                </div>
+                                <span id="duration" class="text-white text-xs font-mono min-w-[40px]">0:00</span>
+                                <button id="mute-btn" class="text-white">
+                                    <i id="volume-icon" data-lucide="volume-2" class="w-5 h-5"></i>
+                                    <i id="mute-icon" data-lucide="volume-x" class="w-5 h-5 hidden"></i>
+                                </button>
+                                <button id="fullscreen-btn" class="text-white">
+                                    <i data-lucide="maximize" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                        <i data-lucide="info" class="w-4 h-4 inline mr-1"></i>
+                        Toque no vídeo para assistir
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEÇÃO 2: HISTÓRIA -->
+            <section id="historia" class="glass-panel p-8 md:p-12 rounded-[2rem]">
                 <div class="flex flex-col md:flex-row gap-10 items-center">
                     <div class="flex-1 space-y-6 text-center md:text-left">
                         <h2 class="text-3xl font-bold text-gradient">Nossa História</h2>
@@ -331,8 +282,7 @@
                             Nascemos da paixão por transformar fios em conforto. Em nossa fábrica em Tobias Barreto, unimos tecnologia e acabamento artesanal para criar o enxoval perfeito para o seu lar.
                         </p>
                     </div>
-                    <div class="flex-1 w-full relative group">
-                        <!-- [IMAGEM] SLIDER DA HISTÓRIA 1  -->
+                    <div class="flex-1 w-full relative">
                         <div class="relative h-64 w-full rounded-2xl overflow-hidden shadow-sm border border-white/50 dark:border-white/10">
                             <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ" class="slider-img absolute w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Fábrica">
                         </div>
@@ -340,7 +290,7 @@
                 </div>
             </section>
 
-            <!-- SEÇÃO 3: NOSSO TIME EM AÇÃO -->
+            <!-- SEÇÃO 3: TIME -->
             <section class="space-y-8">
                 <div class="text-center space-y-2">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nosso Time em Ação</h2>
@@ -348,365 +298,120 @@
                 </div>
                 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <!-- [IMAGEM] FOTO TIME 1 -->
-                    <div class="glass-panel p-2 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+                    <div class="glass-panel p-2 rounded-2xl">
                         <div class="h-48 rounded-xl overflow-hidden relative">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/bordado.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2JvcmRhZG8uanBnIiwiaWF0IjoxNzcwMDM1NTExLCJleHAiOjE4MDE1NzE1MTF9.aybGk-kpEr5ySBeEsaPRcBqS5ChFqlenJ7wsl0UR4t4" alt="Equipe de Costura" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-xs font-bold text-center backdrop-blur-sm">
-                                Produção
-                            </div>
+                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/bordado.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2JvcmRhZG8uanBnIiwiaWF0IjoxNzcwMDM1NTExLCJleHAiOjE4MDE1NzE1MTF9.aybGk-kpEr5ySBeEsaPRcBqS5ChFqlenJ7wsl0UR4t4" alt="Produção" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Produção</div>
                         </div>
                     </div>
-
-                    <!-- [IMAGEM] FOTO TIME 2 -->
-                    <div class="glass-panel p-2 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+                    <div class="glass-panel p-2 rounded-2xl">
                         <div class="h-48 rounded-xl overflow-hidden relative">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/20914B37-8199-4B03-A071-9F71222D339A.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlLzIwOTE0QjM3LTgxOTktNEIwMy1BMDcxLTlGNzEyMjJEMzM5QS5qcGciLCJpYXQiOjE3NzAwMzYzMjIsImV4cCI6MTgwMTU3MjMyMn0._QaVXH_LEJ5AFROfIKkwqSu-uZVE_oc4ND6qsYCM7WE" alt="Equipe de Atendimento" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-xs font-bold text-center backdrop-blur-sm">
-                                Organização
-                            </div>
+                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/20914B37-8199-4B03-A071-9F71222D339A.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlLzIwOTE0QjM3LTgxOTktNEIwMy1BMDcxLTlGNzEyMjJEMzM5QS5qcGciLCJpYXQiOjE3NzAwMzYzMjIsImV4cCI6MTgwMTU3MjMyMn0._QaVXH_LEJ5AFROfIKkwqSu-uZVE_oc4ND6qsYCM7WE" alt="Organização" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Organização</div>
                         </div>
                     </div>
-
-                    <!-- [IMAGEM] FOTO TIME 3 -->
-                    <div class="glass-panel p-2 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+                    <div class="glass-panel p-2 rounded-2xl">
                         <div class="h-48 rounded-xl overflow-hidden relative">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/CB8A9201-3B94-45A4-87BB-47D1EFB76B64.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0NCOEE5MjAxLTNCOTQtNDVBNC04N0JCLTQ3RDFFRkI3NkI2NC5qcGciLCJpYXQiOjE3NzAwMzYyNTQsImV4cCI6MTgwMTU3MjI1NH0.IpYFD8Gc03WYHxu-Kuq_mUZGGVV0PNCj9_Gdif6QJK8" alt="Controle de Qualidade" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-xs font-bold text-center backdrop-blur-sm">
-                                Qualidade
-                            </div>
+                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/CB8A9201-3B94-45A4-87BB-47D1EFB76B64.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0NCOEE5MjAxLTNCOTQtNDVBNC04N0JCLTQ3RDFFRkI3NkI2NC5qcGciLCJpYXQiOjE3NzAwMzYyNTQsImV4cCI6MTgwMTU3MjI1NH0.IpYFD8Gc03WYHxu-Kuq_mUZGGVV0PNCj9_Gdif6QJK8" alt="Qualidade" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Qualidade</div>
                         </div>
                     </div>
-
-                    <!-- [IMAGEM] FOTO TIME 4 -->
-                    <div class="glass-panel p-2 rounded-2xl hover:scale-[1.02] transition-transform duration-300">
+                    <div class="glass-panel p-2 rounded-2xl">
                         <div class="h-48 rounded-xl overflow-hidden relative">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/estoque.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2VzdG9xdWUuanBnIiwiaWF0IjoxNzcwMDM1NDc0LCJleHAiOjE4MDE1NzE0NzR9.NT8_fmDyjRhu2x26My9IJtu2-td7NSIUIso0u_4T6D8" alt="Logística e Estoque" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-xs font-bold text-center backdrop-blur-sm">
-                                Logística
-                            </div>
+                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/estoque.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2VzdG9xdWUuanBnIiwiaWF0IjoxNzcwMDM1NDc0LCJleHAiOjE4MDE1NzE0NzR9.NT8_fmDyjRhu2x26My9IJtu2-td7NSIUIso0u_4T6D8" alt="Logística" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Logística</div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- SEÇÃO 4: INSTAGRAM DA LOJA (Separado - Destaque Azul) -->
-            <section class="rounded-[2rem] overflow-hidden shadow-xl border-2 border-plumare-blue relative bg-plumare-blue/5 dark:bg-plumare-blue/10 backdrop-blur-md transition-colors duration-300">
-                <!-- Barra colorida topo (Azul) -->
+            <!-- SEÇÃO 4: INSTAGRAM -->
+            <section class="rounded-[2rem] overflow-hidden shadow-xl border-2 border-plumare-blue bg-plumare-blue/5 dark:bg-plumare-blue/10 backdrop-blur-md">
                 <div class="h-2 bg-plumare-blue w-full"></div>
-                
-                <div class="p-8 md:p-12 flex flex-col items-center justify-center text-center space-y-6">
-                    <!-- Círculo do Ícone (Azul para combinar com a caixa) -->
-                    <div class="w-20 h-20 rounded-full p-1 bg-plumare-blue shadow-lg shadow-plumare-blue/30">
+                <div class="p-8 flex flex-col items-center text-center space-y-6">
+                    <div class="w-20 h-20 rounded-full p-1 bg-plumare-blue">
                         <div class="w-full h-full bg-white dark:bg-gray-900 rounded-full flex items-center justify-center">
                             <i data-lucide="instagram" class="w-10 h-10 text-plumare-blue"></i>
                         </div>
                     </div>
-
                     <div class="space-y-2">
                         <h2 class="text-2xl font-bold text-plumare-blue">Siga @plumaretextil</h2>
-                        <p class="text-gray-600 dark:text-gray-300">Acompanhe nossos bastidores, lançamentos e novidades diárias.</p>
+                        <p class="text-gray-600 dark:text-gray-300">Acompanhe nossos bastidores e novidades.</p>
                     </div>
-
-                    <!-- [LINK] INSTAGRAM BUTTON - Destaque vibrante com gradiente -->
-                    <a href="https://www.instagram.com/plumaretextil/" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white font-bold shadow-lg shadow-pink-500/40 hover:scale-105 transition-all duration-300 border border-white/20">
-                        <i data-lucide="instagram" class="w-5 h-5"></i>
-                        Seguir no Instagram
+                    <a href="https://www.instagram.com/plumaretextil/" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white font-bold shadow-lg hover:scale-105 transition-all">
+                        <i data-lucide="instagram" class="w-5 h-5"></i> Seguir no Instagram
                     </a>
                 </div>
             </section>
-   <!-- SEÇÃO 5: PRODUTOS (Carrossel Estilo Instagram - CORRIGIDO) -->
+
+            <!-- SEÇÃO 5: PRODUTOS -->
             <section class="space-y-6">
                 <div class="flex items-center justify-between px-2">
                     <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nossos Produtos</h2>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-plumare-blue uppercase tracking-wider">Navegue</span>
-                        <div class="flex gap-2">
-                            <button id="prev-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                            </button>
-                            <button id="next-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center hover:scale-110 transition-transform">
-                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                            </button>
-                        </div>
+                    <div class="flex gap-2">
+                        <button id="prev-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                        <button id="next-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
                     </div>
                 </div>
                 
-                <!-- Carrossel Container -->
                 <div class="relative overflow-hidden">
-                    <div id="products-carousel" class="flex transition-opacity duration-500">
-                        <!-- PRODUTO 1 -->
+                    <div id="products-carousel" class="flex transition-all duration-300">
                         <div class="product-item min-w-full flex justify-center px-2">
-                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
-                                <!-- MUDANÇA: aspect-square para formato Instagram (Quadrado) -->
-                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
-                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_jxtecyjxtecyjxte%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2Vfanh0ZWN5anh0ZWN5anh0ZSAyLmpwZyIsImlhdCI6MTc3MDA0NDE2OCwiZXhwIjoxODAxNTgwMTY4fQ.wVGB9cADu8xnDszgKs4qg3-JqJtH_OeeyWFyo9n2YFw" class="w-full h-full object-cover" alt="Cama Premium">
-                                </div>
-                                <div class="px-2 pb-1">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Cortinas Premium</h3>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400">Fabricação própria</p>
-                                        </div>
-                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
-                                    </div>
-                                </div>
+                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl">
+                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3"><img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_jxtecyjxtecyjxte%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2Vfanh0ZWN5anh0ZWN5anh0ZSAyLmpwZyIsImlhdCI6MTc3MDA0NDE2OCwiZXhwIjoxODAxNTgwMTY4fQ.wVGB9cADu8xnDszgKs4qg3-JqJtH_OeeyWFyo9n2YFw" class="w-full h-full object-cover"></div>
+                                <h3 class="font-bold text-lg text-gray-800 dark:text-white px-2">Cortinas Premium</h3>
                             </div>
                         </div>
-
-                        <!-- PRODUTO 2 -->
                         <div class="product-item min-w-full flex justify-center px-2 hidden">
-                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
-                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
-                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_n3ijlrn3ijlrn3ij.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfbjNpamxybjNpamxybjNpai5qcGciLCJpYXQiOjE3NzAwNDQxOTQsImV4cCI6MTgwMTU4MDE5NH0.QxIIxsRF8yFkAUj8TU-tQbSWOwA_PDMLiqMvRsxrMms" class="w-full h-full object-cover" alt="Linha Banho">
-                                </div>
-                                <div class="px-2 pb-1">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Jogo de cama</h3>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400">Fabricação própria</p>
-                                        </div>
-                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- PRODUTO 3 -->
-                        <div class="product-item min-w-full flex justify-center px-2 hidden">
-                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
-                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
-                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_41hpfs41hpfs41hp%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfNDFocGZzNDFocGZzNDFocCAyLmpwZyIsImlhdCI6MTc3MDA0NDIwOSwiZXhwIjoxODAxNTgwMjA5fQ.z39kE4AkVXpYnCRvY_-zS5DRNyIHu6kkW307agT-3A8" class="w-full h-full object-cover" alt="Travesseiros">
-                                </div>
-                                <div class="px-2 pb-1">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Cortina 80% blackout</h3>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400">Fabricação própria</p>
-                                        </div>
-                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                         <!-- PRODUTO 4 -->
-                        <div class="product-item min-w-full flex justify-center px-2 hidden">
-                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
-                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
-                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_fri0upfri0upfri0%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfZnJpMHVwZnJpMHVwZnJpMCAyLmpwZyIsImlhdCI6MTc3MDA0NDIyMiwiZXhwIjoxODAxNTgwMjIyfQ.lCXm2UJuA6ane_e2eJhH-RwkqP-z0MmaPgM6uU3RnlI" class="w-full h-full object-cover" alt="Edredom Luxo">
-                                </div>
-                                <div class="px-2 pb-1">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Cortina de Luxo</h3>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400">Fabricação própria</p>
-                                        </div>
-                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                         <!-- PRODUTO 5 -->
-                        <div class="product-item min-w-full flex justify-center px-2 hidden">
-                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl transition-transform hover:-translate-y-1">
-                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3 bg-gray-100 dark:bg-gray-800 relative">
-                                    <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_hp837ahp837ahp83%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfaHA4MzdhaHA4MzdhaHA4MyAyLmpwZyIsImlhdCI6MTc3MDA0NDIzMCwiZXhwIjoxODAxNTgwMjMwfQ.b58AZRDGec1VsnZ1lgbWV1cwj9f8t-hplQWSWLlZV64" class="w-full h-full object-cover" alt="Toalhas Premium">
-                                </div>
-                                <div class="px-2 pb-1">
-                                    <div class="flex justify-between items-start">
-                                        <div>
-                                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Cortina de Luxo</h3>
-                                            <p class="text-sm text-gray-500 dark:text-gray-400">Fabricação própria</p>
-                                        </div>
-                                        <i data-lucide="heart" class="w-5 h-5 text-gray-400 cursor-pointer hover:text-red-500 transition-colors"></i>
-                                    </div>
-                                </div>
+                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl">
+                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3"><img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_n3ijlrn3ijlrn3ij.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfbjNpamxybjNpamxybjNpai5qcGciLCJpYXQiOjE3NzAwNDQxOTQsImV4cCI6MTgwMTU4MDE5NH0.QxIIxsRF8yFkAUj8TU-tQbSWOwA_PDMLiqMvRsxrMms" class="w-full h-full object-cover"></div>
+                                <h3 class="font-bold text-lg text-gray-800 dark:text-white px-2">Jogos de Cama</h3>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Indicadores -->
-                <div class="flex justify-center gap-2 mt-4">
-                    <div id="product-indicators" class="flex gap-2"></div>
-                </div>
             </section>
 
-<!-- JAVASCRIPT DO CARROSSEL -->
-<script>
-    // --- CARROSSEL DE PRODUTOS COM FADE ---
-    const productsCarousel = document.getElementById('products-carousel');
-    const productItems = document.querySelectorAll('.product-item');
-    const prevBtn = document.getElementById('prev-product');
-    const nextBtn = document.getElementById('next-product');
-    const indicatorsContainer = document.getElementById('product-indicators');
-    
-    let currentProduct = 0;
-    const totalProducts = productItems.length;
-
-    // Criar indicadores
-    for (let i = 0; i < totalProducts; i++) {
-        const indicator = document.createElement('div');
-        indicator.className = 'w-2 h-2 rounded-full transition-all duration-300 cursor-pointer';
-        indicator.style.backgroundColor = i === 0 ? '#5EB2F0' : 'rgba(94, 178, 240, 0.3)';
-        indicator.addEventListener('click', () => goToProduct(i));
-        indicatorsContainer.appendChild(indicator);
-    }
-
-    function updateIndicators() {
-        const indicators = indicatorsContainer.children;
-        for (let i = 0; i < indicators.length; i++) {
-            if (i === currentProduct) {
-                indicators[i].style.backgroundColor = '#5EB2F0';
-                indicators[i].style.width = '24px';
-            } else {
-                indicators[i].style.backgroundColor = 'rgba(94, 178, 240, 0.3)';
-                indicators[i].style.width = '8px';
-            }
-        }
-    }
-
-    function showProduct(index) {
-        // Fade out atual
-        productItems[currentProduct].style.opacity = '0';
-        
-        setTimeout(() => {
-            productItems[currentProduct].classList.add('hidden');
-            currentProduct = index;
-            
-            // Fade in novo
-            productItems[currentProduct].classList.remove('hidden');
-            setTimeout(() => {
-                productItems[currentProduct].style.opacity = '1';
-            }, 50);
-            
-            updateIndicators();
-        }, 300);
-    }
-
-    function nextProduct() {
-        const next = (currentProduct + 1) % totalProducts;
-        showProduct(next);
-    }
-
-    function prevProduct() {
-        const prev = (currentProduct - 1 + totalProducts) % totalProducts;
-        showProduct(prev);
-    }
-
-    function goToProduct(index) {
-        if (index !== currentProduct) {
-            showProduct(index);
-        }
-    }
-
-    // Event Listeners
-    nextBtn.addEventListener('click', nextProduct);
-    prevBtn.addEventListener('click', prevProduct);
-
-    // Suporte a swipe (mobile)
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    productsCarousel.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-
-    productsCarousel.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-
-    function handleSwipe() {
-        if (touchEndX < touchStartX - 50) nextProduct();
-        if (touchEndX > touchStartX + 50) prevProduct();
-    }
-
-    // Inicializar opacidade
-    productItems.forEach((item, index) => {
-        item.style.transition = 'opacity 300ms ease-in-out';
-        item.style.opacity = index === 0 ? '1' : '0';
-    });
-
-    // Auto-play (opcional - descomente se quiser)
-    // setInterval(nextProduct, 5000);
-
-    // Reinicializar ícones do Lucide
-    lucide.createIcons();
-</script>
-
-            <!-- SEÇÃO 6: LOCALIZAÇÃO -->
+            <!-- SEÇÃO 6: LOCALIZAÇÃO (Fim do conteúdo principal) -->
             <section class="glass-panel p-4 rounded-[2rem]">
                 <div class="flex flex-col md:flex-row gap-6 items-center">
                     <div class="p-4 md:w-1/3 text-center md:text-left space-y-2">
                         <h3 class="font-bold text-xl dark:text-white">Visite a Fábrica</h3>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm">
-                            Rua K Dist. Industrial, 4<br>
-                            Tobias Barreto - SE
-                        </p>
-                        <!-- [LINK] MAPS -->
-                        <a href="https://goo.gl/maps/seulink" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:underline">
-                            Ver no Mapa &rarr;
-                        </a>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Rua K Dist. Industrial, 4<br>Tobias Barreto - SE</p>
+                        <a href="https://goo.gl/maps/seulink" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:underline">Ver no Mapa &rarr;</a>
                     </div>
-                    <div class="w-full md:w-2/3 h-48 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 border border-white/50 dark:border-white/10">
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3904.567890123456!2d-37.9978!3d-11.1833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDEwJzU5LjkiUyAzN8KwNTknNTIuMSJX!5e0!3m2!1spt-BR!2sbr" 
-                            width="100%" height="100%" style="border:0;" loading="lazy">
-                        </iframe>
+                    <div class="w-full md:w-2/3 h-48 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3904.567890123456!2d-37.9978!3d-11.1833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDEwJzU5LjkiUyAzN8KwNTknNTIuMSJX!5e0!3m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
                     </div>
                 </div>
             </section>
-          
-                    <div class="flex items-center justify-center gap-2 text-blue-100/70 text-xs mt-6">
-                        <i data-lucide="lock" class="w-3 h-3"></i>
-                        <span>Seus dados estão protegidos.</span>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </main>
 
     <!-- NOTIFICAÇÃO LGPD -->
-    <div id="lgpd-banner" class="fixed bottom-4 left-4 right-4 z-50 animate-fade-in-up">
-        <div class="glass-panel p-4 rounded-2xl max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl border border-white/80 dark:border-white/20">
+    <div id="lgpd-banner" class="fixed bottom-4 left-4 right-4 z-50">
+        <div class="glass-panel p-4 rounded-2xl max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
             <div class="flex items-start gap-3">
                 <i data-lucide="shield-check" class="text-plumare-blue w-6 h-6 shrink-0 mt-1"></i>
-                <p class="text-sm text-gray-600 dark:text-gray-300">
-                    <strong>Sua privacidade importa.</strong> Utilizamos cookies para melhorar sua experiência, conforme a Lei Geral de Proteção de Dados (LGPD).
-                </p>
+                <p class="text-xs text-gray-600 dark:text-gray-300">Utilizamos cookies para melhorar sua experiência (LGPD).</p>
             </div>
-            <div class="flex gap-2 w-full md:w-auto">
-                <button onclick="document.getElementById('lgpd-banner').style.display='none'" class="flex-1 md:flex-none px-6 py-2 bg-black dark:bg-white text-white dark:text-black text-sm font-bold rounded-xl hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
-                    Aceitar
-                </button>
-            </div>
+            <button onclick="document.getElementById('lgpd-banner').style.display='none'" class="px-6 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-bold rounded-xl">Aceitar</button>
         </div>
     </div>
 
-
-     <!-- Footer Final -->
-    <footer class="mt-20 border-t border-gray-200/60 dark:border-white/5 bg-gray-50/50 dark:bg-black/20 backdrop-blur-lg">
+    <!-- Footer Final (Ajustado mt-8 para ficar mais próximo) -->
+    <footer class="mt-8 border-t border-gray-200/60 dark:border-white/5 bg-gray-50/50 dark:bg-black/20 backdrop-blur-lg">
         <div class="max-w-6xl mx-auto px-6 py-10">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                
-                <!-- Esquerda: Copyright -->
                 <div class="text-center md:text-left space-y-1">
-                    <p class="text-xs font-bold text-gray-800 dark:text-white tracking-wide">PLUMARE ENXOVAIS</p>
-                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">CNPJ 44.180.907/0001-55</p>
-                    <p class="text-[10px] text-gray-400 mt-2">
-                        Copyright © <script>document.write(new Date().getFullYear())</script> Plumare. Todos os direitos reservados.
-                    </p>
+                    <p class="text-xs font-bold text-gray-800 dark:text-white tracking-wide uppercase">Plumare Textil</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">CNPJ: 42.700.046/0001-63</p>
+                    <p class="text-[10px] text-gray-400 mt-2">Copyright © <script>document.write(new Date().getFullYear())</script> Plumare.</p>
                 </div>
-
-                <!-- Direita: Créditos / Assinatura -->
-                <div class="flex items-center gap-2 text-xs text-gray-400">
+                <div class="flex items-center gap-2 text-[10px] text-gray-400">
                     <span>Desenvolvido por</span>
-                    <a href="https://www.instagram.com/ramoncmkt/" class="font-bold text-plumare-blue hover:text-plumare-green transition-colors flex items-center gap-1">
-                        Agência responsável pelo desenvolvimento
-                    </a>
+                    <a href="https://www.instagram.com/ramoncmkt/" class="font-bold text-plumare-blue hover:text-plumare-green transition-colors">Agência Responsável</a>
                 </div>
             </div>
         </div>
@@ -715,163 +420,71 @@
     <script>
         lucide.createIcons();
 
-        // --- LÓGICA DO MODO ESCURO ---
         function toggleTheme() {
             const html = document.documentElement;
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
         }
 
-        // Verifica preferência salva
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
         }
 
-        // --- SLIDESHOW ---
+        // Slideshow História
         const images = document.querySelectorAll('.slider-img');
         let currentImg = 0;
         function nextImage() {
-            images[currentImg].classList.remove('opacity-100');
-            images[currentImg].classList.add('opacity-0');
+            if(images.length < 2) return;
+            images[currentImg].classList.replace('opacity-100', 'opacity-0');
             currentImg = (currentImg + 1) % images.length;
-            images[currentImg].classList.remove('opacity-0');
-            images[currentImg].classList.add('opacity-100');
+            images[currentImg].classList.replace('opacity-0', 'opacity-100');
         }
-        if(images.length > 0) setInterval(nextImage, 4000);
+        if(images.length > 1) setInterval(nextImage, 4000);
 
-        // --- PREVIEW LOGO ---
-        function previewLogo(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('logo-preview').src = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
+        // Carrossel Produtos
+        const productsCarousel = document.getElementById('products-carousel');
+        const productItems = document.querySelectorAll('.product-item');
+        let currentProd = 0;
+
+        function showProd(index) {
+            productItems[currentProd].classList.add('hidden');
+            currentProd = index;
+            productItems[currentProd].classList.remove('hidden');
+        }
+
+        document.getElementById('next-product').onclick = () => showProd((currentProd + 1) % productItems.length);
+        document.getElementById('prev-product').onclick = () => showProd((currentProd - 1 + productItems.length) % productItems.length);
+
+        // Video Player Simplificado
+        const video = document.getElementById('plumare-video');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const progressFill = document.getElementById('progress-fill');
+        const videoControls = document.getElementById('video-controls');
+
+        playPauseBtn.onclick = () => {
+            if (video.paused) {
+                video.play();
+                document.getElementById('play-icon').classList.add('hidden');
+                document.getElementById('pause-icon').classList.remove('hidden');
+            } else {
+                video.pause();
+                document.getElementById('play-icon').classList.remove('hidden');
+                document.getElementById('pause-icon').classList.add('hidden');
             }
-        }
-        <!-- JAVASCRIPT DO PLAYER - ADICIONE ANTES DO </script> 
-<script>
-    // --- CUSTOM VIDEO PLAYER ---
-    const video = document.getElementById('plumare-video');
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    const playIcon = document.getElementById('play-icon');
-    const pauseIcon = document.getElementById('pause-icon');
-    const progressBar = document.getElementById('progress-bar');
-    const progressFill = document.getElementById('progress-fill');
-    const currentTimeEl = document.getElementById('current-time');
-    const durationEl = document.getElementById('duration');
-    const muteBtn = document.getElementById('mute-btn');
-    const volumeIcon = document.getElementById('volume-icon');
-    const muteIcon = document.getElementById('mute-icon');
-    const fullscreenBtn = document.getElementById('fullscreen-btn');
-    const videoControls = document.getElementById('video-controls');
+        };
 
-    // Format time helper
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins}:${secs.toString().padStart(2, '0')}`;
-    }
+        video.ontimeupdate = () => {
+            const progress = (video.currentTime / video.duration) * 100;
+            progressFill.style.width = progress + '%';
+            document.getElementById('current-time').textContent = Math.floor(video.currentTime/60) + ":" + Math.floor(video.currentTime%60).toString().padStart(2,'0');
+        };
 
-    // Play/Pause toggle
-    playPauseBtn.addEventListener('click', () => {
-        if (video.paused) {
-            video.play();
-            playIcon.classList.add('hidden');
-            pauseIcon.classList.remove('hidden');
-        } else {
-            video.pause();
-            playIcon.classList.remove('hidden');
-            pauseIcon.classList.add('hidden');
-        }
-    });
+        video.onloadedmetadata = () => {
+            document.getElementById('duration').textContent = Math.floor(video.duration/60) + ":" + Math.floor(video.duration%60).toString().padStart(2,'0');
+        };
 
-    // Click video to play/pause
-    video.addEventListener('click', () => {
-        playPauseBtn.click();
-    });
-
-    // Update progress bar
-    video.addEventListener('timeupdate', () => {
-        const progress = (video.currentTime / video.duration) * 100;
-        progressFill.style.width = progress + '%';
-        currentTimeEl.textContent = formatTime(video.currentTime);
-    });
-
-    // Set duration when loaded
-    video.addEventListener('loadedmetadata', () => {
-        durationEl.textContent = formatTime(video.duration);
-    });
-
-    // Seek functionality
-    progressBar.addEventListener('click', (e) => {
-        const rect = progressBar.getBoundingClientRect();
-        const pos = (e.clientX - rect.left) / rect.width;
-        video.currentTime = pos * video.duration;
-    });
-
-    // Mute/Unmute
-    muteBtn.addEventListener('click', () => {
-        video.muted = !video.muted;
-        if (video.muted) {
-            volumeIcon.classList.add('hidden');
-            muteIcon.classList.remove('hidden');
-        } else {
-            volumeIcon.classList.remove('hidden');
-            muteIcon.classList.add('hidden');
-        }
-    });
-
-    // Fullscreen
-    fullscreenBtn.addEventListener('click', () => {
-        if (video.requestFullscreen) {
-            video.requestFullscreen();
-        } else if (video.webkitRequestFullscreen) {
-            video.webkitRequestFullscreen();
-        } else if (video.msRequestFullscreen) {
-            video.msRequestFullscreen();
-        }
-    });
-
-    // Show/hide controls - TEMPO REDUZIDO PARA 800ms
-    let controlsTimeout;
-    const showControls = () => {
-        videoControls.style.opacity = '1';
-        clearTimeout(controlsTimeout);
-        if (!video.paused) {
-            controlsTimeout = setTimeout(() => {
-                videoControls.style.opacity = '0';
-            }, 800); // Reduzido de 2000ms para 800ms
-        }
-    };
-
-    video.parentElement.addEventListener('mousemove', showControls);
-    video.parentElement.addEventListener('touchstart', showControls);
-
-    // Always show controls when paused
-    video.addEventListener('pause', () => {
-        videoControls.style.opacity = '1';
-        clearTimeout(controlsTimeout);
-    });
-
-    video.addEventListener('play', () => {
-        setTimeout(() => {
-            if (!video.paused) {
-                videoControls.style.opacity = '0';
-            }
-        }, 800); // Reduzido de 2000ms para 800ms
-    });
-
-    // Reinicializar ícones do Lucide
-    lucide.createIcons();
-</script>
+        video.parentElement.onmouseenter = () => videoControls.style.opacity = '1';
+        video.parentElement.onmouseleave = () => { if(!video.paused) videoControls.style.opacity = '0'; };
     </script>
 </body>
 </html>
