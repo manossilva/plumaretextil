@@ -13,8 +13,15 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons -->
+    <!-- Lucide Icons (Ícones) -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- React e ReactDOM (Para animações) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel (Para compilar JSX no navegador) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- Configurações do Tema -->
     <script>
@@ -91,6 +98,30 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
+        /* Estilo base para botões React */
+        .glass-button-react {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito elástico */
+        }
+
+        .dark .glass-button-react {
+            background: rgba(30, 30, 35, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .glass-button-react:hover {
+            transform: scale(1.03) translateY(-2px);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+        .dark .glass-button-react:hover {
+            background: rgba(40, 40, 45, 0.9);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
         .glass-button {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(12px);
@@ -112,19 +143,9 @@
             background: rgba(40, 40, 45, 0.9);
         }
 
-        .floating-element {
-            position: absolute;
-            z-index: -1;
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        .dark .floating-element {
-            opacity: 0.3;
-        }
-
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
+        .nav-slim { height: 70px; }
+        
+        /* Utilitários */
         .text-gradient {
             background-clip: text;
             -webkit-background-clip: text;
@@ -133,10 +154,6 @@
         }
         .dark .text-gradient {
             background-image: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
-        }
-        
-        .nav-slim {
-            height: 70px;
         }
     </style>
 </head>
@@ -176,60 +193,13 @@
 
     <div class="pt-24"></div>
 
-    <!-- CONTEÚDO PRINCIPAL (pb-12 para reduzir o espaço no fim) -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <main class="relative z-10 pb-12 px-4">
         <div class="max-w-4xl mx-auto space-y-16 md:space-y-24">
 
-            <!-- SEÇÃO 1: BOTÕES -->
-            <section class="animate-fade-in-up">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                    <a href="https://api.whatsapp.com/message/2RURQPNHQBRPI1?autoload=1&app_absent=0" target="_blank" class="glass-button p-5 rounded-2xl flex items-center gap-4 group">
-                        <div class="w-12 h-12 rounded-full bg-whatsapp/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i data-lucide="message-circle" class="w-6 h-6 text-whatsapp"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Varejo</h3>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">Fale com Vendedor</p>
-                        </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto"></i>
-                    </a>
-
-                    <a href="https://chat.whatsapp.com/I7re1TmYKaRGUVm2SUMSku" class="glass-button p-5 rounded-2xl flex items-center gap-4 group">
-                        <div class="w-12 h-12 rounded-full bg-plumare-blue/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i data-lucide="users" class="w-6 h-6 text-plumare-blue"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Grupo VIP</h3>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">Ofertas Exclusivas</p>
-                        </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto"></i>
-                    </a>
-
-                   <section class="animate-fade-in-up">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                    <a href="https://api.whatsapp.com/message/2RURQPNHQBRPI1?autoload=1&app_absent=0" target="_blank" class="glass-button p-5 rounded-2xl flex items-center gap-4 group">
-                        <div class="w-12 h-12 rounded-full bg-whatsapp/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i data-lucide="message-circle" class="w-6 h-6 text-whatsapp"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Atacado</h3>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">Fale com Vendedor</p>
-                        </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto"></i>
-                    </a>
-
-                    <a href="#historia" class="glass-button p-5 rounded-2xl flex items-center gap-4 group">
-                        <div class="w-12 h-12 rounded-full bg-plumare-green/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i data-lucide="briefcase" class="w-6 h-6 text-plumare-green"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold text-lg text-gray-800 dark:text-white">Nossa história</h3>
-                            <p class="text-xs text-gray-500 dark:text-gray-400">Conheça a Plumare</p>
-                        </div>
-                        <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 ml-auto"></i>
-                    </a>
-                </div>
-            </section>
+            <!-- SEÇÃO 1: BOTÕES REACT -->
+            <!-- Aqui inserimos o componente React -->
+            <div id="react-buttons-root"></div>
 
             <!-- SEÇÃO DE VÍDEO -->
             <section class="glass-panel p-6 rounded-[2rem]">
@@ -267,10 +237,6 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="mt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                        <i data-lucide="info" class="w-4 h-4 inline mr-1"></i>
-                        Toque no vídeo para assistir
                     </div>
                 </div>
             </section>
@@ -374,17 +340,16 @@
                 </div>
             </section>
 
-            <!-- SEÇÃO 6: LOCALIZAÇÃO (Fim do conteúdo principal) -->
+            <!-- SEÇÃO 6: LOCALIZAÇÃO -->
             <section class="glass-panel p-4 rounded-[2rem]">
                 <div class="flex flex-col md:flex-row gap-6 items-center">
                     <div class="p-4 md:w-1/3 text-center md:text-left space-y-2">
                         <h3 class="font-bold text-xl dark:text-white">Visite a Fábrica</h3>
                         <p class="text-gray-500 dark:text-gray-400 text-sm">Rua K Dist. Industrial, 4<br>Tobias Barreto - SE</p>
-                        <a href="https://goo.gl/maps/seulink" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:underline">Ver no Mapa &rarr;</a>
+                        <a href="https://maps.app.goo.gl/PMV8atpNPRhSvJaE7" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:underline">Ver no Mapa &rarr;</a>
                     </div>
                     <div class="w-full md:w-2/3 h-48 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3904.567890123456!2d-37.9978!3d-11.1833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDEwJzU5LjkiUyAzN8KwNTknNTIuMSJX!5e0!3m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" loading="lazy"></iframe>
-                    </div>
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.1716514317063!2d-37.982813199999995!3d-11.174923399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x711b2ce7a1be4f9%3A0x289e3e4d5a74588c!2sCentro%20Industrial%20Integrado%20Governador%20Marcelo%20Deda!5e0!3m2!1spt-BR!2sbr!4v1770316332055!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </section>
 
@@ -402,7 +367,7 @@
         </div>
     </div>
 
-    <!-- Footer Final (Ajustado mt-8 para ficar mais próximo) -->
+    <!-- Footer Final -->
     <footer class="mt-8 border-t border-gray-200/60 dark:border-white/5 bg-gray-50/50 dark:bg-black/20 backdrop-blur-lg">
         <div class="max-w-6xl mx-auto px-6 py-10">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
@@ -419,6 +384,92 @@
         </div>
     </footer>
 
+    <!-- Lógica REACT para os Botões Animados -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        const AnimatedButtons = () => {
+            const [loaded, setLoaded] = useState(false);
+
+            // Lista de Botões
+            const buttons = [
+                { 
+                    id: 1,
+                    title: "Atacado", 
+                    subtitle: "Fale com Vendedor", 
+                    icon: "message-circle", 
+                    link: "https://api.whatsapp.com/message/2RURQPNHQBRPI1?autoload=1&app_absent=0",
+                    colorClass: "text-whatsapp",
+                    bgClass: "bg-whatsapp/10"
+                },
+                { 
+                    id: 2,
+                    title: "Grupo VIP", 
+                    subtitle: "Ofertas Exclusivas", 
+                    icon: "users", 
+                    link: "https://chat.whatsapp.com/I7re1TmYKaRGUVm2SUMSku",
+                    colorClass: "text-plumare-blue",
+                    bgClass: "bg-plumare-blue/10"
+                },
+                { 
+                    id: 3,
+                    title: "Varejo", 
+                    subtitle: "Compre no WhatsApp", 
+                    icon: "shopping-bag", 
+                    link: "https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20ver%20o%20catálogo%20de%20varejo!", // Link genérico - Substituir pelo número correto
+                    colorClass: "text-purple-500", // Cor diferenciada para varejo
+                    bgClass: "bg-purple-500/10"
+                },
+                { 
+                    id: 4,
+                    title: "Nossa história", 
+                    subtitle: "Conheça a Plumare", 
+                    icon: "briefcase", 
+                    link: "#historia",
+                    colorClass: "text-plumare-green",
+                    bgClass: "bg-plumare-green/10"
+                }
+            ];
+
+            useEffect(() => {
+                // Ativa a animação logo após o componente montar
+                setLoaded(true);
+                // Atualiza ícones Lucide após renderização do React
+                setTimeout(() => lucide.createIcons(), 100);
+            }, []);
+
+            return (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+                    {buttons.map((btn, index) => (
+                        <a 
+                            key={btn.id}
+                            href={btn.link}
+                            target={btn.link.startsWith('#') ? '_self' : '_blank'}
+                            className={`glass-button-react p-5 rounded-2xl flex items-center gap-4 group transform transition-all duration-700 ease-out
+                                ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                            `}
+                            style={{ transitionDelay: `${index * 150}ms` }} // Efeito cascata (stagger)
+                        >
+                            <div className={`w-12 h-12 rounded-full ${btn.bgClass} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                                <i data-lucide={btn.icon} className={`w-6 h-6 ${btn.colorClass}`}></i>
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-lg text-gray-800 dark:text-white">{btn.title}</h3>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">{btn.subtitle}</p>
+                            </div>
+                            <i data-lucide="chevron-right" className="w-5 h-5 text-gray-300 ml-auto group-hover:text-plumare-blue transition-colors"></i>
+                        </a>
+                    ))}
+                </div>
+            );
+        };
+
+        const rootElement = document.getElementById('react-buttons-root');
+        const root = ReactDOM.createRoot(rootElement);
+        root.render(<AnimatedButtons />);
+    </script>
+
+    <!-- Scripts Legados (Não-React) -->
     <script>
         lucide.createIcons();
 
