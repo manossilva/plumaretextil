@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plumare | Indústria e Comércio de Cama, Mesa e Banho</title>
+    <title>Plumare | Catálogo Digital</title>
     
     <!-- Fonte Comfortaa -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,11 +16,11 @@
     <!-- Lucide Icons (Ícones) -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- React e ReactDOM (Para animações) -->
+    <!-- React e ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     
-    <!-- Babel (Para compilar JSX no navegador) -->
+    <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- Configurações do Tema -->
@@ -66,10 +66,18 @@
 
     <style>
         body {
-            background-color: #fbfbfd;
+            /* Cor base suavizada (Stone/Cinza quente) para conforto visual */
+            background-color: #f5f5f4;
+            
+            /* Textura de fundo: Grid de pontos + Gradientes decorativos */
             background-image: 
+                radial-gradient(#d6d3d1 1px, transparent 1px), /* Textura de pontos */
                 radial-gradient(at 0% 0%, rgba(94, 178, 240, 0.08) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(110, 235, 204, 0.08) 0px, transparent 50%);
+            
+            /* Tamanho dos pontos (24px) e dos gradientes (tela cheia) */
+            background-size: 24px 24px, 100% 100%, 100% 100%;
+            
             background-attachment: fixed;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -78,13 +86,15 @@
 
         .dark body {
             background-color: #0f0f11;
+            /* Remove a textura de pontos no modo escuro, mantendo apenas o glow */
             background-image: 
                 radial-gradient(at 0% 0%, rgba(94, 178, 240, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(110, 235, 204, 0.15) 0px, transparent 50%);
+            background-size: 100% 100%;
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(255, 255, 255, 0.75); /* Aumentei um pouco a opacidade para destacar do fundo texturizado */
             backdrop-filter: saturate(180%) blur(25px);
             -webkit-backdrop-filter: saturate(180%) blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -100,10 +110,10 @@
 
         /* Estilo base para botões React */
         .glass-button-react {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.85); /* Botões mais sólidos no light mode */
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efeito elástico */
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .dark .glass-button-react {
@@ -122,30 +132,8 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
 
-        .glass-button {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .dark .glass-button {
-            background: rgba(30, 30, 35, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        .glass-button:hover {
-            transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.95);
-        }
-        .dark .glass-button:hover {
-            background: rgba(40, 40, 45, 0.9);
-        }
-
         .nav-slim { height: 70px; }
         
-        /* Utilitários */
         .text-gradient {
             background-clip: text;
             -webkit-background-clip: text;
@@ -155,6 +143,21 @@
         .dark .text-gradient {
             background-image: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
         }
+
+        /* Scrollbar escondida para categorias */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Animação de fade para troca de "abas" */
+        .fade-enter { opacity: 0; transform: translateY(10px); }
+        .fade-enter-active { opacity: 1; transform: translateY(0); transition: opacity 300ms, transform 300ms; }
+        .fade-exit { opacity: 1; transform: translateY(0); }
+        .fade-exit-active { opacity: 0; transform: translateY(-10px); transition: opacity 300ms, transform 300ms; }
     </style>
 </head>
 <body class="text-[#1d1d1f] dark:text-gray-100 font-sans selection:bg-plumare-green/30 selection:text-plumare-black transition-colors duration-500">
@@ -165,10 +168,10 @@
         <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-plumare-green/5 rounded-full filter blur-[80px] animate-float-delayed"></div>
     </div>
 
-    <!-- HEADER SLIM -->
-    <header class="fixed top-0 w-full z-50 glass-panel border-b border-white/20 dark:border-white/5 nav-slim transition-all duration-300">
+    <!-- HEADER SLIM (Apenas visível na Home) -->
+    <header id="main-header" class="fixed top-0 w-full z-40 glass-panel border-b border-white/20 dark:border-white/5 nav-slim transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
-            <div class="flex items-center gap-3 group">
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.goHome()">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-plumare-blue/20 to-plumare-green/20 flex items-center justify-center overflow-hidden border border-white/50 dark:border-white/10 relative">
                     <img id="logo-preview" src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2xvZ28ucG5nIiwiaWF0IjoxNzcwMDM1MzIzLCJleHAiOjE4MDE1NzEzMjN9.sOgLySmkvZ99jL1ZYZ4vkldr7fn_DvvaXDGtWm-phak" alt="Logo" class="w-full h-full object-cover p-1">
                 </div>
@@ -183,118 +186,117 @@
                     <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
                     <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
                 </button>
-                <a href="https://instagram.com/plumaremkt" target="_blank" class="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/5 dark:bg-white/10 hover:bg-instagram-gradient hover:text-white transition-all text-xs font-bold text-gray-600 dark:text-gray-300">
-                    <i data-lucide="instagram" class="w-4 h-4"></i>
-                    @plumaremkt
-                </a>
             </div>
         </div>
     </header>
 
-    <div class="pt-24"></div>
+    <div id="spacer-header" class="pt-24"></div>
 
-    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- CONTEÚDO PRINCIPAL (GERENCIADO VIA JAVASCRIPT) -->
     <main class="relative z-10 pb-12 px-4">
-        <div class="max-w-4xl mx-auto space-y-16 md:space-y-24">
+        <div class="max-w-4xl mx-auto">
+            
+            <!-- VIEW: INSTITUCIONAL (HOME) -->
+            <div id="home-view" class="space-y-16 md:space-y-24 transition-all duration-500">
+                
+                <!-- BOTÕES REACT DE CONTATO + ACESSO AO CATÁLOGO -->
+                <div id="react-buttons-root"></div>
 
-            <!-- SEÇÃO 1: BOTÕES REACT -->
-            <!-- Aqui inserimos o componente React -->
-            <div id="react-buttons-root"></div>
+                <!-- SEÇÃO DE VÍDEO -->
+                <section class="glass-panel p-6 rounded-[2rem]">
+                    <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold text-plumare-blue mb-2">Conheça Nossa História</h2>
+                        <p class="text-gray-600 dark:text-gray-300">Descubra como transformamos sonhos em realidade</p>
+                    </div>
 
-            <!-- SEÇÃO DE VÍDEO -->
-            <section class="glass-panel p-6 rounded-[2rem]">
-                <div class="text-center mb-6">
-                    <h2 class="text-2xl font-bold text-plumare-blue mb-2">Conheça Nossa História</h2>
-                    <p class="text-gray-600 dark:text-gray-300">Descubra como transformamos sonhos em realidade</p>
-                </div>
-
-                <div class="relative w-full max-w-md mx-auto">
-                    <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
-                        <video id="plumare-video" class="w-full aspect-[9/16]" poster="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ">
-                            <source src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/video%20institucional%20.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL3ZpZGVvIGluc3RpdHVjaW9uYWwgLm1wNCIsImlhdCI6MTc3MDA0MzUyMiwiZXhwIjoxODAxNTc5NTIyfQ.OTf7lzj7_gJRZhQQ0Z2hq7IxXcYaKF3XmpAu6k9nVK4" type="video/mp4">
-                        </video>
-
-                        <div id="video-controls" class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm transition-opacity duration-300 opacity-0">
-                            <button id="play-pause-btn" class="glass-panel w-20 h-20 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-2xl">
-                                <i id="play-icon" data-lucide="play" class="w-10 h-10 text-plumare-blue"></i>
-                                <i id="pause-icon" data-lucide="pause" class="w-10 h-10 text-plumare-blue hidden"></i>
-                            </button>
-                        </div>
-
-                        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                            <div class="flex items-center gap-3">
-                                <span id="current-time" class="text-white text-xs font-mono min-w-[40px]">0:00</span>
-                                <div class="flex-1 h-1.5 bg-white/20 rounded-full overflow-hidden cursor-pointer" id="progress-bar">
-                                    <div id="progress-fill" class="h-full bg-gradient-to-r from-plumare-blue to-plumare-green rounded-full w-0 transition-all"></div>
-                                </div>
-                                <span id="duration" class="text-white text-xs font-mono min-w-[40px]">0:00</span>
-                                <button id="mute-btn" class="text-white">
-                                    <i id="volume-icon" data-lucide="volume-2" class="w-5 h-5"></i>
-                                    <i id="mute-icon" data-lucide="volume-x" class="w-5 h-5 hidden"></i>
-                                </button>
-                                <button id="fullscreen-btn" class="text-white">
-                                    <i data-lucide="maximize" class="w-5 h-5"></i>
+                    <div class="relative w-full max-w-md mx-auto">
+                        <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
+                            <video id="plumare-video" class="w-full aspect-[9/16]" poster="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ">
+                                <source src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/video%20institucional%20.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL3ZpZGVvIGluc3RpdHVjaW9uYWwgLm1wNCIsImlhdCI6MTc3MDA0MzUyMiwiZXhwIjoxODAxNTc5NTIyfQ.OTf7lzj7_gJRZhQQ0Z2hq7IxXcYaKF3XmpAu6k9nVK4" type="video/mp4">
+                            </video>
+                            <div id="video-controls" class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm transition-opacity duration-300 opacity-0 hover:opacity-100">
+                                <button id="play-pause-btn" class="glass-panel w-20 h-20 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-2xl">
+                                    <i id="play-icon" data-lucide="play" class="w-10 h-10 text-plumare-blue"></i>
+                                    <i id="pause-icon" data-lucide="pause" class="w-10 h-10 text-plumare-blue hidden"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- SEÇÃO 2: HISTÓRIA -->
-            <section id="historia" class="glass-panel p-8 md:p-12 rounded-[2rem]">
-                <div class="flex flex-col md:flex-row gap-10 items-center">
-                    <div class="flex-1 space-y-6 text-center md:text-left">
-                        <h2 class="text-3xl font-bold text-gradient">Nossa História</h2>
-                        <p class="text-gray-500 dark:text-gray-300 leading-relaxed text-lg font-light">
-                            Nascemos da paixão por transformar fios em conforto. Em nossa fábrica em Tobias Barreto, unimos tecnologia e acabamento artesanal para criar o enxoval perfeito para o seu lar.
-                        </p>
-                    </div>
-                    <div class="flex-1 w-full relative">
-                        <div class="relative h-64 w-full rounded-2xl overflow-hidden shadow-sm border border-white/50 dark:border-white/10">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ" class="slider-img absolute w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Fábrica">
+                <!-- SEÇÃO 2: HISTÓRIA -->
+                <section id="historia" class="glass-panel p-8 md:p-12 rounded-[2rem]">
+                    <div class="flex flex-col md:flex-row gap-10 items-center">
+                        <div class="flex-1 space-y-6 text-center md:text-left">
+                            <h2 class="text-3xl font-bold text-gradient">Nossa História</h2>
+                            <p class="text-gray-500 dark:text-gray-300 leading-relaxed text-lg font-light">
+                                Nascemos da paixão por transformar fios em conforto. Em nossa fábrica em Tobias Barreto, unimos tecnologia e acabamento artesanal para criar o enxoval perfeito para o seu lar.
+                            </p>
+                        </div>
+                        <div class="flex-1 w-full relative">
+                            <div class="relative h-64 w-full rounded-2xl overflow-hidden shadow-sm border border-white/50 dark:border-white/10">
+                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ" class="slider-img absolute w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Fábrica">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- SEÇÃO 3: TIME -->
-            <section class="space-y-8">
-                <div class="text-center space-y-2">
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nosso Time em Ação</h2>
-                    <p class="text-gray-500 dark:text-gray-400 text-sm">Pessoas reais fazendo a diferença em cada detalhe.</p>
-                </div>
-                
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="glass-panel p-2 rounded-2xl">
-                        <div class="h-48 rounded-xl overflow-hidden relative">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/bordado.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2JvcmRhZG8uanBnIiwiaWF0IjoxNzcwMDM1NTExLCJleHAiOjE4MDE1NzE1MTF9.aybGk-kpEr5ySBeEsaPRcBqS5ChFqlenJ7wsl0UR4t4" alt="Produção" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Produção</div>
+                <!-- SEÇÃO 3: TIME -->
+                <section class="space-y-8">
+                    <div class="text-center space-y-2">
+                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nosso Time em Ação</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Pessoas reais fazendo a diferença em cada detalhe.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="glass-panel p-2 rounded-2xl">
+                            <div class="h-48 rounded-xl overflow-hidden relative">
+                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/bordado.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2JvcmRhZG8uanBnIiwiaWF0IjoxNzcwMDM1NTExLCJleHAiOjE4MDE1NzE1MTF9.aybGk-kpEr5ySBeEsaPRcBqS5ChFqlenJ7wsl0UR4t4" alt="Produção" class="w-full h-full object-cover">
+                                <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Produção</div>
+                            </div>
+                        </div>
+                        <div class="glass-panel p-2 rounded-2xl">
+                            <div class="h-48 rounded-xl overflow-hidden relative">
+                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/20914B37-8199-4B03-A071-9F71222D339A.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlLzIwOTE0QjM3LTgxOTktNEIwMy1BMDcxLTlGNzEyMjJEMzM5QS5qcGciLCJpYXQiOjE3NzAwMzYzMjIsImV4cCI6MTgwMTU3MjMyMn0._QaVXH_LEJ5AFROfIKkwqSu-uZVE_oc4ND6qsYCM7WE" alt="Organização" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="glass-panel p-2 rounded-2xl">
+                            <div class="h-48 rounded-xl overflow-hidden relative">
+                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/CB8A9201-3B94-45A4-87BB-47D1EFB76B64.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0NCOEE5MjAxLTNCOTQtNDVBNC04N0JCLTQ3RDFFRkI3NkI2NC5qcGciLCJpYXQiOjE3NzAwMzYyNTQsImV4cCI6MTgwMTU3MjI1NH0.IpYFD8Gc03WYHxu-Kuq_mUZGGVV0PNCj9_Gdif6QJK8" alt="Qualidade" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <div class="glass-panel p-2 rounded-2xl">
+                            <div class="h-48 rounded-xl overflow-hidden relative">
+                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/estoque.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2VzdG9xdWUuanBnIiwiaWF0IjoxNzcwMDM1NDc0LCJleHAiOjE4MDE1NzE0NzR9.NT8_fmDyjRhu2x26My9IJtu2-td7NSIUIso0u_4T6D8" alt="Logística" class="w-full h-full object-cover">
+                            </div>
                         </div>
                     </div>
-                    <div class="glass-panel p-2 rounded-2xl">
-                        <div class="h-48 rounded-xl overflow-hidden relative">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/20914B37-8199-4B03-A071-9F71222D339A.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlLzIwOTE0QjM3LTgxOTktNEIwMy1BMDcxLTlGNzEyMjJEMzM5QS5qcGciLCJpYXQiOjE3NzAwMzYzMjIsImV4cCI6MTgwMTU3MjMyMn0._QaVXH_LEJ5AFROfIKkwqSu-uZVE_oc4ND6qsYCM7WE" alt="Organização" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Organização</div>
-                        </div>
-                    </div>
-                    <div class="glass-panel p-2 rounded-2xl">
-                        <div class="h-48 rounded-xl overflow-hidden relative">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/CB8A9201-3B94-45A4-87BB-47D1EFB76B64.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0NCOEE5MjAxLTNCOTQtNDVBNC04N0JCLTQ3RDFFRkI3NkI2NC5qcGciLCJpYXQiOjE3NzAwMzYyNTQsImV4cCI6MTgwMTU3MjI1NH0.IpYFD8Gc03WYHxu-Kuq_mUZGGVV0PNCj9_Gdif6QJK8" alt="Qualidade" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Qualidade</div>
-                        </div>
-                    </div>
-                    <div class="glass-panel p-2 rounded-2xl">
-                        <div class="h-48 rounded-xl overflow-hidden relative">
-                            <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/estoque.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2VzdG9xdWUuanBnIiwiaWF0IjoxNzcwMDM1NDc0LCJleHAiOjE4MDE1NzE0NzR9.NT8_fmDyjRhu2x26My9IJtu2-td7NSIUIso0u_4T6D8" alt="Logística" class="w-full h-full object-cover">
-                            <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Logística</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- SEÇÃO 4: INSTAGRAM -->
-            <section class="rounded-[2rem] overflow-hidden shadow-xl border-2 border-plumare-blue bg-plumare-blue/5 dark:bg-plumare-blue/10 backdrop-blur-md">
+                <!-- SEÇÃO 6: LOCALIZAÇÃO -->
+                <section class="glass-panel p-4 rounded-[2rem]">
+                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                        <div class="p-4 md:w-1/3 text-center md:text-left space-y-2">
+                            <h3 class="font-bold text-xl dark:text-white">Visite a Fábrica</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">Rua K Dist. Industrial, 4<br>Tobias Barreto - SE</p>
+                            <a href="https://maps.app.goo.gl/PMV8atpNPRhSvJaE7" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:underline">Ver no Mapa &rarr;</a>
+                        </div>
+                        <div class="w-full md:w-2/3 h-48 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.1716514317063!2d-37.982813199999995!3d-11.174923399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x711b2ce7a1be4f9%3A0x289e3e4d5a74588c!2sCentro%20Industrial%20Integrado%20Governador%20Marcelo%20Deda!5e0!3m2!1spt-BR!2sbr!4v1770316332055!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- VIEW: CATÁLOGO (HIDDEN BY DEFAULT) -->
+            <div id="catalog-view" class="hidden min-h-screen animate-fade-in-up">
+                <!-- SEÇÃO CATÁLOGO DE PRODUTOS (REACT) -->
+                <div id="react-catalog-root"></div>
+            </div>
+
+            <!-- SEÇÃO INSTAGRAM (VISÍVEL EM AMBOS) -->
+            <section class="rounded-[2rem] overflow-hidden shadow-xl border-2 border-plumare-blue bg-plumare-blue/5 dark:bg-plumare-blue/10 backdrop-blur-md mt-16">
                 <div class="h-2 bg-plumare-blue w-full"></div>
                 <div class="p-8 flex flex-col items-center text-center space-y-6">
                     <div class="w-20 h-20 rounded-full p-1 bg-plumare-blue">
@@ -309,47 +311,6 @@
                     <a href="https://www.instagram.com/plumaretextil/" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white font-bold shadow-lg hover:scale-105 transition-all">
                         <i data-lucide="instagram" class="w-5 h-5"></i> Seguir no Instagram
                     </a>
-                </div>
-            </section>
-
-            <!-- SEÇÃO 5: PRODUTOS -->
-            <section class="space-y-6">
-                <div class="flex items-center justify-between px-2">
-                    <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nossos Produtos</h2>
-                    <div class="flex gap-2">
-                        <button id="prev-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
-                        <button id="next-product" class="glass-button w-8 h-8 rounded-full flex items-center justify-center"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
-                    </div>
-                </div>
-                
-                <div class="relative overflow-hidden">
-                    <div id="products-carousel" class="flex transition-all duration-300">
-                        <div class="product-item min-w-full flex justify-center px-2">
-                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl">
-                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3"><img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_jxtecyjxtecyjxte%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2Vfanh0ZWN5anh0ZWN5anh0ZSAyLmpwZyIsImlhdCI6MTc3MDA0NDE2OCwiZXhwIjoxODAxNTgwMTY4fQ.wVGB9cADu8xnDszgKs4qg3-JqJtH_OeeyWFyo9n2YFw" class="w-full h-full object-cover"></div>
-                                <h3 class="font-bold text-lg text-gray-800 dark:text-white px-2">Cortinas Premium</h3>
-                            </div>
-                        </div>
-                        <div class="product-item min-w-full flex justify-center px-2 hidden">
-                            <div class="w-full max-w-md glass-panel p-3 rounded-2xl">
-                                <div class="aspect-square w-full rounded-xl overflow-hidden mb-3"><img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_n3ijlrn3ijlrn3ij.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfbjNpamxybjNpamxybjNpai5qcGciLCJpYXQiOjE3NzAwNDQxOTQsImV4cCI6MTgwMTU4MDE5NH0.QxIIxsRF8yFkAUj8TU-tQbSWOwA_PDMLiqMvRsxrMms" class="w-full h-full object-cover"></div>
-                                <h3 class="font-bold text-lg text-gray-800 dark:text-white px-2">Jogos de Cama</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SEÇÃO 6: LOCALIZAÇÃO -->
-            <section class="glass-panel p-4 rounded-[2rem]">
-                <div class="flex flex-col md:flex-row gap-6 items-center">
-                    <div class="p-4 md:w-1/3 text-center md:text-left space-y-2">
-                        <h3 class="font-bold text-xl dark:text-white">Visite a Fábrica</h3>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm">Rua K Dist. Industrial, 4<br>Tobias Barreto - SE</p>
-                        <a href="https://maps.app.goo.gl/PMV8atpNPRhSvJaE7" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:underline">Ver no Mapa &rarr;</a>
-                    </div>
-                    <div class="w-full md:w-2/3 h-48 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
-                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.1716514317063!2d-37.982813199999995!3d-11.174923399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x711b2ce7a1be4f9%3A0x289e3e4d5a74588c!2sCentro%20Industrial%20Integrado%20Governador%20Marcelo%20Deda!5e0!3m2!1spt-BR!2sbr!4v1770316332055!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </section>
 
@@ -384,15 +345,30 @@
         </div>
     </footer>
 
-    <!-- Lógica REACT para os Botões Animados -->
+    <!-- Lógica REACT para Botões de Contato (Menu Inicial) -->
     <script type="text/babel">
         const { useState, useEffect } = React;
 
         const AnimatedButtons = () => {
             const [loaded, setLoaded] = useState(false);
+            
+            // Função para ativar o modo catálogo
+            const handleCatalogClick = (e) => {
+                e.preventDefault();
+                window.showCatalog();
+            };
 
             // Lista de Botões
             const buttons = [
+                { 
+                    id: 0, 
+                    title: "Catálogo", 
+                    subtitle: "Ver Produtos", 
+                    icon: "store", 
+                    action: handleCatalogClick,
+                    colorClass: "text-plumare-blue",
+                    bgClass: "bg-white dark:bg-white/10 border border-plumare-blue/30 shadow-lg shadow-plumare-blue/20"
+                },
                 { 
                     id: 1,
                     title: "Atacado", 
@@ -416,8 +392,8 @@
                     title: "Varejo", 
                     subtitle: "Compre no WhatsApp", 
                     icon: "shopping-bag", 
-                    link: "https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20ver%20o%20catálogo%20de%20varejo!", // Link genérico - Substituir pelo número correto
-                    colorClass: "text-purple-500", // Cor diferenciada para varejo
+                    link: "https://api.whatsapp.com/send?phone=5579999999999",
+                    colorClass: "text-purple-500",
                     bgClass: "bg-purple-500/10"
                 },
                 { 
@@ -431,24 +407,21 @@
                 }
             ];
 
-            useEffect(() => {
-                // Ativa a animação logo após o componente montar
-                setLoaded(true);
-                // Atualiza ícones Lucide após renderização do React
-                setTimeout(() => lucide.createIcons(), 100);
-            }, []);
+            useEffect(() => { setLoaded(true); setTimeout(() => lucide.createIcons(), 100); }, []);
 
             return (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
                     {buttons.map((btn, index) => (
                         <a 
                             key={btn.id}
-                            href={btn.link}
-                            target={btn.link.startsWith('#') ? '_self' : '_blank'}
-                            className={`glass-button-react p-5 rounded-2xl flex items-center gap-4 group transform transition-all duration-700 ease-out
+                            href={btn.link || '#'}
+                            onClick={btn.action}
+                            target={btn.link && btn.link.startsWith('http') ? '_blank' : '_self'}
+                            className={`glass-button-react p-5 rounded-2xl flex items-center gap-4 group transform transition-all duration-700 ease-out 
                                 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                                ${btn.id === 0 ? 'border-2 border-plumare-blue/50' : ''}
                             `}
-                            style={{ transitionDelay: `${index * 150}ms` }} // Efeito cascata (stagger)
+                            style={{ transitionDelay: `${index * 150}ms` }}
                         >
                             <div className={`w-12 h-12 rounded-full ${btn.bgClass} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                                 <i data-lucide={btn.icon} className={`w-6 h-6 ${btn.colorClass}`}></i>
@@ -463,13 +436,274 @@
                 </div>
             );
         };
-
-        const rootElement = document.getElementById('react-buttons-root');
-        const root = ReactDOM.createRoot(rootElement);
-        root.render(<AnimatedButtons />);
+        const rootBtns = ReactDOM.createRoot(document.getElementById('react-buttons-root'));
+        rootBtns.render(<AnimatedButtons />);
     </script>
 
-    <!-- Scripts Legados (Não-React) -->
+    <!-- Lógica REACT para o CATÁLOGO DE PRODUTOS -->
+    <script type="text/babel">
+        const { useState } = React;
+
+        // DADOS DOS PRODUTOS ATUALIZADOS COM FORMATO DE TEXTO
+        const productsData = [
+            {
+                id: 1,
+                category: "Cortina",
+                title: "Cortina Oxford Premium",
+                specs: [
+                    "COR04-A | CORTINA OXFORD SALA | 3,00x2,50",
+                    "COR04-B | CORTINA OXFORD QUARTO | 2,80x1,80"
+                ],
+                images: [
+                    "https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_jxtecyjxtecyjxte%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2Vfanh0ZWN5anh0ZWN5anh0ZSAyLmpwZyIsImlhdCI6MTc3MDA0NDE2OCwiZXhwIjoxODAxNTgwMTY4fQ.wVGB9cADu8xnDszgKs4qg3-JqJtH_OeeyWFyo9n2YFw",
+                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1461988320302-3887e677c685?q=80&w=800&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 2,
+                category: "Lençol",
+                title: "Jogo de Cama 200 Fios",
+                specs: [
+                    "LEN202-A | LENÇOL CASAL PADRÃO | 1,88x1,38",
+                    "LEN202-B | LENÇOL QUEEN SIZE | 1,98x1,58"
+                ],
+                images: [
+                    "https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_n3ijlrn3ijlrn3ij.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfbjNpamxybjNpamxybjNpai5qcGciLCJpYXQiOjE3NzAwNDQxOTQsImV4cCI6MTgwMTU4MDE5NH0.QxIIxsRF8yFkAUj8TU-tQbSWOwA_PDMLiqMvRsxrMms",
+                    "https://images.unsplash.com/photo-1584100936595-c0654b55a2e6?q=80&w=800&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1522771753035-1a5b6562f329?q=80&w=800&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 3,
+                category: "Colcha",
+                title: "Colcha Matelassê",
+                specs: ["COL305 | COLCHA MATELASSÊ QUEEN | PADRÃO"],
+                images: [
+                     "https://images.unsplash.com/photo-1595515106967-434316d82086?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1556020685-ae41abfc9365?q=80&w=800&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 4,
+                category: "Kit com cortina",
+                title: "Kit Quarto Completo",
+                specs: ["KIT400 | KIT EDREDOM + CORTINA | CASAL"],
+                images: [
+                     "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1505693416388-b034680950db?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 5,
+                category: "Capa de almofada",
+                title: "Kit Capas Decorativas",
+                specs: ["ALM550 | KIT 4 CAPAS ALMOFADA | 45x45"],
+                images: [
+                     "https://images.unsplash.com/photo-1584100936611-667793d56a31?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1579656381282-b7e192a06593?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=800&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 6,
+                category: "Toalha de mesa",
+                title: "Toalha de Mesa Renda",
+                specs: ["MES600 | TOALHA RENDA IMPERMEÁVEL | 6 CAD"],
+                images: [
+                     "https://images.unsplash.com/photo-1553531580-652231dae097?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1574625807986-7788c6b73816?q=80&w=800&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 7,
+                category: "Capa de sofa",
+                title: "Capa Protetora Elástica",
+                specs: ["SOF700 | CAPA ELÁSTICA | 3 LUGARES"],
+                images: [
+                     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop"
+                ]
+            },
+            {
+                id: 8,
+                category: "Cobre leito",
+                title: "Cobre Leito Ultrassônico",
+                specs: ["COB800 | COBRE LEITO KING | KING SIZE"],
+                images: [
+                     "https://images.unsplash.com/photo-1522009587440-6644f2165275?q=80&w=800&auto=format&fit=crop",
+                     "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=800&auto=format&fit=crop"
+                ]
+            }
+        ];
+
+        const categories = [
+            "Todos", 
+            "Colcha", 
+            "Lençol", 
+            "Cortina", 
+            "Cobre leito", 
+            "Kit com cortina", 
+            "Luva box", 
+            "Capas", 
+            "Toalha de mesa", 
+            "Capa de almofada", 
+            "Capa de sofa"
+        ];
+
+        const ProductCard = ({ product }) => {
+            const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+            const nextImage = (e) => {
+                e.stopPropagation();
+                setCurrentImgIndex((prev) => (prev + 1) % product.images.length);
+            };
+
+            const prevImage = (e) => {
+                e.stopPropagation();
+                setCurrentImgIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
+            };
+
+            return (
+                <div className="glass-panel rounded-3xl p-0 flex flex-col mb-4 overflow-hidden shadow-sm">
+                    {/* Área da Imagem (Full Width - Feed Style) */}
+                    <div className="relative w-full aspect-square bg-gray-100 dark:bg-gray-800">
+                        <img 
+                            src={product.images[currentImgIndex]} 
+                            alt={product.title} 
+                            className="w-full h-full object-cover"
+                        />
+                        
+                        {/* Botões de Navegação da Imagem */}
+                        {product.images.length > 1 && (
+                            <>
+                                <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center hover:bg-white text-black z-10">
+                                    <i data-lucide="chevron-left" className="w-4 h-4"></i>
+                                </button>
+                                <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center hover:bg-white text-black z-10">
+                                    <i data-lucide="chevron-right" className="w-4 h-4"></i>
+                                </button>
+                                
+                                {/* Dots Indicadores */}
+                                <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
+                                    {product.images.map((_, idx) => (
+                                        <div key={idx} className={`w-1.5 h-1.5 rounded-full shadow-sm transition-all ${idx === currentImgIndex ? 'bg-white scale-125' : 'bg-white/50'}`}></div>
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                        
+                        <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full z-10">
+                            <span className="text-[10px] font-bold text-white uppercase tracking-wider">{product.category}</span>
+                        </div>
+                    </div>
+
+                    {/* Detalhes do Produto (Abaixo da imagem) */}
+                    <div className="p-5 space-y-4">
+                        <div className="flex justify-between items-start">
+                            <h3 className="text-xl font-bold text-gray-800 dark:text-white leading-tight">{product.title}</h3>
+                            <a 
+                                href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20tenho%20interesse%20no%20${product.title}`}
+                                target="_blank"
+                                className="w-10 h-10 rounded-full bg-plumare-blue/10 text-plumare-blue flex items-center justify-center hover:bg-plumare-blue hover:text-white transition-colors"
+                            >
+                                <i data-lucide="message-circle" className="w-5 h-5"></i>
+                            </a>
+                        </div>
+                        
+                        {/* Lista de Especificações Formatada */}
+                        <div className="space-y-2">
+                            {product.specs.map((spec, index) => (
+                                <div key={index} className="text-xs font-mono bg-gray-100 dark:bg-white/5 p-2 rounded-lg text-gray-600 dark:text-gray-300 border-l-4 border-plumare-blue">
+                                    {spec}
+                                </div>
+                            ))}
+                        </div>
+
+                        <a 
+                            href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20${product.title}`}
+                            target="_blank"
+                            className="block w-full py-3 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-sm uppercase tracking-wide text-center hover:opacity-90 transition-opacity"
+                        >
+                            Consultar Disponibilidade
+                        </a>
+                    </div>
+                </div>
+            );
+        };
+
+        const Catalog = () => {
+            const [selectedCategory, setSelectedCategory] = useState("Todos");
+
+            const filteredProducts = selectedCategory === "Todos" 
+                ? productsData 
+                : productsData.filter(p => p.category === selectedCategory);
+
+            React.useEffect(() => {
+                setTimeout(() => lucide.createIcons(), 100);
+            });
+
+            return (
+                <section className="min-h-screen pb-20">
+                    
+                    {/* CABEÇALHO DO CATÁLOGO (FIXO) */}
+                    <div className="sticky top-0 z-50 bg-white/80 dark:bg-[#0f0f11]/80 backdrop-blur-xl border-b border-gray-200 dark:border-white/10">
+                        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+                            <button 
+                                onClick={() => window.goHome()}
+                                className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/10 rounded-full text-sm font-bold text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
+                            >
+                                <i data-lucide="arrow-left" className="w-4 h-4"></i>
+                                Voltar
+                            </button>
+                            <span className="font-bold text-lg text-plumare-blue">Catálogo</span>
+                            <div className="w-20"></div> {/* Espaço vazio para balancear */}
+                        </div>
+
+                        {/* CATEGORIAS (STICKY DENTRO DO HEADER) */}
+                        <div className="w-full overflow-x-auto no-scrollbar pb-3 px-4 pt-1">
+                            <div className="flex gap-2 min-w-max mx-auto max-w-4xl">
+                                {categories.map(cat => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => setSelectedCategory(cat)}
+                                        className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 border whitespace-nowrap shrink-0 ${
+                                            selectedCategory === cat
+                                                ? 'bg-plumare-blue text-white border-plumare-blue shadow-lg scale-105'
+                                                : 'bg-white/50 dark:bg-white/5 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-plumare-blue/50'
+                                        }`}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* LISTA DE PRODUTOS (FEED) */}
+                    <div className="max-w-md mx-auto px-0 md:px-0 pt-6 space-y-8 animate-fade-in-up">
+                        {filteredProducts.length > 0 ? (
+                            filteredProducts.map(product => (
+                                <ProductCard key={product.id} product={product} />
+                            ))
+                        ) : (
+                            <div className="text-center py-20 mx-4 glass-panel rounded-3xl">
+                                <i data-lucide="package-open" className="w-16 h-16 text-gray-300 mx-auto mb-4"></i>
+                                <h3 className="text-lg font-bold text-gray-500">Nenhum produto encontrado nesta categoria.</h3>
+                            </div>
+                        )}
+                    </div>
+                </section>
+            );
+        };
+
+        const rootCatalog = ReactDOM.createRoot(document.getElementById('react-catalog-root'));
+        rootCatalog.render(<Catalog />);
+    </script>
+
+    <!-- Scripts de Efeito (Video, Tema e Navegação) -->
     <script>
         lucide.createIcons();
 
@@ -483,6 +717,29 @@
             document.documentElement.classList.add('dark');
         }
 
+        // Funções de Navegação (Troca de Abas Home/Catálogo)
+        window.showCatalog = function() {
+            // Esconde header principal e home
+            document.getElementById('main-header').classList.add('hidden');
+            document.getElementById('spacer-header').classList.add('hidden');
+            document.getElementById('home-view').classList.add('hidden');
+            
+            // Mostra catálogo
+            document.getElementById('catalog-view').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'instant' });
+        }
+
+        window.goHome = function() {
+            // Esconde catálogo
+            document.getElementById('catalog-view').classList.add('hidden');
+            
+            // Mostra header principal e home
+            document.getElementById('main-header').classList.remove('hidden');
+            document.getElementById('spacer-header').classList.remove('hidden');
+            document.getElementById('home-view').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // Slideshow História
         const images = document.querySelectorAll('.slider-img');
         let currentImg = 0;
@@ -494,25 +751,9 @@
         }
         if(images.length > 1) setInterval(nextImage, 4000);
 
-        // Carrossel Produtos
-        const productsCarousel = document.getElementById('products-carousel');
-        const productItems = document.querySelectorAll('.product-item');
-        let currentProd = 0;
-
-        function showProd(index) {
-            productItems[currentProd].classList.add('hidden');
-            currentProd = index;
-            productItems[currentProd].classList.remove('hidden');
-        }
-
-        document.getElementById('next-product').onclick = () => showProd((currentProd + 1) % productItems.length);
-        document.getElementById('prev-product').onclick = () => showProd((currentProd - 1 + productItems.length) % productItems.length);
-
-        // Video Player Simplificado
+        // Video Player
         const video = document.getElementById('plumare-video');
         const playPauseBtn = document.getElementById('play-pause-btn');
-        const progressFill = document.getElementById('progress-fill');
-        const videoControls = document.getElementById('video-controls');
 
         playPauseBtn.onclick = () => {
             if (video.paused) {
@@ -526,18 +767,8 @@
             }
         };
 
-        video.ontimeupdate = () => {
-            const progress = (video.currentTime / video.duration) * 100;
-            progressFill.style.width = progress + '%';
-            document.getElementById('current-time').textContent = Math.floor(video.currentTime/60) + ":" + Math.floor(video.currentTime%60).toString().padStart(2,'0');
-        };
-
-        video.onloadedmetadata = () => {
-            document.getElementById('duration').textContent = Math.floor(video.duration/60) + ":" + Math.floor(video.duration%60).toString().padStart(2,'0');
-        };
-
-        video.parentElement.onmouseenter = () => videoControls.style.opacity = '1';
-        video.parentElement.onmouseleave = () => { if(!video.paused) videoControls.style.opacity = '0'; };
+        video.parentElement.onmouseenter = () => document.getElementById('video-controls').style.opacity = '1';
+        video.parentElement.onmouseleave = () => { if(!video.paused) document.getElementById('video-controls').style.opacity = '0'; };
     </script>
 </body>
 </html>
