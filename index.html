@@ -23,7 +23,7 @@
     <!-- Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <!-- Configurações do Tema -->
+    <!-- Configurações do Tema e Animações -->
     <script>
         tailwind.config = {
             darkMode: 'class', 
@@ -55,6 +55,9 @@
                         'fade-in-up': 'fadeInUp 0.8s ease-out',
                         'spin-slow': 'spin 3s linear infinite',
                         'bounce-short': 'bounce 1s infinite',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both', 
+                        'pop-in': 'popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards', 
+                        'success-scale': 'successScale 0.5s ease-out forwards',
                     },
                     keyframes: {
                         float: {
@@ -64,6 +67,21 @@
                         fadeInUp: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' }
+                        },
+                        successScale: {
+                            '0%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' },
+                            '100%': { transform: 'scale(1)' }
                         }
                     }
                 }
@@ -78,19 +96,18 @@
             color: #151515;
             transition: background-color 0.5s ease, color 0.5s ease;
             -webkit-font-smoothing: antialiased;
-            /* TEXTURA DE FUNDO (PONTINHOS SUTIS) NO MODO CLARO */
+            /* TEXTURA DE FUNDO */
             background-image: radial-gradient(#CFD8DC 1px, transparent 1px);
             background-size: 24px 24px;
         }
 
-        /* Modo Escuro - Remove textura ou muda cor */
         .dark body {
             background-color: #151515;
             color: #F0F4F8;
-            background-image: none; /* Limpa a textura no escuro para manter o "blackout" limpo */
+            background-image: none; 
         }
 
-        /* Painel de Vidro (Glassmorphism) Ajustado */
+        /* Painel de Vidro */
         .glass-panel {
             background: rgba(255, 255, 255, 0.90);
             backdrop-filter: blur(20px);
@@ -106,33 +123,16 @@
             box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Botões Estilizados */
-        .btn-primary {
-            background: linear-gradient(135deg, #5EB2F0 0%, #4A90C0 100%);
-            color: white;
-            border: none;
-            box-shadow: 0 4px 15px rgba(94, 178, 240, 0.3);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(94, 178, 240, 0.4);
-        }
-
         .nav-slim { height: 70px; }
-        
-        /* Utilitários */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="selection:bg-plumare-blue/30 selection:text-plumare-black">
 
-    <!-- Background Decorativo (Glows sutis) -->
+    <!-- Background Decorativo -->
     <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <!-- Glow Azul -->
         <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-plumare-blue/10 dark:bg-plumare-blue/5 rounded-full filter blur-[120px] translate-x-1/3 -translate-y-1/3"></div>
-        <!-- Glow Verde/Teal -->
         <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-plumare-teal/10 dark:bg-plumare-teal/5 rounded-full filter blur-[100px] -translate-x-1/3 translate-y-1/3"></div>
     </div>
 
@@ -335,16 +335,11 @@
     // UTILS
     // ==========================================
 
-    // Helper para Converter Links do Google Drive para Direct Link
     const getImageUrl = (url) => {
         if (!url) return '';
-        // Verifica se é link do Google Drive
         if (url.includes('drive.google.com') || url.includes('docs.google.com')) {
-            // Tenta extrair o ID do arquivo
-            // Aceita formatos /file/d/ID/view ou ?id=ID
             const idMatch = url.match(/[-\w]{25,}/);
             if (idMatch) {
-                // Usa o serviço lh3 (mais rápido para imagens) ou uc export
                 return `https://lh3.googleusercontent.com/d/${idMatch[0]}`; 
             }
         }
@@ -358,33 +353,110 @@
     const LoginModal = ({ isOpen, onClose, onLogin }) => {
         const [email, setEmail] = useState('');
         const [password, setPassword] = useState('');
-        const [loading, setLoading] = useState(false);
+        const [showPassword, setShowPassword] = useState(false);
+        const [status, setStatus] = useState('idle');
+
+        useEffect(() => {
+            if (window.lucide) window.lucide.createIcons();
+        }, [status, showPassword]);
 
         if (!isOpen) return null;
 
         const handleAuth = async (e) => {
             e.preventDefault();
-            setLoading(true);
+            if (status === 'loading' || status === 'success') return;
+
+            setStatus('loading');
             const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-            setLoading(false);
-            if (error) alert('Erro: ' + error.message);
-            else {
-                onLogin(data.session);
-                onClose();
+            
+            if (error) {
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 500);
+            } else {
+                setStatus('success');
+                setTimeout(() => {
+                    onLogin(data.session);
+                    onClose();
+                    setStatus('idle');
+                    setEmail('');
+                    setPassword('');
+                    setShowPassword(false);
+                }, 1500);
             }
         };
+
+        const inputClass = `w-full p-4 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border text-sm outline-none focus:ring-2 focus:ring-plumare-blue transition-all ${
+            status === 'error' 
+                ? 'border-red-500 text-red-500 animate-shake focus:ring-red-500' 
+                : 'border-gray-200 dark:border-plumare-dark3'
+        }`;
 
         return (
             <div className="fixed inset-0 z-[100] flex items-center justify-center bg-plumare-black/80 backdrop-blur-sm p-4">
                 <div className="glass-panel p-8 rounded-3xl w-full max-w-sm relative animate-fade-in-up">
                     <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i data-lucide="x"></i></button>
+                    
                     <h2 className="text-xl font-bold mb-6 text-plumare-blue text-center">Acesso Restrito</h2>
+                    
                     <form onSubmit={handleAuth} className="space-y-4">
-                        <input type="email" placeholder="Email" className="w-full p-4 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-gray-200 dark:border-plumare-dark3 text-sm outline-none focus:ring-2 focus:ring-plumare-blue transition-all" value={email} onChange={e => setEmail(e.target.value)} />
-                        <input type="password" placeholder="Senha" className="w-full p-4 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-gray-200 dark:border-plumare-dark3 text-sm outline-none focus:ring-2 focus:ring-plumare-blue transition-all" value={password} onChange={e => setPassword(e.target.value)} />
-                        <button type="submit" disabled={loading} className="w-full py-4 bg-plumare-blue text-white rounded-xl font-bold text-sm uppercase tracking-wide shadow-lg hover:brightness-110 transition-all">
-                            {loading ? 'Verificando...' : 'Entrar'}
+                        <input 
+                            type="email" 
+                            placeholder="Email" 
+                            className={inputClass}
+                            value={email} 
+                            onChange={e => setEmail(e.target.value)} 
+                            disabled={status === 'loading' || status === 'success'}
+                        />
+                        <div className="relative">
+                            <input 
+                                type={showPassword ? "text" : "password"} 
+                                placeholder="Senha" 
+                                className={`${inputClass} pr-12`} // Adicionado padding-right para não sobrepor o ícone
+                                value={password} 
+                                onChange={e => setPassword(e.target.value)} 
+                                disabled={status === 'loading' || status === 'success'}
+                            />
+                            <button 
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-plumare-blue transition-colors focus:outline-none"
+                                disabled={status === 'loading' || status === 'success'}
+                            >
+                                <i data-lucide={showPassword ? "eye-off" : "eye"} className="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        
+                        <button 
+                            type="submit" 
+                            disabled={status === 'loading' || status === 'success'} 
+                            className={`w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wide shadow-lg transition-all duration-300 flex items-center justify-center gap-2
+                                ${status === 'success' 
+                                    ? 'bg-green-500 text-white animate-success-scale shadow-green-500/30' 
+                                    : 'bg-plumare-blue text-white hover:brightness-110'
+                                }`}
+                        >
+                            {status === 'loading' && (
+                                <>
+                                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                                    <span>Verificando...</span>
+                                </>
+                            )}
+                            
+                            {status === 'success' && (
+                                <span className="flex items-center gap-2 animate-pop-in">
+                                    <i data-lucide="check-circle" className="w-5 h-5"></i>
+                                    Acesso Permitido
+                                </span>
+                            )}
+                            
+                            {(status === 'idle' || status === 'error') && 'Entrar'}
                         </button>
+                        
+                        {status === 'error' && (
+                            <p className="text-red-500 text-xs text-center font-bold animate-pulse">
+                                Credenciais inválidas. Tente novamente.
+                            </p>
+                        )}
                     </form>
                 </div>
             </div>
@@ -394,11 +466,9 @@
     const EditModal = ({ isOpen, product, existingCategories, onClose, onSave, onDelete }) => {
         if (!isOpen || !product) return null;
         const [formData, setFormData] = useState({ ...product });
-        // Status local para controlar animação: 'idle' | 'saving' | 'deleting' | 'success' | 'deleted'
         const [status, setStatus] = useState('idle'); 
         const isNew = !formData.id;
 
-        // Resetar status ao abrir
         useEffect(() => {
             if (isOpen) setStatus('idle');
         }, [isOpen]);
@@ -421,47 +491,35 @@
             setFormData(prev => ({ ...prev, images: newImages }));
         };
 
-        // Função wrapper para controlar o clique de salvar e animações
         const handleSaveClick = async () => {
-            if (status !== 'idle') return; // Previne múltiplos cliques
-            
+            if (status !== 'idle') return;
             setStatus('saving');
-            
             try {
-                // Chama a função de salvar do pai (que faz o await do DB)
                 await onSave(formData);
-                
-                // Se não deu erro, mostra sucesso
                 setStatus('success');
-                
-                // Aguarda um pouco para o usuário ver o check e fecha
                 setTimeout(() => {
                     onClose();
                 }, 1500);
             } catch (e) {
                 console.error(e);
                 alert("Erro ao salvar: " + (e.message || "Erro desconhecido"));
-                setStatus('idle'); // Volta para estado editável se der erro
+                setStatus('idle');
             }
         };
 
-        // Função wrapper para controlar o clique de EXCLUIR
         const handleDeleteClick = async () => {
             if (status !== 'idle') return;
-
             if (window.confirm('ATENÇÃO: Deseja realmente excluir este produto? Essa ação não pode ser desfeita.')) {
-                setStatus('deleting'); // Novo status para loading de delete
-                
+                setStatus('deleting');
                 try {
                     await onDelete(formData.id);
-                    setStatus('deleted'); // Novo status para sucesso de delete
+                    setStatus('deleted');
                     setTimeout(() => {
                         onClose();
                     }, 1500);
                 } catch (error) {
                     console.error("Erro no delete:", error);
-                    // MENSAGEM DETALHADA PARA AJUDAR NO DEBUG
-                    alert("ERRO AO EXCLUIR: " + (error.message || error.error_description || "Erro desconhecido") + "\n\nVerifique as políticas RLS no Supabase.");
+                    alert("ERRO AO EXCLUIR: " + (error.message || error.error_description || "Erro desconhecido"));
                     setStatus('idle');
                 }
             }
@@ -471,15 +529,12 @@
             <div className="fixed inset-0 z-[100] flex items-center justify-center bg-plumare-black/80 backdrop-blur-sm p-4">
                 <div className="glass-panel p-6 rounded-3xl w-full max-w-lg relative animate-fade-in-up my-10 max-h-[90vh] overflow-y-auto overflow-x-hidden">
                     
-                    {/* Botão fechar (desabilitado se estiver salvando/deletando) */}
                     {status === 'idle' && (
                         <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-red-500 z-50"><i data-lucide="x"></i></button>
                     )}
 
-                    {/* OVERLAY DE LOADING / SUCESSO */}
                     {status !== 'idle' && (
                         <div className="absolute inset-0 bg-white/90 dark:bg-plumare-dark2/95 z-40 flex flex-col items-center justify-center animate-fade-in">
-                            {/* SALVANDO */}
                             {status === 'saving' && (
                                 <div className="text-center space-y-4">
                                     <div className="w-16 h-16 border-4 border-plumare-blue border-t-transparent rounded-full animate-spin mx-auto"></div>
@@ -488,7 +543,6 @@
                                     </p>
                                 </div>
                             )}
-                            {/* EXCLUINDO */}
                             {status === 'deleting' && (
                                 <div className="text-center space-y-4">
                                     <div className="w-16 h-16 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
@@ -498,7 +552,6 @@
                                 </div>
                             )}
 
-                            {/* SUCESSO AO SALVAR */}
                             {status === 'success' && (
                                 <div className="text-center space-y-4">
                                     <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto animate-bounce-short shadow-lg shadow-green-500/30">
@@ -510,7 +563,6 @@
                                 </div>
                             )}
                             
-                            {/* SUCESSO AO EXCLUIR */}
                             {status === 'deleted' && (
                                 <div className="text-center space-y-4">
                                     <div className="w-20 h-20 bg-gray-500 rounded-full flex items-center justify-center mx-auto animate-bounce-short shadow-lg shadow-gray-500/30">
@@ -526,7 +578,6 @@
 
                     <h2 className="text-xl font-bold mb-4 text-plumare-blue">{isNew ? 'Novo Produto' : 'Editar Produto'}</h2>
                     
-                    {/* Campos desabilitados durante o salvamento */}
                     <div className={`space-y-4 transition-opacity ${status !== 'idle' ? 'opacity-50 pointer-events-none' : ''}`}>
                         <div>
                             <label className="text-xs font-bold text-gray-500 uppercase">Título</label>
@@ -545,7 +596,6 @@
                             <textarea disabled={status !== 'idle'} className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none h-24" defaultValue={formData.specs ? formData.specs.join('\n') : ''} onChange={e => handleArrayChange('specs', e.target.value)} placeholder="100% Algodão&#10;Fios 30/1 Penteado" />
                         </div>
                         
-                        {/* SEÇÃO DE IMAGENS ATUALIZADA */}
                         <div>
                             <div className="flex justify-between items-center mb-2">
                                 <label className="text-xs font-bold text-gray-500 uppercase">Imagens (Links)</label>
@@ -615,7 +665,6 @@
             if(product.images) setCurrentImgIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
         };
 
-        // Converte a imagem atual usando o helper
         const currentImageUrl = product.images && product.images.length > 0 ? getImageUrl(product.images[currentImgIndex]) : '';
 
         return (
@@ -627,7 +676,6 @@
                     </button>
                 )}
 
-                {/* MUDANÇA: Aspect Square para manter padrão Instagram */}
                 <div className="relative w-full aspect-square bg-gray-100 dark:bg-plumare-dark2">
                     <img src={currentImageUrl} alt={product.title} className="w-full h-full object-cover" />
                     
@@ -693,7 +741,6 @@
             supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
             const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
                 setSession(session);
-                // Fecha o modal de login se o usuário logar com sucesso
                 if (session) setIsLoginOpen(false);
             });
             setLoaded(true);
@@ -711,7 +758,6 @@
         };
 
         const handleSaveProduct = async (updatedData) => {
-            // Limpa arrays vazios
             const cleanImages = (updatedData.images || []).filter(i => i && i.trim() !== '');
             const cleanSpecs = (updatedData.specs || []).filter(i => i && i.trim() !== '');
 
@@ -724,41 +770,27 @@
 
             let error;
             if (updatedData.id) {
-                // Atualizar Existente
                 const res = await supabase.from('produtos').update(payload).eq('id', updatedData.id);
                 error = res.error;
             } else {
-                // Criar Novo
                 const res = await supabase.from('produtos').insert([payload]);
                 error = res.error;
             }
 
             if (error) {
-                // Lança o erro para ser capturado pelo modal
                 throw error;
             } else {
-                // Sucesso: apenas recarrega a lista em background
-                // Não fechamos o modal aqui, o modal se fecha após a animação
                 fetchProducts();
             }
         };
 
-        // --- FUNÇÃO DELETAR ATUALIZADA E PURIFICADA ---
         const handleDeleteProduct = async (id) => {
-            console.log("Tentando excluir produto com ID:", id); // Debug para você ver no console
-            
-            // 1. Tenta excluir no Supabase e espera a resposta
             const { error } = await supabase.from('produtos').delete().eq('id', id);
             
             if (error) {
-                console.error("Erro no Supabase:", error);
-                throw error; // Joga o erro para o Modal tratar
+                throw error;
             }
-
-            // 2. Se não deu erro, atualiza a lista localmente (Feedback instantâneo)
             setProducts(current => current.filter(p => p.id !== id));
-            
-            // 3. Garante sincronia final (Background fetch)
             fetchProducts();
         };
 
@@ -773,13 +805,12 @@
 
         const handleLogout = async () => {
             await supabase.auth.signOut();
-            setSession(null); // Força atualização visual imediata
+            setSession(null);
         };
 
         const categories = ["Todos", ...new Set(products.map(p => p.category).filter(Boolean))];
         const filteredProducts = selectedCategory === "Todos" ? products : products.filter(p => p.category === selectedCategory);
 
-        // --- RENDER BOTÕES HOME ---
         const renderButtons = () => {
             const buttons = [
                 { 
@@ -815,7 +846,6 @@
             );
         };
 
-        // --- RENDER CATÁLOGO ---
         const renderCatalog = () => (
             <section className="min-h-screen pb-20">
                 <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLogin={setSession} />
@@ -928,7 +958,6 @@
             document.getElementById('home-view').classList.remove('hidden');
             document.getElementById('spacer-header').classList.remove('hidden');
             
-            // Pequeno delay para animação fluir
             setTimeout(() => {
                 document.getElementById('home-view').style.opacity = '1';
                 document.getElementById('main-header').classList.remove('-translate-y-full');
@@ -966,7 +995,6 @@
                 }
             };
             
-            // Mostra controles ao pausar ou acabar
             video.onpause = () => document.getElementById('video-controls').style.opacity = '1';
             video.onended = () => document.getElementById('video-controls').style.opacity = '1';
         }
