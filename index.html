@@ -346,363 +346,325 @@
     </footer>
 
     <!-- Lógica REACT para Botões de Contato (Menu Inicial) -->
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
-        const AnimatedButtons = () => {
-            const [loaded, setLoaded] = useState(false);
-            
-            // Função para ativar o modo catálogo
-            const handleCatalogClick = (e) => {
-                e.preventDefault();
-                window.showCatalog();
-            };
+<script type="text/babel">
+    const { useState, useEffect } = React;
 
-            // Lista de Botões
-            const buttons = [
-                { 
-                    id: 0, 
-                    title: "Catálogo", 
-                    subtitle: "Ver Produtos", 
-                    icon: "store", 
-                    action: handleCatalogClick,
-                    colorClass: "text-plumare-blue",
-                    bgClass: "bg-white dark:bg-white/10 border border-plumare-blue/30 shadow-lg shadow-plumare-blue/20"
-                },
-                { 
-                    id: 1,
-                    title: "Atacado", 
-                    subtitle: "Fale com Vendedor", 
-                    icon: "message-circle", 
-                    link: "https://api.whatsapp.com/message/2RURQPNHQBRPI1?autoload=1&app_absent=0",
-                    colorClass: "text-whatsapp",
-                    bgClass: "bg-whatsapp/10"
-                },
-                { 
-                    id: 2,
-                    title: "Grupo VIP", 
-                    subtitle: "Ofertas Exclusivas", 
-                    icon: "users", 
-                    link: "https://chat.whatsapp.com/I7re1TmYKaRGUVm2SUMSku",
-                    colorClass: "text-plumare-blue",
-                    bgClass: "bg-plumare-blue/10"
-                },
-                { 
-                    id: 3,
-                    title: "Varejo", 
-                    subtitle: "Compre no WhatsApp", 
-                    icon: "shopping-bag", 
-                    link: "https://api.whatsapp.com/send?phone=5579999999999",
-                    colorClass: "text-purple-500",
-                    bgClass: "bg-purple-500/10"
-                },
-                { 
-                    id: 4,
-                    title: "Nossa história", 
-                    subtitle: "Conheça a Plumare", 
-                    icon: "briefcase", 
-                    link: "#historia",
-                    colorClass: "text-plumare-green",
-                    bgClass: "bg-plumare-green/10"
-                }
-            ];
+    // --- CONFIGURAÇÃO SUPABASE ---
+    // Substitua ABAIXO pelas chaves do seu projeto (Settings > API)
+    const SUPABASE_URL = 'https://hfqcnejztaczhxattlsx.supabase.co'; 
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmcWNuZWp6dGFjemh4YXR0bHN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4NzI0MjgsImV4cCI6MjA4NTQ0ODQyOH0.-ODMdiqWezn-jZvDXbbTZsuMNK6KW7A1wuskufh7NKQ';
+    
+    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-            useEffect(() => { setLoaded(true); setTimeout(() => lucide.createIcons(), 100); }, []);
+    // --- COMPONENTES ---
 
-            return (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                    {buttons.map((btn, index) => (
-                        <a 
-                            key={btn.id}
-                            href={btn.link || '#'}
-                            onClick={btn.action}
-                            target={btn.link && btn.link.startsWith('http') ? '_blank' : '_self'}
-                            className={`glass-button-react p-5 rounded-2xl flex items-center gap-4 group transform transition-all duration-700 ease-out 
-                                ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
-                                ${btn.id === 0 ? 'border-2 border-plumare-blue/50' : ''}
-                            `}
-                            style={{ transitionDelay: `${index * 150}ms` }}
-                        >
-                            <div className={`w-12 h-12 rounded-full ${btn.bgClass} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                                <i data-lucide={btn.icon} className={`w-6 h-6 ${btn.colorClass}`}></i>
-                            </div>
-                            <div>
-                                <h3 className="font-bold text-lg text-gray-800 dark:text-white">{btn.title}</h3>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">{btn.subtitle}</p>
-                            </div>
-                            <i data-lucide="chevron-right" className="w-5 h-5 text-gray-300 ml-auto group-hover:text-plumare-blue transition-colors"></i>
-                        </a>
-                    ))}
-                </div>
-            );
-        };
-        const rootBtns = ReactDOM.createRoot(document.getElementById('react-buttons-root'));
-        rootBtns.render(<AnimatedButtons />);
-    </script>
+    // Modal de Login
+    const LoginModal = ({ isOpen, onClose, onLogin }) => {
+        const [email, setEmail] = useState('');
+        const [password, setPassword] = useState('');
+        const [loading, setLoading] = useState(false);
 
-    <!-- Lógica REACT para o CATÁLOGO DE PRODUTOS -->
-    <script type="text/babel">
-        const { useState } = React;
+        if (!isOpen) return null;
 
-        // DADOS DOS PRODUTOS ATUALIZADOS COM FORMATO DE TEXTO
-        const productsData = [
-            {
-                id: 1,
-                category: "Cortina",
-                title: "Cortina Oxford Premium",
-                specs: [
-                    "COR04-A | CORTINA OXFORD SALA | 3,00x2,50",
-                    "COR04-B | CORTINA OXFORD QUARTO | 2,80x1,80"
-                ],
-                images: [
-                    "https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_jxtecyjxtecyjxte%202.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2Vfanh0ZWN5anh0ZWN5anh0ZSAyLmpwZyIsImlhdCI6MTc3MDA0NDE2OCwiZXhwIjoxODAxNTgwMTY4fQ.wVGB9cADu8xnDszgKs4qg3-JqJtH_OeeyWFyo9n2YFw",
-                    "https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=800&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1461988320302-3887e677c685?q=80&w=800&auto=format&fit=crop"
-                ]
-            },
-            {
-                id: 2,
-                category: "Lençol",
-                title: "Jogo de Cama 200 Fios",
-                specs: [
-                    "LEN202-A | LENÇOL CASAL PADRÃO | 1,88x1,38",
-                    "LEN202-B | LENÇOL QUEEN SIZE | 1,98x1,58"
-                ],
-                images: [
-                    "https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/Gemini_Generated_Image_n3ijlrn3ijlrn3ij.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0dlbWluaV9HZW5lcmF0ZWRfSW1hZ2VfbjNpamxybjNpamxybjNpai5qcGciLCJpYXQiOjE3NzAwNDQxOTQsImV4cCI6MTgwMTU4MDE5NH0.QxIIxsRF8yFkAUj8TU-tQbSWOwA_PDMLiqMvRsxrMms",
-                    "https://images.unsplash.com/photo-1584100936595-c0654b55a2e6?q=80&w=800&auto=format&fit=crop",
-                    "https://images.unsplash.com/photo-1522771753035-1a5b6562f329?q=80&w=800&auto=format&fit=crop"
-                ]
-            },
-            {
-                id: 3,
-                category: "Colcha",
-                title: "Colcha Matelassê",
-                specs: ["COL305 | COLCHA MATELASSÊ QUEEN | PADRÃO"],
-                images: [
-                     "https://images.unsplash.com/photo-1595515106967-434316d82086?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1631679706909-1844bbd07221?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1556020685-ae41abfc9365?q=80&w=800&auto=format&fit=crop"
-                ]
-            },
-            {
-                id: 4,
-                category: "Kit com cortina",
-                title: "Kit Quarto Completo",
-                specs: ["KIT400 | KIT EDREDOM + CORTINA | CASAL"],
-                images: [
-                     "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1505693416388-b034680950db?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop"
-                ]
-            },
-            {
-                id: 5,
-                category: "Capa de almofada",
-                title: "Kit Capas Decorativas",
-                specs: ["ALM550 | KIT 4 CAPAS ALMOFADA | 45x45"],
-                images: [
-                     "https://images.unsplash.com/photo-1584100936611-667793d56a31?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1579656381282-b7e192a06593?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=800&auto=format&fit=crop"
-                ]
-            },
-            {
-                id: 6,
-                category: "Toalha de mesa",
-                title: "Toalha de Mesa Renda",
-                specs: ["MES600 | TOALHA RENDA IMPERMEÁVEL | 6 CAD"],
-                images: [
-                     "https://images.unsplash.com/photo-1553531580-652231dae097?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1574625807986-7788c6b73816?q=80&w=800&auto=format&fit=crop"
-                ]
-            },
-            {
-                id: 7,
-                category: "Capa de sofa",
-                title: "Capa Protetora Elástica",
-                specs: ["SOF700 | CAPA ELÁSTICA | 3 LUGARES"],
-                images: [
-                     "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?q=80&w=800&auto=format&fit=crop"
-                ]
-            },
-            {
-                id: 8,
-                category: "Cobre leito",
-                title: "Cobre Leito Ultrassônico",
-                specs: ["COB800 | COBRE LEITO KING | KING SIZE"],
-                images: [
-                     "https://images.unsplash.com/photo-1522009587440-6644f2165275?q=80&w=800&auto=format&fit=crop",
-                     "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=800&auto=format&fit=crop"
-                ]
+        const handleAuth = async (e) => {
+            e.preventDefault();
+            setLoading(true);
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            setLoading(false);
+            if (error) alert('Erro no login: ' + error.message);
+            else {
+                onLogin(data.session);
+                onClose();
             }
-        ];
-
-        const categories = [
-            "Todos", 
-            "Colcha", 
-            "Lençol", 
-            "Cortina", 
-            "Cobre leito", 
-            "Kit com cortina", 
-            "Luva box", 
-            "Capas", 
-            "Toalha de mesa", 
-            "Capa de almofada", 
-            "Capa de sofa"
-        ];
-
-        const ProductCard = ({ product }) => {
-            const [currentImgIndex, setCurrentImgIndex] = useState(0);
-
-            const nextImage = (e) => {
-                e.stopPropagation();
-                setCurrentImgIndex((prev) => (prev + 1) % product.images.length);
-            };
-
-            const prevImage = (e) => {
-                e.stopPropagation();
-                setCurrentImgIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
-            };
-
-            return (
-                <div className="glass-panel rounded-3xl p-0 flex flex-col mb-4 overflow-hidden shadow-sm">
-                    {/* Área da Imagem (Full Width - Feed Style) */}
-                    <div className="relative w-full aspect-square bg-gray-100 dark:bg-gray-800">
-                        <img 
-                            src={product.images[currentImgIndex]} 
-                            alt={product.title} 
-                            className="w-full h-full object-cover"
-                        />
-                        
-                        {/* Botões de Navegação da Imagem */}
-                        {product.images.length > 1 && (
-                            <>
-                                <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center hover:bg-white text-black z-10">
-                                    <i data-lucide="chevron-left" className="w-4 h-4"></i>
-                                </button>
-                                <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center hover:bg-white text-black z-10">
-                                    <i data-lucide="chevron-right" className="w-4 h-4"></i>
-                                </button>
-                                
-                                {/* Dots Indicadores */}
-                                <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
-                                    {product.images.map((_, idx) => (
-                                        <div key={idx} className={`w-1.5 h-1.5 rounded-full shadow-sm transition-all ${idx === currentImgIndex ? 'bg-white scale-125' : 'bg-white/50'}`}></div>
-                                    ))}
-                                </div>
-                            </>
-                        )}
-                        
-                        <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full z-10">
-                            <span className="text-[10px] font-bold text-white uppercase tracking-wider">{product.category}</span>
-                        </div>
-                    </div>
-
-                    {/* Detalhes do Produto (Abaixo da imagem) */}
-                    <div className="p-5 space-y-4">
-                        <div className="flex justify-between items-start">
-                            <h3 className="text-xl font-bold text-gray-800 dark:text-white leading-tight">{product.title}</h3>
-                            <a 
-                                href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20tenho%20interesse%20no%20${product.title}`}
-                                target="_blank"
-                                className="w-10 h-10 rounded-full bg-plumare-blue/10 text-plumare-blue flex items-center justify-center hover:bg-plumare-blue hover:text-white transition-colors"
-                            >
-                                <i data-lucide="message-circle" className="w-5 h-5"></i>
-                            </a>
-                        </div>
-                        
-                        {/* Lista de Especificações Formatada */}
-                        <div className="space-y-2">
-                            {product.specs.map((spec, index) => (
-                                <div key={index} className="text-xs font-mono bg-gray-100 dark:bg-white/5 p-2 rounded-lg text-gray-600 dark:text-gray-300 border-l-4 border-plumare-blue">
-                                    {spec}
-                                </div>
-                            ))}
-                        </div>
-
-                        <a 
-                            href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20${product.title}`}
-                            target="_blank"
-                            className="block w-full py-3 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-sm uppercase tracking-wide text-center hover:opacity-90 transition-opacity"
-                        >
-                            Consultar Disponibilidade
-                        </a>
-                    </div>
-                </div>
-            );
         };
 
-        const Catalog = () => {
-            const [selectedCategory, setSelectedCategory] = useState("Todos");
+        return (
+            <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+                <div className="glass-panel p-6 rounded-3xl w-full max-w-sm relative animate-fade-in-up">
+                    <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-red-500"><i data-lucide="x"></i></button>
+                    <h2 className="text-xl font-bold mb-4 text-plumare-blue">Acesso Admin</h2>
+                    <form onSubmit={handleAuth} className="space-y-4">
+                        <input type="email" placeholder="Email" className="w-full p-3 rounded-xl bg-gray-50 border border-gray-200" value={email} onChange={e => setEmail(e.target.value)} />
+                        <input type="password" placeholder="Senha" className="w-full p-3 rounded-xl bg-gray-50 border border-gray-200" value={password} onChange={e => setPassword(e.target.value)} />
+                        <button type="submit" disabled={loading} className="w-full py-3 bg-plumare-blue text-white rounded-xl font-bold hover:opacity-90">
+                            {loading ? 'Entrando...' : 'Entrar'}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    };
 
-            const filteredProducts = selectedCategory === "Todos" 
-                ? productsData 
-                : productsData.filter(p => p.category === selectedCategory);
+    // Modal de Edição de Produto
+    const EditModal = ({ isOpen, product, onClose, onSave }) => {
+        if (!isOpen || !product) return null;
 
-            React.useEffect(() => {
-                setTimeout(() => lucide.createIcons(), 100);
-            });
+        const [formData, setFormData] = useState({ ...product });
 
-            return (
-                <section className="min-h-screen pb-20">
+        const handleChange = (field, value) => {
+            setFormData(prev => ({ ...prev, [field]: value }));
+        };
+
+        // Helper para editar arrays (specs e imagens) como texto separado por vírgula
+        const handleArrayChange = (field, value) => {
+            // Separa por quebra de linha ou pipe |
+            const array = value.split('\n').filter(i => i.trim() !== '');
+            handleChange(field, array);
+        };
+
+        const handleSubmit = () => {
+            onSave(formData);
+        };
+
+        return (
+            <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
+                <div className="glass-panel p-6 rounded-3xl w-full max-w-lg relative animate-fade-in-up my-10">
+                    <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-red-500"><i data-lucide="x"></i></button>
+                    <h2 className="text-xl font-bold mb-4 text-plumare-blue">Editar Produto</h2>
                     
-                    {/* CABEÇALHO DO CATÁLOGO (FIXO) */}
-                    <div className="sticky top-0 z-50 bg-white/80 dark:bg-[#0f0f11]/80 backdrop-blur-xl border-b border-gray-200 dark:border-white/10">
-                        <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-                            <button 
-                                onClick={() => window.goHome()}
-                                className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/10 rounded-full text-sm font-bold text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 transition-colors"
-                            >
-                                <i data-lucide="arrow-left" className="w-4 h-4"></i>
-                                Voltar
-                            </button>
-                            <span className="font-bold text-lg text-plumare-blue">Catálogo</span>
-                            <div className="w-20"></div> {/* Espaço vazio para balancear */}
+                    <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+                        <div>
+                            <label className="text-xs font-bold text-gray-500">Título</label>
+                            <input className="w-full p-2 rounded-lg border" value={formData.title} onChange={e => handleChange('title', e.target.value)} />
                         </div>
+                        <div>
+                            <label className="text-xs font-bold text-gray-500">Categoria (Ex: Cortina, Lençol)</label>
+                            <input className="w-full p-2 rounded-lg border" value={formData.category} onChange={e => handleChange('category', e.target.value)} />
+                        </div>
+                        <div>
+                            <label className="text-xs font-bold text-gray-500">Especificações (Uma por linha)</label>
+                            <textarea className="w-full p-2 rounded-lg border h-24" 
+                                defaultValue={formData.specs ? formData.specs.join('\n') : ''} 
+                                onChange={e => handleArrayChange('specs', e.target.value)} 
+                            />
+                        </div>
+                        <div>
+                            <label className="text-xs font-bold text-gray-500">Links das Imagens (Um por linha)</label>
+                            <p className="text-[10px] text-gray-400 mb-1">Cole aqui os links diretos das imagens do Supabase Storage ou Unsplash.</p>
+                            <textarea className="w-full p-2 rounded-lg border h-32 font-mono text-xs" 
+                                defaultValue={formData.images ? formData.images.join('\n') : ''} 
+                                onChange={e => handleArrayChange('images', e.target.value)} 
+                            />
+                        </div>
+                    </div>
 
-                        {/* CATEGORIAS (STICKY DENTRO DO HEADER) */}
-                        <div className="w-full overflow-x-auto no-scrollbar pb-3 px-4 pt-1">
-                            <div className="flex gap-2 min-w-max mx-auto max-w-4xl">
-                                {categories.map(cat => (
-                                    <button
-                                        key={cat}
-                                        onClick={() => setSelectedCategory(cat)}
-                                        className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 border whitespace-nowrap shrink-0 ${
-                                            selectedCategory === cat
-                                                ? 'bg-plumare-blue text-white border-plumare-blue shadow-lg scale-105'
-                                                : 'bg-white/50 dark:bg-white/5 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-plumare-blue/50'
-                                        }`}
-                                    >
-                                        {cat}
-                                    </button>
+                    <div className="mt-6 flex gap-2">
+                        <button onClick={handleSubmit} className="flex-1 py-3 bg-plumare-green text-plumare-dark rounded-xl font-bold hover:opacity-90">Salvar Alterações</button>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
+    const ProductCard = ({ product, isAdmin, onEdit }) => {
+        const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+        const nextImage = (e) => {
+            e.stopPropagation();
+            setCurrentImgIndex((prev) => (prev + 1) % product.images.length);
+        };
+
+        const prevImage = (e) => {
+            e.stopPropagation();
+            setCurrentImgIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
+        };
+
+        return (
+            <div className="glass-panel rounded-3xl p-0 flex flex-col mb-4 overflow-hidden shadow-sm relative group">
+                
+                {/* BOTÃO DE EDIÇÃO (SÓ APARECE SE FOR ADMIN) */}
+                {isAdmin && (
+                    <button 
+                        onClick={() => onEdit(product)}
+                        className="absolute top-4 left-4 z-20 bg-yellow-400 text-black p-2 rounded-full shadow-lg hover:scale-110 transition-transform"
+                    >
+                        <i data-lucide="pencil" className="w-4 h-4"></i>
+                    </button>
+                )}
+
+                {/* Área da Imagem */}
+                <div className="relative w-full aspect-square bg-gray-100 dark:bg-gray-800">
+                    <img 
+                        src={product.images && product.images.length > 0 ? product.images[currentImgIndex] : 'https://via.placeholder.com/400'} 
+                        alt={product.title} 
+                        className="w-full h-full object-cover"
+                    />
+                    
+                    {product.images && product.images.length > 1 && (
+                        <>
+                            <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center hover:bg-white text-black z-10"><i data-lucide="chevron-left" className="w-4 h-4"></i></button>
+                            <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center hover:bg-white text-black z-10"><i data-lucide="chevron-right" className="w-4 h-4"></i></button>
+                            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
+                                {product.images.map((_, idx) => (
+                                    <div key={idx} className={`w-1.5 h-1.5 rounded-full shadow-sm transition-all ${idx === currentImgIndex ? 'bg-white scale-125' : 'bg-white/50'}`}></div>
                                 ))}
                             </div>
+                        </>
+                    )}
+                    
+                    <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full z-10">
+                        <span className="text-[10px] font-bold text-white uppercase tracking-wider">{product.category}</span>
+                    </div>
+                </div>
+
+                {/* Detalhes */}
+                <div className="p-5 space-y-4">
+                    <div className="flex justify-between items-start">
+                        <h3 className="text-xl font-bold text-gray-800 dark:text-white leading-tight">{product.title}</h3>
+                        <a href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20tenho%20interesse%20no%20${product.title}`} target="_blank" className="w-10 h-10 rounded-full bg-plumare-blue/10 text-plumare-blue flex items-center justify-center hover:bg-plumare-blue hover:text-white transition-colors">
+                            <i data-lucide="message-circle" className="w-5 h-5"></i>
+                        </a>
+                    </div>
+                    
+                    <div className="space-y-2">
+                        {product.specs && product.specs.map((spec, index) => (
+                            <div key={index} className="text-xs font-mono bg-gray-100 dark:bg-white/5 p-2 rounded-lg text-gray-600 dark:text-gray-300 border-l-4 border-plumare-blue">{spec}</div>
+                        ))}
+                    </div>
+
+                    <a href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20${product.title}`} target="_blank" className="block w-full py-3 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-sm uppercase tracking-wide text-center hover:opacity-90 transition-opacity">
+                        Consultar Disponibilidade
+                    </a>
+                </div>
+            </div>
+        );
+    };
+
+    const Catalog = () => {
+        const [products, setProducts] = useState([]);
+        const [selectedCategory, setSelectedCategory] = useState("Todos");
+        const [session, setSession] = useState(null);
+        const [isLoginOpen, setIsLoginOpen] = useState(false);
+        const [editingProduct, setEditingProduct] = useState(null); // Produto sendo editado
+
+        // Busca categorias únicas dinamicamente
+        const categories = ["Todos", ...new Set(products.map(p => p.category))];
+
+        // --- EFEITOS ---
+        useEffect(() => {
+            fetchProducts();
+            
+            // Verifica sessão ativa
+            supabase.auth.getSession().then(({ data: { session } }) => {
+                setSession(session);
+            });
+
+            const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+                setSession(session);
+            });
+
+            return () => subscription.unsubscribe();
+        }, []);
+
+        useEffect(() => {
+            setTimeout(() => lucide.createIcons(), 100);
+        });
+
+        // --- FUNÇÕES CRUD ---
+        const fetchProducts = async () => {
+            let { data, error } = await supabase.from('produtos').select('*').order('id', { ascending: true });
+            if (error) console.log('Erro ao buscar:', error);
+            else setProducts(data || []);
+        };
+
+        const handleSaveProduct = async (updatedData) => {
+            const { error } = await supabase
+                .from('produtos')
+                .update({ 
+                    title: updatedData.title,
+                    category: updatedData.category,
+                    specs: updatedData.specs,
+                    images: updatedData.images
+                })
+                .eq('id', updatedData.id);
+
+            if (error) {
+                alert("Erro ao salvar: " + error.message);
+            } else {
+                setEditingProduct(null); // Fecha modal
+                fetchProducts(); // Recarrega lista
+                alert("Produto atualizado com sucesso!");
+            }
+        };
+
+        const handleLogout = async () => {
+            await supabase.auth.signOut();
+            setSession(null);
+        };
+
+        const filteredProducts = selectedCategory === "Todos" 
+            ? products 
+            : products.filter(p => p.category === selectedCategory);
+
+        return (
+            <section className="min-h-screen pb-20">
+                {/* Modais */}
+                <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLogin={setSession} />
+                <EditModal isOpen={!!editingProduct} product={editingProduct} onClose={() => setEditingProduct(null)} onSave={handleSaveProduct} />
+
+                {/* HEADER DO CATÁLOGO */}
+                <div className="sticky top-0 z-50 bg-white/80 dark:bg-[#0f0f11]/80 backdrop-blur-xl border-b border-gray-200 dark:border-white/10">
+                    <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+                        <button onClick={() => window.goHome()} className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/10 rounded-full text-sm font-bold text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 transition-colors">
+                            <i data-lucide="arrow-left" className="w-4 h-4"></i> Voltar
+                        </button>
+                        
+                        <span className="font-bold text-lg text-plumare-blue">Catálogo</span>
+                        
+                        {/* BOTÃO DE LOGIN / LOGOUT */}
+                        <div>
+                            {session ? (
+                                <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-red-100 text-red-500 flex items-center justify-center hover:bg-red-200" title="Sair do modo edição">
+                                    <i data-lucide="log-out" className="w-4 h-4"></i>
+                                </button>
+                            ) : (
+                                <button onClick={() => setIsLoginOpen(true)} className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 text-gray-500 flex items-center justify-center hover:bg-plumare-blue/20 hover:text-plumare-blue" title="Área Administrativa">
+                                    <i data-lucide="lock" className="w-4 h-4"></i>
+                                </button>
+                            )}
                         </div>
                     </div>
 
-                    {/* LISTA DE PRODUTOS (FEED) */}
-                    <div className="max-w-md mx-auto px-0 md:px-0 pt-6 space-y-8 animate-fade-in-up">
-                        {filteredProducts.length > 0 ? (
-                            filteredProducts.map(product => (
-                                <ProductCard key={product.id} product={product} />
-                            ))
-                        ) : (
-                            <div className="text-center py-20 mx-4 glass-panel rounded-3xl">
-                                <i data-lucide="package-open" className="w-16 h-16 text-gray-300 mx-auto mb-4"></i>
-                                <h3 className="text-lg font-bold text-gray-500">Nenhum produto encontrado nesta categoria.</h3>
-                            </div>
-                        )}
+                    {/* CATEGORIAS */}
+                    <div className="w-full overflow-x-auto no-scrollbar pb-3 px-4 pt-1">
+                        <div className="flex gap-2 min-w-max mx-auto max-w-4xl">
+                            {categories.map(cat => (
+                                <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 border whitespace-nowrap shrink-0 ${selectedCategory === cat ? 'bg-plumare-blue text-white border-plumare-blue shadow-lg scale-105' : 'bg-white/50 dark:bg-white/5 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-plumare-blue/50'}`}>
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
                     </div>
-                </section>
-            );
-        };
+                </div>
 
-        const rootCatalog = ReactDOM.createRoot(document.getElementById('react-catalog-root'));
-        rootCatalog.render(<Catalog />);
-    </script>
+                {/* LISTA DE PRODUTOS */}
+                <div className="max-w-md mx-auto px-0 md:px-0 pt-6 space-y-8 animate-fade-in-up">
+                    {filteredProducts.length > 0 ? (
+                        filteredProducts.map(product => (
+                            <ProductCard 
+                                key={product.id} 
+                                product={product} 
+                                isAdmin={!!session} 
+                                onEdit={setEditingProduct}
+                            />
+                        ))
+                    ) : (
+                        <div className="text-center py-20 mx-4 glass-panel rounded-3xl">
+                            <i data-lucide="package-open" className="w-16 h-16 text-gray-300 mx-auto mb-4"></i>
+                            <h3 className="text-lg font-bold text-gray-500">Carregando produtos...</h3>
+                            <p className="text-xs text-gray-400 mt-2">Se demorar, verifique sua conexão ou se há produtos cadastrados.</p>
+                        </div>
+                    )}
+                </div>
+            </section>
+        );
+    };
 
+    const rootCatalog = ReactDOM.createRoot(document.getElementById('react-catalog-root'));
+    rootCatalog.render(<Catalog />);
+</script>
     <!-- Scripts de Efeito (Video, Tema e Navegação) -->
     <script>
         lucide.createIcons();
