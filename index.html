@@ -8,7 +8,7 @@
     <!-- Fonte Comfortaa -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -32,10 +32,16 @@
                     colors: {
                         plumare: {
                             blue: '#5EB2F0',
-                            green: '#6EEBCC',
+                            'blue-light': '#ACDCFF',
+                            'blue-dark': '#4A90C0',
+                            teal: '#6EEBCC',
+                            'teal-light': '#BAFFEE',
                             black: '#000000',
-                            bg: '#fbfbfd',
-                            dark: '#0f0f11',
+                            dark1: '#151515', 
+                            dark2: '#2A2A2A', 
+                            dark3: '#3E3E3E',
+                            softwhite: '#F0F4F8', 
+                            paper: '#FFFFFF',
                         },
                         shopee: '#EE4D2D',
                         whatsapp: '#25D366',
@@ -46,13 +52,12 @@
                     },
                     animation: {
                         'float': 'float 8s ease-in-out infinite',
-                        'float-delayed': 'float 9s ease-in-out 3s infinite',
                         'fade-in-up': 'fadeInUp 0.8s ease-out',
                     },
                     keyframes: {
                         float: {
-                            '0%, 100%': { transform: 'translateY(0) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-15px) rotate(3deg)' },
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
                         },
                         fadeInUp: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
@@ -66,158 +71,121 @@
 
     <style>
         body {
-            /* Cor base suavizada (Stone/Cinza quente) para conforto visual */
-            background-color: #f5f5f4;
-            
-            /* Textura de fundo: Grid de pontos + Gradientes decorativos */
-            background-image: 
-                radial-gradient(#d6d3d1 1px, transparent 1px), /* Textura de pontos */
-                radial-gradient(at 0% 0%, rgba(94, 178, 240, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(110, 235, 204, 0.08) 0px, transparent 50%);
-            
-            /* Tamanho dos pontos (24px) e dos gradientes (tela cheia) */
-            background-size: 24px 24px, 100% 100%, 100% 100%;
-            
-            background-attachment: fixed;
-            overflow-x: hidden;
+            font-family: 'Comfortaa', sans-serif;
+            background-color: #F0F4F8; 
+            color: #151515;
+            transition: background-color 0.5s ease, color 0.5s ease;
             -webkit-font-smoothing: antialiased;
-            transition: background-color 0.5s ease;
+            /* TEXTURA DE FUNDO (PONTINHOS SUTIS) NO MODO CLARO */
+            background-image: radial-gradient(#CFD8DC 1px, transparent 1px);
+            background-size: 24px 24px;
         }
 
+        /* Modo Escuro - Remove textura ou muda cor */
         .dark body {
-            background-color: #0f0f11;
-            /* Remove a textura de pontos no modo escuro, mantendo apenas o glow */
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(94, 178, 240, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(110, 235, 204, 0.15) 0px, transparent 50%);
-            background-size: 100% 100%;
+            background-color: #151515;
+            color: #F0F4F8;
+            background-image: none; /* Limpa a textura no escuro para manter o "blackout" limpo */
         }
 
+        /* Painel de Vidro (Glassmorphism) Ajustado */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.75); /* Aumentei um pouco a opacidade para destacar do fundo texturizado */
-            backdrop-filter: saturate(180%) blur(25px);
-            -webkit-backdrop-filter: saturate(180%) blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 1);
+            box-shadow: 0 10px 40px -10px rgba(94, 178, 240, 0.15); 
             transition: all 0.3s ease;
         }
 
         .dark .glass-panel {
-            background: rgba(20, 20, 23, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            background: rgba(42, 42, 42, 0.85); 
+            border: 1px solid rgba(94, 178, 240, 0.1); 
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
         }
 
-        /* Estilo base para botões React */
-        .glass-button-react {
-            background: rgba(255, 255, 255, 0.85); /* Botões mais sólidos no light mode */
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .dark .glass-button-react {
-            background: rgba(30, 30, 35, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* Botões Estilizados */
+        .btn-primary {
+            background: linear-gradient(135deg, #5EB2F0 0%, #4A90C0 100%);
             color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(94, 178, 240, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-
-        .glass-button-react:hover {
-            transform: scale(1.03) translateY(-2px);
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
-        .dark .glass-button-react:hover {
-            background: rgba(40, 40, 45, 0.9);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(94, 178, 240, 0.4);
         }
 
         .nav-slim { height: 70px; }
         
-        .text-gradient {
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            background-image: linear-gradient(135deg, #1d1d1f 0%, #4a4a4a 100%);
-        }
-        .dark .text-gradient {
-            background-image: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%);
-        }
-
-        /* Scrollbar escondida para categorias */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Animação de fade para troca de "abas" */
-        .fade-enter { opacity: 0; transform: translateY(10px); }
-        .fade-enter-active { opacity: 1; transform: translateY(0); transition: opacity 300ms, transform 300ms; }
-        .fade-exit { opacity: 1; transform: translateY(0); }
-        .fade-exit-active { opacity: 0; transform: translateY(-10px); transition: opacity 300ms, transform 300ms; }
+        /* Utilitários */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="text-[#1d1d1f] dark:text-gray-100 font-sans selection:bg-plumare-green/30 selection:text-plumare-black transition-colors duration-500">
+<body class="selection:bg-plumare-blue/30 selection:text-plumare-black">
 
-    <!-- Background Decorativo -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-plumare-blue/5 rounded-full filter blur-[100px] animate-float"></div>
-        <div class="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-plumare-green/5 rounded-full filter blur-[80px] animate-float-delayed"></div>
+    <!-- Background Decorativo (Glows sutis) -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <!-- Glow Azul -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-plumare-blue/10 dark:bg-plumare-blue/5 rounded-full filter blur-[120px] translate-x-1/3 -translate-y-1/3"></div>
+        <!-- Glow Verde/Teal -->
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-plumare-teal/10 dark:bg-plumare-teal/5 rounded-full filter blur-[100px] -translate-x-1/3 translate-y-1/3"></div>
     </div>
 
-    <!-- HEADER SLIM (Apenas visível na Home) -->
-    <header id="main-header" class="fixed top-0 w-full z-40 glass-panel border-b border-white/20 dark:border-white/5 nav-slim transition-all duration-300">
+    <!-- HEADER SLIM -->
+    <header id="main-header" class="fixed top-0 w-full z-40 glass-panel nav-slim transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
-            <div class="flex items-center gap-3 group cursor-pointer" onclick="window.goHome()">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-plumare-blue/20 to-plumare-green/20 flex items-center justify-center overflow-hidden border border-white/50 dark:border-white/10 relative">
-                    <img id="logo-preview" src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2xvZ28ucG5nIiwiaWF0IjoxNzcwMDM1MzIzLCJleHAiOjE4MDE1NzEzMjN9.sOgLySmkvZ99jL1ZYZ4vkldr7fn_DvvaXDGtWm-phak" alt="Logo" class="w-full h-full object-cover p-1">
+            <!-- Logo Area -->
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="window.goHome()">
+                <div class="w-10 h-10 rounded-xl bg-plumare-blue flex items-center justify-center text-white shadow-lg shadow-plumare-blue/30 group-hover:scale-105 transition-transform">
+                     <img id="logo-preview" src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2xvZ28ucG5nIiwiaWF0IjoxNzcwMDM1MzIzLCJleHAiOjE4MDE1NzEzMjN9.sOgLySmkvZ99jL1ZYZ4vkldr7fn_DvvaXDGtWm-phak" alt="P" class="w-full h-full object-cover rounded-xl bg-white">
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-lg font-bold tracking-tight text-plumare-blue leading-none">PLUMARE</span>
-                    <span class="text-[0.6rem] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em]">Textil</span>
+                    <span class="text-xl font-bold tracking-tight text-plumare-blue">PLUMARE</span>
+                    <span class="text-[0.6rem] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">Textil</span>
                 </div>
             </div>
 
+            <!-- Theme Toggle -->
             <div class="flex items-center gap-3">
-                <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-gray-600 dark:text-gray-300">
-                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
-                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-plumare-softwhite dark:bg-plumare-dark2 hover:bg-gray-200 dark:hover:bg-plumare-dark3 transition-colors text-plumare-blue">
+                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden fill-current"></i>
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block fill-current"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <div id="spacer-header" class="pt-24"></div>
+    <div id="spacer-header" class="pt-28"></div>
 
-    <!-- CONTEÚDO PRINCIPAL (GERENCIADO VIA JAVASCRIPT) -->
+    <!-- CONTEÚDO PRINCIPAL -->
     <main class="relative z-10 pb-12 px-4">
         <div class="max-w-4xl mx-auto">
             
             <!-- VIEW: INSTITUCIONAL (HOME) -->
-            <div id="home-view" class="space-y-16 md:space-y-24 transition-all duration-500">
+            <div id="home-view" class="space-y-12 transition-all duration-500">
                 
-                <!-- BOTÕES REACT DE CONTATO + ACESSO AO CATÁLOGO -->
+                <!-- BOTÕES REACT -->
                 <div id="react-buttons-root"></div>
 
                 <!-- SEÇÃO DE VÍDEO -->
                 <section class="glass-panel p-6 rounded-[2rem]">
                     <div class="text-center mb-6">
-                        <h2 class="text-2xl font-bold text-plumare-blue mb-2">Conheça Nossa História</h2>
-                        <p class="text-gray-600 dark:text-gray-300">Descubra como transformamos sonhos em realidade</p>
+                        <h2 class="text-2xl font-bold text-plumare-blue mb-1">Quem Somos</h2>
+                        <p class="text-gray-500 dark:text-gray-400 font-light text-sm">Do fio ao conforto do seu lar</p>
                     </div>
 
                     <div class="relative w-full max-w-md mx-auto">
-                        <div class="relative rounded-2xl overflow-hidden bg-black shadow-2xl">
-                            <video id="plumare-video" class="w-full aspect-[9/16]" poster="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ">
+                        <div class="relative rounded-2xl overflow-hidden bg-plumare-black shadow-2xl shadow-plumare-blue/20">
+                            <video id="plumare-video" class="w-full aspect-[9/16] object-cover opacity-90" poster="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ">
                                 <source src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/video%20institucional%20.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL3ZpZGVvIGluc3RpdHVjaW9uYWwgLm1wNCIsImlhdCI6MTc3MDA0MzUyMiwiZXhwIjoxODAxNTc5NTIyfQ.OTf7lzj7_gJRZhQQ0Z2hq7IxXcYaKF3XmpAu6k9nVK4" type="video/mp4">
                             </video>
-                            <div id="video-controls" class="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm transition-opacity duration-300 opacity-0 hover:opacity-100">
-                                <button id="play-pause-btn" class="glass-panel w-20 h-20 rounded-full flex items-center justify-center hover:scale-110 transition-transform shadow-2xl">
-                                    <i id="play-icon" data-lucide="play" class="w-10 h-10 text-plumare-blue"></i>
-                                    <i id="pause-icon" data-lucide="pause" class="w-10 h-10 text-plumare-blue hidden"></i>
+                            <div id="video-controls" class="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-opacity duration-300 opacity-0 hover:opacity-100 cursor-pointer">
+                                <button id="play-pause-btn" class="w-20 h-20 rounded-full bg-plumare-blue/90 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-2xl">
+                                    <i id="play-icon" data-lucide="play" class="w-8 h-8 fill-current ml-1"></i>
+                                    <i id="pause-icon" data-lucide="pause" class="w-8 h-8 fill-current hidden"></i>
                                 </button>
                             </div>
                         </div>
@@ -225,16 +193,16 @@
                 </section>
 
                 <!-- SEÇÃO 2: HISTÓRIA -->
-                <section id="historia" class="glass-panel p-8 md:p-12 rounded-[2rem]">
-                    <div class="flex flex-col md:flex-row gap-10 items-center">
-                        <div class="flex-1 space-y-6 text-center md:text-left">
-                            <h2 class="text-3xl font-bold text-gradient">Nossa História</h2>
-                            <p class="text-gray-500 dark:text-gray-300 leading-relaxed text-lg font-light">
-                                Nascemos da paixão por transformar fios em conforto. Em nossa fábrica em Tobias Barreto, unimos tecnologia e acabamento artesanal para criar o enxoval perfeito para o seu lar.
+                <section id="historia" class="glass-panel p-8 md:p-10 rounded-[2rem]">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1 space-y-4 text-center md:text-left">
+                            <h2 class="text-3xl font-bold text-plumare-blue">Nossa História</h2>
+                            <p class="text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+                                Nascemos da paixão por transformar fios em conforto. Em nossa fábrica em <strong class="text-plumare-teal font-bold">Tobias Barreto</strong>, unimos tecnologia e acabamento artesanal para criar o enxoval perfeito para o seu lar.
                             </p>
                         </div>
                         <div class="flex-1 w-full relative">
-                            <div class="relative h-64 w-full rounded-2xl overflow-hidden shadow-sm border border-white/50 dark:border-white/10">
+                            <div class="relative h-64 w-full rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-plumare-dark2">
                                 <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ" class="slider-img absolute w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Fábrica">
                             </div>
                         </div>
@@ -242,31 +210,33 @@
                 </section>
 
                 <!-- SEÇÃO 3: TIME -->
-                <section class="space-y-8">
-                    <div class="text-center space-y-2">
-                        <h2 class="text-2xl font-bold text-gray-800 dark:text-white">Nosso Time em Ação</h2>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm">Pessoas reais fazendo a diferença em cada detalhe.</p>
+                <section class="space-y-6">
+                    <div class="text-center space-y-1">
+                        <h2 class="text-xl font-bold text-plumare-dark1 dark:text-white">Nosso Time</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-xs">Pessoas reais fazendo a diferença.</p>
                     </div>
                     
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <div class="glass-panel p-2 rounded-2xl">
-                            <div class="h-48 rounded-xl overflow-hidden relative">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="glass-panel p-1.5 rounded-2xl hover:scale-[1.02] transition-transform">
+                            <div class="h-40 rounded-xl overflow-hidden relative">
                                 <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/bordado.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2JvcmRhZG8uanBnIiwiaWF0IjoxNzcwMDM1NTExLCJleHAiOjE4MDE1NzE1MTF9.aybGk-kpEr5ySBeEsaPRcBqS5ChFqlenJ7wsl0UR4t4" alt="Produção" class="w-full h-full object-cover">
-                                <div class="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-[10px] font-bold text-center backdrop-blur-sm">Produção</div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-center p-2">
+                                    <span class="text-white text-[10px] font-bold uppercase tracking-widest">Produção</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="glass-panel p-2 rounded-2xl">
-                            <div class="h-48 rounded-xl overflow-hidden relative">
+                        <div class="glass-panel p-1.5 rounded-2xl hover:scale-[1.02] transition-transform">
+                            <div class="h-40 rounded-xl overflow-hidden relative">
                                 <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/20914B37-8199-4B03-A071-9F71222D339A.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlLzIwOTE0QjM3LTgxOTktNEIwMy1BMDcxLTlGNzEyMjJEMzM5QS5qcGciLCJpYXQiOjE3NzAwMzYzMjIsImV4cCI6MTgwMTU3MjMyMn0._QaVXH_LEJ5AFROfIKkwqSu-uZVE_oc4ND6qsYCM7WE" alt="Organização" class="w-full h-full object-cover">
                             </div>
                         </div>
-                        <div class="glass-panel p-2 rounded-2xl">
-                            <div class="h-48 rounded-xl overflow-hidden relative">
+                        <div class="glass-panel p-1.5 rounded-2xl hover:scale-[1.02] transition-transform">
+                            <div class="h-40 rounded-xl overflow-hidden relative">
                                 <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/CB8A9201-3B94-45A4-87BB-47D1EFB76B64.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0NCOEE5MjAxLTNCOTQtNDVBNC04N0JCLTQ3RDFFRkI3NkI2NC5qcGciLCJpYXQiOjE3NzAwMzYyNTQsImV4cCI6MTgwMTU3MjI1NH0.IpYFD8Gc03WYHxu-Kuq_mUZGGVV0PNCj9_Gdif6QJK8" alt="Qualidade" class="w-full h-full object-cover">
                             </div>
                         </div>
-                        <div class="glass-panel p-2 rounded-2xl">
-                            <div class="h-48 rounded-xl overflow-hidden relative">
+                        <div class="glass-panel p-1.5 rounded-2xl hover:scale-[1.02] transition-transform">
+                            <div class="h-40 rounded-xl overflow-hidden relative">
                                 <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/estoque.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2VzdG9xdWUuanBnIiwiaWF0IjoxNzcwMDM1NDc0LCJleHAiOjE4MDE1NzE0NzR9.NT8_fmDyjRhu2x26My9IJtu2-td7NSIUIso0u_4T6D8" alt="Logística" class="w-full h-full object-cover">
                             </div>
                         </div>
@@ -274,14 +244,19 @@
                 </section>
 
                 <!-- SEÇÃO 6: LOCALIZAÇÃO -->
-                <section class="glass-panel p-4 rounded-[2rem]">
+                <section class="glass-panel p-6 rounded-[2rem]">
                     <div class="flex flex-col md:flex-row gap-6 items-center">
-                        <div class="p-4 md:w-1/3 text-center md:text-left space-y-2">
-                            <h3 class="font-bold text-xl dark:text-white">Visite a Fábrica</h3>
-                            <p class="text-gray-500 dark:text-gray-400 text-sm">Rua K Dist. Industrial, 4<br>Tobias Barreto - SE</p>
-                            <a href="https://maps.app.goo.gl/PMV8atpNPRhSvJaE7" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:underline">Ver no Mapa &rarr;</a>
+                        <div class="p-2 md:w-1/3 text-center md:text-left space-y-2">
+                            <div class="inline-block p-2 bg-plumare-blue/10 rounded-full text-plumare-blue mb-2">
+                                <i data-lucide="map-pin" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-plumare-dark1 dark:text-white">Nossa Fábrica</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm font-light">
+                                Rua K Dist. Industrial, 4<br>Tobias Barreto - SE
+                            </p>
+                            <a href="https://maps.app.goo.gl/PMV8atpNPRhSvJaE7" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:text-plumare-teal transition-colors">Abrir no Mapa &rarr;</a>
                         </div>
-                        <div class="w-full md:w-2/3 h-48 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
+                        <div class="w-full md:w-2/3 h-48 rounded-2xl overflow-hidden border border-gray-200 dark:border-plumare-dark3">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.1716514317063!2d-37.982813199999995!3d-11.174923399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x711b2ce7a1be4f9%3A0x289e3e4d5a74588c!2sCentro%20Industrial%20Integrado%20Governador%20Marcelo%20Deda!5e0!3m2!1spt-BR!2sbr!4v1770316332055!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         </div>
                     </div>
@@ -291,25 +266,24 @@
 
             <!-- VIEW: CATÁLOGO (HIDDEN BY DEFAULT) -->
             <div id="catalog-view" class="hidden min-h-screen animate-fade-in-up">
-                <!-- SEÇÃO CATÁLOGO DE PRODUTOS (REACT) -->
                 <div id="react-catalog-root"></div>
             </div>
 
-            <!-- SEÇÃO INSTAGRAM (VISÍVEL EM AMBOS) -->
-            <section class="rounded-[2rem] overflow-hidden shadow-xl border-2 border-plumare-blue bg-plumare-blue/5 dark:bg-plumare-blue/10 backdrop-blur-md mt-16">
-                <div class="h-2 bg-plumare-blue w-full"></div>
-                <div class="p-8 flex flex-col items-center text-center space-y-6">
-                    <div class="w-20 h-20 rounded-full p-1 bg-plumare-blue">
-                        <div class="w-full h-full bg-white dark:bg-gray-900 rounded-full flex items-center justify-center">
-                            <i data-lucide="instagram" class="w-10 h-10 text-plumare-blue"></i>
+            <!-- SEÇÃO INSTAGRAM -->
+            <section class="rounded-[2rem] overflow-hidden shadow-xl border border-plumare-blue/20 bg-gradient-to-br from-white to-plumare-blue/5 dark:from-plumare-dark2 dark:to-plumare-dark1 mt-16 relative">
+                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-plumare-blue to-purple-500"></div>
+                <div class="p-10 flex flex-col items-center text-center space-y-6">
+                    <div class="w-20 h-20 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600">
+                        <div class="w-full h-full bg-white dark:bg-plumare-dark1 rounded-full flex items-center justify-center">
+                            <i data-lucide="instagram" class="w-10 h-10 text-plumare-dark1 dark:text-white"></i>
                         </div>
                     </div>
-                    <div class="space-y-2">
-                        <h2 class="text-2xl font-bold text-plumare-blue">Siga @plumaretextil</h2>
-                        <p class="text-gray-600 dark:text-gray-300">Acompanhe nossos bastidores e novidades.</p>
+                    <div class="space-y-1">
+                        <h2 class="text-2xl font-bold text-plumare-dark1 dark:text-white">@plumaretextil</h2>
+                        <p class="text-gray-500 dark:text-gray-400 text-sm">Acompanhe nossos bastidores</p>
                     </div>
-                    <a href="https://www.instagram.com/plumaretextil/" target="_blank" class="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white font-bold shadow-lg hover:scale-105 transition-all">
-                        <i data-lucide="instagram" class="w-5 h-5"></i> Seguir no Instagram
+                    <a href="https://www.instagram.com/plumaretextil/" target="_blank" class="px-8 py-3 rounded-xl bg-plumare-dark1 dark:bg-white text-white dark:text-plumare-black font-bold shadow-lg hover:scale-105 transition-all text-sm">
+                        Seguir no Instagram
                     </a>
                 </div>
             </section>
@@ -324,32 +298,27 @@
                 <i data-lucide="shield-check" class="text-plumare-blue w-6 h-6 shrink-0 mt-1"></i>
                 <p class="text-xs text-gray-600 dark:text-gray-300">Utilizamos cookies para melhorar sua experiência (LGPD).</p>
             </div>
-            <button onclick="document.getElementById('lgpd-banner').style.display='none'" class="px-6 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-bold rounded-xl">Aceitar</button>
+            <button onclick="document.getElementById('lgpd-banner').style.display='none'" class="px-6 py-2 bg-plumare-blue text-white text-xs font-bold rounded-xl hover:bg-plumare-blue-dark transition-colors">Aceitar</button>
         </div>
     </div>
 
     <!-- Footer Final -->
-    <footer class="mt-8 border-t border-gray-200/60 dark:border-white/5 bg-gray-50/50 dark:bg-black/20 backdrop-blur-lg">
+    <footer class="mt-12 border-t border-gray-200 dark:border-plumare-dark3 bg-white/50 dark:bg-black/20 backdrop-blur-lg">
         <div class="max-w-6xl mx-auto px-6 py-10">
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="text-center md:text-left space-y-1">
-                    <p class="text-xs font-bold text-gray-800 dark:text-white tracking-wide uppercase">Plumare Textil</p>
+                    <p class="text-sm font-bold text-plumare-blue tracking-wide uppercase">Plumare Textil</p>
                     <p class="text-[10px] text-gray-500 uppercase tracking-widest">CNPJ: 42.700.046/0001-63</p>
-                    <p class="text-[10px] text-gray-400 mt-2">Copyright © <script>document.write(new Date().getFullYear())</script> Plumare.</p>
                 </div>
-                <div class="flex items-center gap-2 text-[10px] text-gray-400">
-                    <span>Desenvolvido por</span>
-                    <a href="https://www.instagram.com/ramoncmkt/" class="font-bold text-plumare-blue hover:text-plumare-green transition-colors">Agência Responsável</a>
+                <div class="text-[10px] text-gray-400">
+                    © <script>document.write(new Date().getFullYear())</script> Todos os direitos reservados.
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Lógica REACT para Botões de Contato (Menu Inicial) -->
+    <!-- LOGICA REACT -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
 <script type="text/babel">
     const { useState, useEffect } = React;
@@ -361,7 +330,7 @@
     const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // ==========================================
-    // COMPONENTES AUXILIARES (MODAIS)
+    // COMPONENTES REACT
     // ==========================================
 
     const LoginModal = ({ isOpen, onClose, onLogin }) => {
@@ -384,15 +353,15 @@
         };
 
         return (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                <div className="glass-panel p-6 rounded-3xl w-full max-w-sm relative animate-fade-in-up bg-white dark:bg-gray-900">
-                    <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-red-500"><i data-lucide="x"></i></button>
-                    <h2 className="text-xl font-bold mb-4 text-plumare-blue">Admin Login</h2>
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-plumare-black/80 backdrop-blur-sm p-4">
+                <div className="glass-panel p-8 rounded-3xl w-full max-w-sm relative animate-fade-in-up">
+                    <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i data-lucide="x"></i></button>
+                    <h2 className="text-xl font-bold mb-6 text-plumare-blue text-center">Acesso Restrito</h2>
                     <form onSubmit={handleAuth} className="space-y-4">
-                        <input type="email" placeholder="Email" className="w-full p-3 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" value={email} onChange={e => setEmail(e.target.value)} />
-                        <input type="password" placeholder="Senha" className="w-full p-3 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" value={password} onChange={e => setPassword(e.target.value)} />
-                        <button type="submit" disabled={loading} className="w-full py-3 bg-plumare-blue text-white rounded-xl font-bold">
-                            {loading ? 'Entrando...' : 'Entrar'}
+                        <input type="email" placeholder="Email" className="w-full p-4 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-gray-200 dark:border-plumare-dark3 text-sm outline-none focus:ring-2 focus:ring-plumare-blue transition-all" value={email} onChange={e => setEmail(e.target.value)} />
+                        <input type="password" placeholder="Senha" className="w-full p-4 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-gray-200 dark:border-plumare-dark3 text-sm outline-none focus:ring-2 focus:ring-plumare-blue transition-all" value={password} onChange={e => setPassword(e.target.value)} />
+                        <button type="submit" disabled={loading} className="w-full py-4 bg-plumare-blue text-white rounded-xl font-bold text-sm uppercase tracking-wide shadow-lg hover:brightness-110 transition-all">
+                            {loading ? 'Verificando...' : 'Entrar'}
                         </button>
                     </form>
                 </div>
@@ -405,41 +374,84 @@
         const [formData, setFormData] = useState({ ...product });
 
         const handleChange = (field, value) => setFormData(prev => ({ ...prev, [field]: value }));
-        // Converte texto com quebra de linha para array
         const handleArrayChange = (field, value) => handleChange(field, value.split('\n').filter(i => i.trim() !== ''));
+        
+        // Função específica para atualizar uma imagem pelo índice
+        const updateImage = (index, value) => {
+            const newImages = [...(formData.images || [])];
+            newImages[index] = value;
+            setFormData(prev => ({ ...prev, images: newImages }));
+        };
+
+        // Adicionar nova imagem vazia
+        const addImageSlot = () => {
+            setFormData(prev => ({ ...prev, images: [...(prev.images || []), ''] }));
+        };
+
+        // Remover imagem
+        const removeImageSlot = (index) => {
+            const newImages = formData.images.filter((_, i) => i !== index);
+            setFormData(prev => ({ ...prev, images: newImages }));
+        };
 
         return (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                <div className="glass-panel p-6 rounded-3xl w-full max-w-lg relative animate-fade-in-up bg-white dark:bg-gray-900 my-10 max-h-[90vh] overflow-y-auto">
-                    <button onClick={onClose} className="absolute top-4 right-4 text-gray-500"><i data-lucide="x"></i></button>
+            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-plumare-black/80 backdrop-blur-sm p-4">
+                <div className="glass-panel p-6 rounded-3xl w-full max-w-lg relative animate-fade-in-up my-10 max-h-[90vh] overflow-y-auto">
+                    <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-red-500"><i data-lucide="x"></i></button>
                     <h2 className="text-xl font-bold mb-4 text-plumare-blue">Editar Produto</h2>
                     <div className="space-y-4">
                         <div>
-                            <label className="text-xs font-bold text-gray-500">Título</label>
-                            <input className="w-full p-2 rounded-lg border dark:bg-gray-800 dark:border-gray-700" value={formData.title} onChange={e => handleChange('title', e.target.value)} />
+                            <label className="text-xs font-bold text-gray-500 uppercase">Título</label>
+                            <input className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none" value={formData.title} onChange={e => handleChange('title', e.target.value)} />
                         </div>
                         <div>
-                            <label className="text-xs font-bold text-gray-500">Categoria</label>
-                            <input className="w-full p-2 rounded-lg border dark:bg-gray-800 dark:border-gray-700" value={formData.category} onChange={e => handleChange('category', e.target.value)} />
+                            <label className="text-xs font-bold text-gray-500 uppercase">Categoria</label>
+                            <input className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none" value={formData.category} onChange={e => handleChange('category', e.target.value)} />
                         </div>
                         <div>
-                            <label className="text-xs font-bold text-gray-500">Especificações (Uma por linha)</label>
-                            <textarea className="w-full p-2 rounded-lg border dark:bg-gray-800 dark:border-gray-700 h-24" defaultValue={formData.specs ? formData.specs.join('\n') : ''} onChange={e => handleArrayChange('specs', e.target.value)} />
+                            <label className="text-xs font-bold text-gray-500 uppercase">Especificações (Linha a linha)</label>
+                            <textarea className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none h-24" defaultValue={formData.specs ? formData.specs.join('\n') : ''} onChange={e => handleArrayChange('specs', e.target.value)} />
                         </div>
+                        
+                        {/* SEÇÃO DE IMAGENS ATUALIZADA */}
                         <div>
-                            <label className="text-xs font-bold text-gray-500">Links Imagens (Um por linha)</label>
-                            <textarea className="w-full p-2 rounded-lg border dark:bg-gray-800 dark:border-gray-700 h-24 font-mono text-xs" defaultValue={formData.images ? formData.images.join('\n') : ''} onChange={e => handleArrayChange('images', e.target.value)} />
+                            <div className="flex justify-between items-center mb-2">
+                                <label className="text-xs font-bold text-gray-500 uppercase">Imagens (Links)</label>
+                                <button onClick={addImageSlot} className="text-xs text-plumare-blue font-bold hover:underline">+ Adicionar Foto</button>
+                            </div>
+                            <div className="space-y-2">
+                                {formData.images && formData.images.map((img, idx) => (
+                                    <div key={idx} className="flex gap-2 items-center">
+                                        <div className="w-8 h-8 rounded-lg bg-gray-200 shrink-0 overflow-hidden flex items-center justify-center">
+                                            {img ? <img src={img} className="w-full h-full object-cover" /> : <span className="text-[8px]">{idx+1}</span>}
+                                        </div>
+                                        <div className="flex-1 relative">
+                                            <span className="absolute -top-2 left-2 px-1 bg-white dark:bg-plumare-dark2 text-[8px] font-bold text-gray-400">Foto {idx + 1}</span>
+                                            <input 
+                                                className="w-full p-2.5 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none text-xs" 
+                                                value={img} 
+                                                onChange={e => updateImage(idx, e.target.value)}
+                                                placeholder="Cole o link da imagem aqui..."
+                                            />
+                                        </div>
+                                        <button onClick={() => removeImageSlot(idx)} className="w-8 h-8 rounded-full hover:bg-red-100 text-red-400 flex items-center justify-center transition-colors">
+                                            <i data-lucide="trash-2" className="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                ))}
+                                {(!formData.images || formData.images.length === 0) && (
+                                    <p className="text-xs text-center text-gray-400 py-2">Nenhuma imagem cadastrada.</p>
+                                )}
+                            </div>
                         </div>
-                        <button onClick={() => onSave(formData)} className="w-full py-3 bg-plumare-green text-plumare-dark rounded-xl font-bold hover:brightness-110">Salvar Alterações</button>
+
+                        <button onClick={() => onSave(formData)} className="w-full py-3 bg-plumare-teal text-plumare-black rounded-xl font-bold hover:brightness-110 shadow-lg">Salvar Alterações</button>
                     </div>
                 </div>
             </div>
         );
     };
 
-    // ==========================================
-    // CARD DO PRODUTO (Seu Design Original Preservado)
-    // ==========================================
     const ProductCard = ({ product, isAdmin, onEdit }) => {
         const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
@@ -454,77 +466,59 @@
         };
 
         return (
-            <div className="glass-panel rounded-3xl p-0 flex flex-col mb-4 overflow-hidden shadow-sm relative group">
+            <div className="glass-panel rounded-3xl p-0 flex flex-col mb-6 overflow-hidden relative group border-0 shadow-lg shadow-gray-200/50 dark:shadow-none">
                 
-                {/* BOTÃO DE EDITAR (Aparece só para o Admin) */}
                 {isAdmin && (
-                    <button 
-                        onClick={() => onEdit(product)}
-                        className="absolute top-4 left-4 z-30 bg-yellow-400 text-black p-2 rounded-full shadow-lg hover:scale-110 transition-transform"
-                    >
+                    <button onClick={() => onEdit(product)} className="absolute top-4 left-4 z-30 bg-plumare-blue text-white p-2 rounded-xl shadow-lg hover:scale-110 transition-transform">
                         <i data-lucide="pencil" className="w-4 h-4"></i>
                     </button>
                 )}
 
-                {/* Área da Imagem (Full Width - Feed Style) */}
-                <div className="relative w-full aspect-square bg-gray-100 dark:bg-gray-800">
-                    <img 
-                        src={product.images && product.images.length > 0 ? product.images[currentImgIndex] : ''} 
-                        alt={product.title} 
-                        className="w-full h-full object-cover"
-                    />
+                {/* MUDANÇA: Aspect Square para manter padrão Instagram */}
+                <div className="relative w-full aspect-square bg-gray-100 dark:bg-plumare-dark2">
+                    <img src={product.images && product.images.length > 0 ? product.images[currentImgIndex] : ''} alt={product.title} className="w-full h-full object-cover" />
                     
-                    {/* Botões de Navegação da Imagem */}
                     {product.images && product.images.length > 1 && (
                         <>
-                            <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center hover:bg-white text-black z-10">
-                                <i data-lucide="chevron-left" className="w-4 h-4"></i>
+                            <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white text-plumare-black z-10 transition-all">
+                                <i data-lucide="chevron-left" className="w-5 h-5"></i>
                             </button>
-                            <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/70 backdrop-blur-sm flex items-center justify-center hover:bg-white text-black z-10">
-                                <i data-lucide="chevron-right" className="w-4 h-4"></i>
+                            <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white text-plumare-black z-10 transition-all">
+                                <i data-lucide="chevron-right" className="w-5 h-5"></i>
                             </button>
-                            
-                            {/* Dots Indicadores */}
-                            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
+                            <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
                                 {product.images.map((_, idx) => (
-                                    <div key={idx} className={`w-1.5 h-1.5 rounded-full shadow-sm transition-all ${idx === currentImgIndex ? 'bg-white scale-125' : 'bg-white/50'}`}></div>
+                                    <div key={idx} className={`w-1.5 h-1.5 rounded-full shadow-sm transition-all ${idx === currentImgIndex ? 'bg-white scale-125' : 'bg-white/40'}`}></div>
                                 ))}
                             </div>
                         </>
                     )}
                     
-                    <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full z-10">
+                    <div className="absolute top-4 right-4 bg-plumare-blue/90 backdrop-blur-md px-3 py-1 rounded-full z-10 shadow-lg">
                         <span className="text-[10px] font-bold text-white uppercase tracking-wider">{product.category}</span>
                     </div>
                 </div>
 
-                {/* Detalhes do Produto (Abaixo da imagem) */}
-                <div className="p-5 space-y-4">
-                    <div className="flex justify-between items-start">
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-white leading-tight">{product.title}</h3>
-                        <a 
-                            href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20tenho%20interesse%20no%20${product.title}`}
-                            target="_blank"
-                            className="w-10 h-10 rounded-full bg-plumare-blue/10 text-plumare-blue flex items-center justify-center hover:bg-plumare-blue hover:text-white transition-colors"
-                        >
+                <div className="p-6 space-y-5">
+                    <div className="flex justify-between items-start gap-4">
+                        <h3 className="text-xl font-bold text-plumare-dark1 dark:text-white leading-tight">{product.title}</h3>
+                        <a href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20tenho%20interesse%20no%20${product.title}`} target="_blank"
+                            className="w-10 h-10 shrink-0 rounded-full bg-plumare-teal/20 text-plumare-teal dark:text-plumare-teal flex items-center justify-center hover:bg-plumare-teal hover:text-plumare-black transition-all">
                             <i data-lucide="message-circle" className="w-5 h-5"></i>
                         </a>
                     </div>
                     
-                    {/* Lista de Especificações Formatada */}
-                    <div className="space-y-2">
+                    <div className="flex flex-wrap gap-2">
                         {product.specs && product.specs.map((spec, index) => (
-                            <div key={index} className="text-xs font-mono bg-gray-100 dark:bg-white/5 p-2 rounded-lg text-gray-600 dark:text-gray-300 border-l-4 border-plumare-blue">
+                            <span key={index} className="text-[10px] font-bold uppercase tracking-wide bg-plumare-softwhite dark:bg-plumare-dark3 px-3 py-1.5 rounded-lg text-gray-500 dark:text-gray-400">
                                 {spec}
-                            </div>
+                            </span>
                         ))}
                     </div>
 
-                    <a 
-                        href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20${product.title}`}
+                    <a href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20${product.title}`}
                         target="_blank"
-                        className="block w-full py-3 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-sm uppercase tracking-wide text-center hover:opacity-90 transition-opacity"
-                    >
+                        className="block w-full py-3.5 rounded-xl bg-plumare-dark1 dark:bg-white text-white dark:text-plumare-black font-bold text-sm uppercase tracking-wider text-center hover:shadow-lg hover:-translate-y-1 transition-all">
                         Consultar Disponibilidade
                     </a>
                 </div>
@@ -532,11 +526,8 @@
         );
     };
 
-    // ==========================================
-    // APP PRINCIPAL (BOTÕES + CATÁLOGO)
-    // ==========================================
     const App = () => {
-        const [view, setView] = useState('home'); // 'home' ou 'catalog'
+        const [view, setView] = useState('home');
         const [products, setProducts] = useState([]);
         const [selectedCategory, setSelectedCategory] = useState("Todos");
         const [session, setSession] = useState(null);
@@ -544,26 +535,23 @@
         const [editingProduct, setEditingProduct] = useState(null);
         const [loaded, setLoaded] = useState(false);
 
-        // Busca dados iniciais e sessão
         useEffect(() => {
             fetchProducts();
-            
-            // Verifica Login
             supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
-            const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => setSession(session));
-            
+            const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+                setSession(session);
+                // Fecha o modal de login se o usuário logar com sucesso
+                if (session) setIsLoginOpen(false);
+            });
             setLoaded(true);
             setTimeout(() => { if(window.lucide) window.lucide.createIcons(); }, 500);
-
             return () => subscription.unsubscribe();
         }, []);
 
-        // Atualiza ícones sempre que a view mudar
         useEffect(() => {
             setTimeout(() => { if(window.lucide) window.lucide.createIcons(); }, 100);
         });
 
-        // FUNÇÃO PARA BUSCAR PRODUTOS DO SUPABASE
         const fetchProducts = async () => {
             let { data, error } = await supabase.from('produtos').select('*').order('id', { ascending: true });
             if (!error && data) setProducts(data);
@@ -581,74 +569,80 @@
             }
         };
 
-        // Categorias Dinâmicas (baseado no que tem no banco)
+        const handleLogout = async () => {
+            await supabase.auth.signOut();
+            setSession(null); // Força atualização visual imediata
+        };
+
         const categories = ["Todos", ...new Set(products.map(p => p.category).filter(Boolean))];
         const filteredProducts = selectedCategory === "Todos" ? products : products.filter(p => p.category === selectedCategory);
 
-        // --- RENDERIZAÇÃO DOS BOTÕES DA HOME (Instalado no 'react-buttons-root') ---
+        // --- RENDER BOTÕES HOME ---
         const renderButtons = () => {
             const buttons = [
                 { 
-                    id: 0, title: "Catálogo", subtitle: "Ver Produtos", icon: "store", 
-                    action: (e) => { e.preventDefault(); window.showCatalog(); }, // Chama função global do HTML
-                    colorClass: "text-plumare-blue", bgClass: "bg-white dark:bg-white/10 border border-plumare-blue/30 shadow-lg shadow-plumare-blue/20"
+                    id: 0, title: "Catálogo", subtitle: "Nossos Produtos", icon: "store", 
+                    action: (e) => { e.preventDefault(); window.showCatalog(); },
+                    textColor: "text-plumare-blue", bgColor: "bg-plumare-blue/10"
                 },
-                { id: 1, title: "Atacado", subtitle: "Fale com Vendedor", icon: "message-circle", link: "https://api.whatsapp.com/message/2RURQPNHQBRPI1", colorClass: "text-whatsapp", bgClass: "bg-whatsapp/10" },
-                { id: 2, title: "Grupo VIP", subtitle: "Ofertas Exclusivas", icon: "users", link: "https://chat.whatsapp.com/I7re1TmYKaRGUVm2SUMSku", colorClass: "text-plumare-blue", bgClass: "bg-plumare-blue/10" },
-                { id: 3, title: "Varejo", subtitle: "Compre no WhatsApp", icon: "shopping-bag", link: "https://api.whatsapp.com/send?phone=5579999999999", colorClass: "text-purple-500", bgClass: "bg-purple-500/10" },
-                { id: 4, title: "Nossa história", subtitle: "Conheça a Plumare", icon: "briefcase", link: "#historia", colorClass: "text-plumare-green", bgClass: "bg-plumare-green/10" }
+                { id: 1, title: "Atacado", subtitle: "Falar com Vendedor", icon: "message-circle", link: "https://api.whatsapp.com/message/2RURQPNHQBRPI1", textColor: "text-whatsapp", bgColor: "bg-whatsapp/10" },
+                { id: 2, title: "Grupo VIP", subtitle: "Ofertas Exclusivas", icon: "users", link: "https://chat.whatsapp.com/I7re1TmYKaRGUVm2SUMSku", textColor: "text-plumare-blue", bgColor: "bg-plumare-blue/10" },
+                { id: 3, title: "Varejo", subtitle: "Comprar no WhatsApp", icon: "shopping-bag", link: "https://api.whatsapp.com/send?phone=5579999999999", textColor: "text-plumare-teal", bgColor: "bg-plumare-teal/10" },
+                { id: 4, title: "Quem Somos", subtitle: "Nossa história", icon: "heart", link: "#historia", textColor: "text-pink-500", bgColor: "bg-pink-500/10" }
             ];
 
             return (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
                     {buttons.map((btn, index) => (
                         <a key={btn.id} href={btn.link || '#'} onClick={btn.action} target={btn.link && btn.link.startsWith('http') ? '_blank' : '_self'}
-                            className={`glass-button-react p-5 rounded-2xl flex items-center gap-4 group transform transition-all duration-700 ease-out ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${btn.id === 0 ? 'border-2 border-plumare-blue/50' : ''}`}
-                            style={{ transitionDelay: `${index * 150}ms` }}>
-                            <div className={`w-12 h-12 rounded-full ${btn.bgClass} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                                <i data-lucide={btn.icon} className={`w-6 h-6 ${btn.colorClass}`}></i>
+                            className={`glass-panel p-5 rounded-2xl flex items-center gap-5 group transform transition-all duration-700 ease-out hover:scale-[1.02] cursor-pointer ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${btn.id === 0 ? 'border-l-4 border-plumare-blue shadow-lg shadow-plumare-blue/10' : ''}`}
+                            style={{ transitionDelay: `${index * 100}ms` }}>
+                            <div className={`w-14 h-14 rounded-2xl ${btn.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                                <i data-lucide={btn.icon} className={`w-7 h-7 ${btn.textColor}`}></i>
                             </div>
-                            <div>
-                                <h3 className="font-bold text-lg text-gray-800 dark:text-white">{btn.title}</h3>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">{btn.subtitle}</p>
+                            <div className="flex-1">
+                                <h3 className="font-bold text-lg text-plumare-dark1 dark:text-white leading-tight">{btn.title}</h3>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-light">{btn.subtitle}</p>
                             </div>
-                            <i data-lucide="chevron-right" className="w-5 h-5 text-gray-300 ml-auto group-hover:text-plumare-blue transition-colors"></i>
+                            <div className="w-8 h-8 rounded-full bg-gray-50 dark:bg-plumare-dark3 flex items-center justify-center text-gray-400 group-hover:text-plumare-blue transition-colors">
+                                <i data-lucide="chevron-right" className="w-4 h-4"></i>
+                            </div>
                         </a>
                     ))}
                 </div>
             );
         };
 
-        // --- RENDERIZAÇÃO DO CATÁLOGO (Instalado no 'react-catalog-root') ---
+        // --- RENDER CATÁLOGO ---
         const renderCatalog = () => (
             <section className="min-h-screen pb-20">
                 <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLogin={setSession} />
                 <EditModal isOpen={!!editingProduct} product={editingProduct} onClose={() => setEditingProduct(null)} onSave={handleSaveProduct} />
 
-                {/* Header Fixo */}
-                <div className="sticky top-0 z-50 bg-white/80 dark:bg-[#0f0f11]/80 backdrop-blur-xl border-b border-gray-200 dark:border-white/10">
-                    <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-                        <button onClick={() => window.goHome()} className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-white/10 rounded-full text-sm font-bold text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 transition-colors">
-                            <i data-lucide="arrow-left" className="w-4 h-4"></i> Voltar
+                <div className="sticky top-0 z-50 glass-panel border-b border-gray-100 dark:border-plumare-dark3">
+                    <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+                        <button onClick={() => window.goHome()} className="w-10 h-10 rounded-full bg-plumare-softwhite dark:bg-plumare-dark3 text-plumare-dark1 dark:text-white flex items-center justify-center hover:bg-gray-200 transition-colors">
+                            <i data-lucide="arrow-left" className="w-5 h-5"></i>
                         </button>
-                        <span className="font-bold text-lg text-plumare-blue">Catálogo</span>
+                        <span className="font-bold text-lg text-plumare-blue tracking-tight">CATÁLOGO</span>
                         <div>
                             {session ? (
-                                <button onClick={() => supabase.auth.signOut()} className="w-10 h-10 rounded-full bg-red-100 text-red-500 flex items-center justify-center hover:bg-red-200">
+                                <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 hover:shadow-md transition-all">
                                     <i data-lucide="log-out" className="w-4 h-4"></i>
                                 </button>
                             ) : (
-                                <button onClick={() => setIsLoginOpen(true)} className="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 text-gray-500 flex items-center justify-center hover:bg-plumare-blue/20 hover:text-plumare-blue">
+                                <button onClick={() => setIsLoginOpen(true)} className="w-10 h-10 rounded-full text-gray-400 hover:text-plumare-blue hover:bg-plumare-blue/5 transition-all">
                                     <i data-lucide="lock" className="w-4 h-4"></i>
                                 </button>
                             )}
                         </div>
                     </div>
 
-                    <div className="w-full overflow-x-auto no-scrollbar pb-3 px-4 pt-1">
+                    <div className="w-full overflow-x-auto no-scrollbar pb-4 px-4">
                         <div className="flex gap-2 min-w-max mx-auto max-w-4xl">
                             {categories.map(cat => (
-                                <button key={cat} onClick={() => setSelectedCategory(cat)} className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 border whitespace-nowrap shrink-0 ${selectedCategory === cat ? 'bg-plumare-blue text-white border-plumare-blue shadow-lg scale-105' : 'bg-white/50 dark:bg-white/5 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-white/10 hover:border-plumare-blue/50'}`}>
+                                <button key={cat} onClick={() => setSelectedCategory(cat)} 
+                                    className={`px-6 py-2 rounded-full text-xs font-bold transition-all duration-300 border uppercase tracking-wider ${selectedCategory === cat ? 'bg-plumare-blue text-white border-plumare-blue shadow-lg shadow-plumare-blue/30' : 'bg-transparent border-gray-300 dark:border-plumare-dark3 text-gray-500 dark:text-gray-400 hover:border-plumare-blue'}`}>
                                     {cat}
                                 </button>
                             ))}
@@ -663,16 +657,16 @@
                         ))
                     ) : (
                         <div className="text-center py-20 mx-4 glass-panel rounded-3xl">
-                            <i data-lucide="package-open" className="w-16 h-16 text-gray-300 mx-auto mb-4"></i>
-                            <h3 className="text-lg font-bold text-gray-500">Nenhum produto encontrado.</h3>
-                            {session && <p className="text-xs text-blue-500 mt-2">Dica: Rode o script SQL para popular o banco.</p>}
+                            <div className="w-20 h-20 bg-gray-100 dark:bg-plumare-dark3 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="package-open" className="w-8 h-8 text-gray-400"></i>
+                            </div>
+                            <h3 className="text-lg font-bold text-gray-500">Sem produtos aqui.</h3>
                         </div>
                     )}
                 </div>
             </section>
         );
 
-        // Usamos React Portals para renderizar em dois lugares diferentes do HTML
         return (
             <React.Fragment>
                 {ReactDOM.createPortal(renderButtons(), document.getElementById('react-buttons-root'))}
@@ -687,42 +681,12 @@
 
 <div id="root-controller"></div>
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide/dist/lucide.min.js"></script>
-    <!-- React e ReactDOM -->
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <!-- Babel para JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Tailwind CSS (via CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Scripts de Efeito -->
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'plumare-blue': '#4F46E5',
-                        'plumare-green': '#10B981',
-                        'plumare-dark': '#11181C',
-                        'whatsapp': '#25D366'
-                    },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards'
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: 0, transform: 'translateY(20px)' },
-                            '100%': { opacity: 1, transform: 'translateY(0)' }
-                        }
-                    }
-                }
-            }
-        }
-</script>
-    <!-- Scripts de Efeito (Video, Tema e Navegação) -->
-    <script>
+        // Inicializa ícones
         lucide.createIcons();
 
+        // Lógica de Tema
         function toggleTheme() {
             const html = document.documentElement;
             html.classList.toggle('dark');
@@ -733,30 +697,32 @@
             document.documentElement.classList.add('dark');
         }
 
-        // Funções de Navegação (Troca de Abas Home/Catálogo)
+        // Navegação
         window.showCatalog = function() {
-            // Esconde header principal e home
-            document.getElementById('main-header').classList.add('hidden');
+            document.getElementById('main-header').classList.add('-translate-y-full');
             document.getElementById('spacer-header').classList.add('hidden');
-            document.getElementById('home-view').classList.add('hidden');
-            
-            // Mostra catálogo
-            document.getElementById('catalog-view').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'instant' });
+            document.getElementById('home-view').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('home-view').classList.add('hidden');
+                document.getElementById('catalog-view').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'instant' });
+            }, 300);
         }
 
         window.goHome = function() {
-            // Esconde catálogo
             document.getElementById('catalog-view').classList.add('hidden');
-            
-            // Mostra header principal e home
-            document.getElementById('main-header').classList.remove('hidden');
-            document.getElementById('spacer-header').classList.remove('hidden');
             document.getElementById('home-view').classList.remove('hidden');
+            document.getElementById('spacer-header').classList.remove('hidden');
+            
+            // Pequeno delay para animação fluir
+            setTimeout(() => {
+                document.getElementById('home-view').style.opacity = '1';
+                document.getElementById('main-header').classList.remove('-translate-y-full');
+            }, 50);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Slideshow História
+        // Slideshow
         const images = document.querySelectorAll('.slider-img');
         let currentImg = 0;
         function nextImage() {
@@ -771,20 +737,25 @@
         const video = document.getElementById('plumare-video');
         const playPauseBtn = document.getElementById('play-pause-btn');
 
-        playPauseBtn.onclick = () => {
-            if (video.paused) {
-                video.play();
-                document.getElementById('play-icon').classList.add('hidden');
-                document.getElementById('pause-icon').classList.remove('hidden');
-            } else {
-                video.pause();
-                document.getElementById('play-icon').classList.remove('hidden');
-                document.getElementById('pause-icon').classList.add('hidden');
-            }
-        };
-
-        video.parentElement.onmouseenter = () => document.getElementById('video-controls').style.opacity = '1';
-        video.parentElement.onmouseleave = () => { if(!video.paused) document.getElementById('video-controls').style.opacity = '0'; };
+        if(playPauseBtn && video) {
+            playPauseBtn.onclick = () => {
+                if (video.paused) {
+                    video.play();
+                    document.getElementById('play-icon').classList.add('hidden');
+                    document.getElementById('pause-icon').classList.remove('hidden');
+                    document.getElementById('video-controls').style.opacity = '0';
+                } else {
+                    video.pause();
+                    document.getElementById('play-icon').classList.remove('hidden');
+                    document.getElementById('pause-icon').classList.add('hidden');
+                    document.getElementById('video-controls').style.opacity = '1';
+                }
+            };
+            
+            // Mostra controles ao pausar ou acabar
+            video.onpause = () => document.getElementById('video-controls').style.opacity = '1';
+            video.onended = () => document.getElementById('video-controls').style.opacity = '1';
+        }
     </script>
 </body>
 </html>
