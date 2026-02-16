@@ -591,6 +591,14 @@
                             </datalist>
                             <p className="text-[10px] text-gray-400 mt-1 ml-1">* Digite uma nova categoria para criar uma nova aba.</p>
                         </div>
+
+                        {/* NOVO CAMPO DE TEXTO DO BOTÃO */}
+                        <div>
+                            <label className="text-xs font-bold text-gray-500 uppercase">Texto do Botão (WhatsApp)</label>
+                            <input disabled={status !== 'idle'} className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none" value={formData.button_text || ''} onChange={e => handleChange('button_text', e.target.value)} placeholder="Padrão: Consultar Disponibilidade" />
+                            <p className="text-[10px] text-gray-400 mt-1 ml-1">* Ex: Consultar Cores, Comprar Agora, Encomendar...</p>
+                        </div>
+
                         <div>
                             <label className="text-xs font-bold text-gray-500 uppercase">Especificações (Linha a linha)</label>
                             <textarea disabled={status !== 'idle'} className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none h-24" defaultValue={formData.specs ? formData.specs.join('\n') : ''} onChange={e => handleArrayChange('specs', e.target.value)} placeholder="100% Algodão&#10;Fios 30/1 Penteado" />
@@ -667,6 +675,9 @@
 
         const currentImageUrl = product.images && product.images.length > 0 ? getImageUrl(product.images[currentImgIndex]) : '';
 
+        // Texto dinâmico do botão
+        const buttonLabel = product.button_text && product.button_text.trim() !== '' ? product.button_text : 'Consultar Disponibilidade';
+
         return (
             <div className="glass-panel rounded-3xl p-0 flex flex-col mb-6 overflow-hidden relative group border-0 shadow-lg shadow-gray-200/50 dark:shadow-none">
                 
@@ -720,7 +731,7 @@
                     <a href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20${product.title}`}
                         target="_blank"
                         className="block w-full py-3.5 rounded-xl bg-plumare-dark1 dark:bg-white text-white dark:text-plumare-black font-bold text-sm uppercase tracking-wider text-center hover:shadow-lg hover:-translate-y-1 transition-all">
-                        Consultar Disponibilidade
+                        {buttonLabel}
                     </a>
                 </div>
             </div>
@@ -765,7 +776,8 @@
                 title: updatedData.title, 
                 category: updatedData.category, 
                 specs: cleanSpecs, 
-                images: cleanImages 
+                images: cleanImages,
+                button_text: updatedData.button_text // Adicionado campo para salvar texto do botão
             };
 
             let error;
@@ -799,7 +811,8 @@
                 title: '',
                 category: '',
                 specs: [],
-                images: ['']
+                images: [''],
+                button_text: '' // Inicializa vazio
             });
         };
 
