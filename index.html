@@ -1,87 +1,53 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plumare | Catálogo Digital</title>
+    <title>Liberty Bordados | Fabricação Própria</title>
     
-    <!-- Fonte Comfortaa -->
+    <!-- Google Fonts: Montserrat para Títulos (futurista/forte) e Inter para Textos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
     
+    <!-- Phosphor Icons para ícones modernos -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons (Ícones) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- React e ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    
-    <!-- Babel -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <!-- Configurações do Tema e Animações -->
+    <!-- Configuração de Cores e Fontes -->
     <script>
         tailwind.config = {
-            darkMode: 'class', 
             theme: {
                 extend: {
                     colors: {
-                        plumare: {
-                            blue: '#5EB2F0',
-                            'blue-light': '#ACDCFF',
-                            'blue-dark': '#4A90C0',
-                            teal: '#6EEBCC',
-                            'teal-light': '#BAFFEE',
-                            black: '#000000',
-                            dark1: '#151515', 
-                            dark2: '#2A2A2A', 
-                            dark3: '#3E3E3E',
-                            softwhite: '#F0F4F8', 
-                            paper: '#FFFFFF',
-                        },
-                        shopee: '#EE4D2D',
-                        whatsapp: '#25D366',
-                        instagram: '#C13584'
+                        brand: {
+                            blue: '#042353',
+                            light: '#eae7e4',
+                            orange: '#f26522', // Laranja adaptado do logo
+                        }
                     },
                     fontFamily: {
-                        sans: ['Comfortaa', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
                     },
                     animation: {
-                        'float': 'float 8s ease-in-out infinite',
-                        'fade-in-up': 'fadeInUp 0.8s ease-out',
-                        'spin-slow': 'spin 3s linear infinite',
-                        'bounce-short': 'bounce 1s infinite',
-                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both', 
-                        'pop-in': 'popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards', 
-                        'success-scale': 'successScale 0.5s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'dash': 'dash 20s linear infinite',
+                        'gradient-x': 'gradient-x 12s ease infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-15px)' },
+                            '50%': { transform: 'translateY(-10px)' },
                         },
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        dash: {
+                            to: { strokeDashoffset: '1000' }
                         },
-                        shake: {
-                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
-                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
-                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
-                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
-                        },
-                        popIn: {
-                            '0%': { opacity: '0', transform: 'scale(0.8)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' }
-                        },
-                        successScale: {
-                            '0%': { transform: 'scale(1)' },
-                            '50%': { transform: 'scale(1.05)' },
-                            '100%': { transform: 'scale(1)' }
+                        'gradient-x': {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
                         }
                     }
                 }
@@ -90,927 +56,673 @@
     </script>
 
     <style>
+        /* Estilos Customizados: Efeito de Costura e Apple-like */
         body {
-            font-family: 'Comfortaa', sans-serif;
-            background-color: #F0F4F8; 
-            color: #151515;
-            transition: background-color 0.5s ease, color 0.5s ease;
-            -webkit-font-smoothing: antialiased;
-            /* TEXTURA DE FUNDO */
-            background-image: radial-gradient(#CFD8DC 1px, transparent 1px);
-            background-size: 24px 24px;
+            background-color: #042353; /* Cor de fundo da empresa */
+            color: #eae7e4; /* Texto claro por padrão */
+            overflow-x: hidden;
         }
 
-        .dark body {
-            background-color: #151515;
-            color: #F0F4F8;
-            background-image: none; 
+        /* Oculta scrollbar mas mantém funcionalidade para visual mais clean */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #042353;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #eae7e4;
+            border-radius: 4px;
         }
 
-        /* Painel de Vidro */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.90);
+        .glass {
+            background: rgba(4, 35, 83, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(234, 231, 228, 0.1);
+        }
+
+        .glass-dark {
+            background: rgba(4, 35, 83, 0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 1);
-            box-shadow: 0 10px 40px -10px rgba(94, 178, 240, 0.15); 
+        }
+
+        /* Efeito de botão de linha (bordado) futurista */
+        .btn-stitch {
+            position: relative;
+            overflow: hidden;
             transition: all 0.3s ease;
         }
-
-        .dark .glass-panel {
-            background: rgba(42, 42, 42, 0.85); 
-            border: 1px solid rgba(94, 178, 240, 0.1); 
-            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+        .btn-stitch::before {
+            content: '';
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            border: 1px dashed rgba(242, 101, 34, 0); /* Linha transparente por padrão */
+            border-radius: inherit;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        .btn-stitch:hover::before {
+            border-color: rgba(242, 101, 34, 1); /* Laranja da logo no hover */
+            animation: dash 5s linear infinite reverse;
+        }
+        .btn-stitch:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
 
-        .nav-slim { height: 70px; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Animações de Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Modal Transitions */
+        .modal {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            transform: scale(0.95) translateY(20px);
+            transition: all 0.4s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .modal.active .modal-content {
+            transform: scale(1) translateY(0);
+        }
     </style>
 </head>
-<body class="selection:bg-plumare-blue/30 selection:text-plumare-black">
+<body class="antialiased selection:bg-brand-orange selection:text-white relative">
 
-    <!-- Background Decorativo -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-plumare-blue/10 dark:bg-plumare-blue/5 rounded-full filter blur-[120px] translate-x-1/3 -translate-y-1/3"></div>
-        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-plumare-teal/10 dark:bg-plumare-teal/5 rounded-full filter blur-[100px] -translate-x-1/3 translate-y-1/3"></div>
-    </div>
-
-    <!-- HEADER SLIM -->
-    <header id="main-header" class="fixed top-0 w-full z-40 glass-panel nav-slim transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-4 h-full flex items-center justify-between">
-            <!-- Logo Area -->
-            <div class="flex items-center gap-3 cursor-pointer group" onclick="window.goHome()">
-                <div class="w-10 h-10 rounded-xl bg-plumare-blue flex items-center justify-center text-white shadow-lg shadow-plumare-blue/30 group-hover:scale-105 transition-transform">
-                     <img id="logo-preview" src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/logo.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2xvZ28ucG5nIiwiaWF0IjoxNzcwMDM1MzIzLCJleHAiOjE4MDE1NzEzMjN9.sOgLySmkvZ99jL1ZYZ4vkldr7fn_DvvaXDGtWm-phak" alt="P" class="w-full h-full object-cover rounded-xl bg-white">
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xl font-bold tracking-tight text-plumare-blue">PLUMARE</span>
-                    <span class="text-[0.6rem] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">Textil</span>
-                </div>
-            </div>
-
-            <!-- Theme Toggle -->
-            <div class="flex items-center gap-3">
-                <button onclick="toggleTheme()" class="w-10 h-10 rounded-full flex items-center justify-center bg-plumare-softwhite dark:bg-plumare-dark2 hover:bg-gray-200 dark:hover:bg-plumare-dark3 transition-colors text-plumare-blue">
-                    <i data-lucide="moon" class="w-5 h-5 block dark:hidden fill-current"></i>
-                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block fill-current"></i>
-                </button>
-            </div>
+    <!-- MAIN HERO & LINKS -->
+    <section id="hero" class="min-h-screen flex flex-col justify-center items-center py-16 px-6 relative overflow-hidden">
+        <!-- Efeito de fundo (Fios de costura abstratos) -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <path d="M-100,200 Q200,50 500,300 T1200,100" fill="none" stroke="#eae7e4" stroke-width="2" stroke-dasharray="10 15"/>
+                <path d="M-100,500 Q300,700 700,400 T1500,600" fill="none" stroke="#f26522" stroke-width="1" stroke-dasharray="5 10"/>
+            </svg>
         </div>
-    </header>
 
-    <div id="spacer-header" class="pt-28"></div>
+        <div class="max-w-2xl w-full text-center z-10 reveal">
+            <!-- Logo Grande SEM FUNDO -->
+            <div class="mb-10 animate-float flex justify-center w-full max-w-[280px] md:max-w-md mx-auto">
+                 <!-- A logo agora vai se fundir perfeitamente com o fundo azul -->
+                 <img src="https://hcdsbawdwzmlujxnxymf.supabase.co/storage/v1/object/public/video%20lp1/download-removebg-preview.png" alt="Liberty Bordados" class="w-full h-auto object-contain drop-shadow-[0_10px_25px_rgba(0,0,0,0.5)]">
+            </div>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main class="relative z-10 pb-12 px-4">
-        <div class="max-w-4xl mx-auto">
-            
-            <!-- VIEW: INSTITUCIONAL (HOME) -->
-            <div id="home-view" class="space-y-12 transition-all duration-500">
+            <p class="text-lg md:text-xl font-light mb-10 text-brand-light/80 max-w-lg mx-auto">
+                Bordados de alta qualidade com tecnologia e precisão. Conecte-se conosco.
+            </p>
+
+            <!-- Links em Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto">
                 
-                <!-- BOTÕES REACT -->
-                <div id="react-buttons-root"></div>
+                <!-- Botão Catálogo (Destaque Laranja da Logo) -->
+                <button onclick="toggleCatalog()" class="sm:col-span-2 btn-stitch bg-brand-orange text-white py-4 px-6 rounded-2xl flex items-center justify-center gap-3 font-bold text-lg hover:bg-[#e05a1b] transition-colors shadow-lg shadow-brand-orange/20">
+                    <i class="ph-fill ph-book-open-text text-2xl"></i>
+                    Ver Todos Produtos
+                </button>
 
-                <!-- SEÇÃO DE VÍDEO -->
-                <section class="glass-panel p-6 rounded-[2rem]">
-                    <div class="text-center mb-6">
-                        <h2 class="text-2xl font-bold text-plumare-blue mb-1">Quem Somos</h2>
-                        <p class="text-gray-500 dark:text-gray-400 font-light text-sm">Do fio ao conforto do seu lar</p>
-                    </div>
+                <!-- Botão WhatsApp (Branco) -->
+                <a href="https://wa.me/seunumerodetelefone" target="_blank" class="btn-stitch bg-white text-brand-blue py-4 px-6 rounded-2xl flex items-center justify-center gap-3 font-semibold hover:bg-gray-100 transition-colors">
+                    <i class="ph-fill ph-whatsapp-logo text-2xl text-green-500"></i>
+                    Compre no Atacado
+                </a>
 
-                    <div class="relative w-full max-w-md mx-auto">
-                        <div class="relative rounded-2xl overflow-hidden bg-plumare-black shadow-2xl shadow-plumare-blue/20">
-                            <video id="plumare-video" class="w-full aspect-[9/16] object-cover opacity-90" poster="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ">
-                                <source src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/video%20institucional%20.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL3ZpZGVvIGluc3RpdHVjaW9uYWwgLm1wNCIsImlhdCI6MTc3MDA0MzUyMiwiZXhwIjoxODAxNTc5NTIyfQ.OTf7lzj7_gJRZhQQ0Z2hq7IxXcYaKF3XmpAu6k9nVK4" type="video/mp4">
-                            </video>
-                            <div id="video-controls" class="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-opacity duration-300 opacity-0 hover:opacity-100 cursor-pointer">
-                                <button id="play-pause-btn" class="w-20 h-20 rounded-full bg-plumare-blue/90 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-2xl">
-                                    <i id="play-icon" data-lucide="play" class="w-8 h-8 fill-current ml-1"></i>
-                                    <i id="pause-icon" data-lucide="pause" class="w-8 h-8 fill-current hidden"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <!-- Botão TikTok (Branco) -->
+                <a href="#" target="_blank" class="btn-stitch bg-white text-brand-blue py-4 px-6 rounded-2xl flex items-center justify-center gap-3 font-semibold hover:bg-gray-100 transition-colors">
+                    <i class="ph-fill ph-tiktok-logo text-2xl text-black"></i>
+                    Compre no TikTok
+                </a>
 
-                <!-- SEÇÃO 2: HISTÓRIA -->
-                <section id="historia" class="glass-panel p-8 md:p-10 rounded-[2rem]">
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="flex-1 space-y-4 text-center md:text-left">
-                            <h2 class="text-3xl font-bold text-plumare-blue">Nossa História</h2>
-                            <p class="text-gray-600 dark:text-gray-300 leading-relaxed font-light">
-                                Nascemos da paixão por transformar fios em conforto. Em nossa fábrica em <strong class="text-plumare-teal font-bold">Tobias Barreto</strong>, unimos tecnologia e acabamento artesanal para criar o enxoval perfeito para o seu lar.
-                            </p>
-                        </div>
-                        <div class="flex-1 w-full relative">
-                            <div class="relative h-64 w-full rounded-2xl overflow-hidden shadow-lg border-4 border-white dark:border-plumare-dark2">
-                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/casal.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2Nhc2FsLmpwZyIsImlhdCI6MTc3MDAzNTM2OSwiZXhwIjoxODAxNTcxMzY5fQ.xYqFSU_rGusNXYM0HMb2u7YizILGoj9eNXjmjsOMOsQ" class="slider-img absolute w-full h-full object-cover transition-opacity duration-1000 opacity-100" alt="Fábrica">
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                <!-- Botão Mercado Livre (Branco) -->
+                <a href="#" target="_blank" class="btn-stitch bg-white text-brand-blue py-4 px-6 rounded-2xl flex items-center justify-center gap-3 font-semibold hover:bg-gray-100 transition-colors">
+                    <i class="ph-fill ph-handshake text-2xl text-yellow-500"></i>
+                    Compre o Mercado Livre
+                </a>
 
-                <!-- SEÇÃO 3: TIME -->
-                <section class="space-y-6">
-                    <div class="text-center space-y-1">
-                        <h2 class="text-xl font-bold text-plumare-dark1 dark:text-white">Nosso Time</h2>
-                        <p class="text-gray-500 dark:text-gray-400 text-xs">Pessoas reais fazendo a diferença.</p>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="glass-panel p-1.5 rounded-2xl hover:scale-[1.02] transition-transform">
-                            <div class="h-40 rounded-xl overflow-hidden relative">
-                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/bordado.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2JvcmRhZG8uanBnIiwiaWF0IjoxNzcwMDM1NTExLCJleHAiOjE4MDE1NzE1MTF9.aybGk-kpEr5ySBeEsaPRcBqS5ChFqlenJ7wsl0UR4t4" alt="Produção" class="w-full h-full object-cover">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end justify-center p-2">
-                                    <span class="text-white text-[10px] font-bold uppercase tracking-widest">Produção</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="glass-panel p-1.5 rounded-2xl hover:scale-[1.02] transition-transform">
-                            <div class="h-40 rounded-xl overflow-hidden relative">
-                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/20914B37-8199-4B03-A071-9F71222D339A.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlLzIwOTE0QjM3LTgxOTktNEIwMy1BMDcxLTlGNzEyMjJEMzM5QS5qcGciLCJpYXQiOjE3NzAwMzYzMjIsImV4cCI6MTgwMTU3MjMyMn0._QaVXH_LEJ5AFROfIKkwqSu-uZVE_oc4ND6qsYCM7WE" alt="Organização" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                        <div class="glass-panel p-1.5 rounded-2xl hover:scale-[1.02] transition-transform">
-                            <div class="h-40 rounded-xl overflow-hidden relative">
-                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/CB8A9201-3B94-45A4-87BB-47D1EFB76B64.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL0NCOEE5MjAxLTNCOTQtNDVBNC04N0JCLTQ3RDFFRkI3NkI2NC5qcGciLCJpYXQiOjE3NzAwMzYyNTQsImV4cCI6MTgwMTU3MjI1NH0.IpYFD8Gc03WYHxu-Kuq_mUZGGVV0PNCj9_Gdif6QJK8" alt="Qualidade" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                        <div class="glass-panel p-1.5 rounded-2xl hover:scale-[1.02] transition-transform">
-                            <div class="h-40 rounded-xl overflow-hidden relative">
-                                <img src="https://hfqcnejztaczhxattlsx.supabase.co/storage/v1/object/sign/Arquivos%20site/estoque.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iYmU5YzEyYy0yYzBiLTQwMDItOTA0Mi0xMzU1YWNkMWQ1ZTMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJBcnF1aXZvcyBzaXRlL2VzdG9xdWUuanBnIiwiaWF0IjoxNzcwMDM1NDc0LCJleHAiOjE4MDE1NzE0NzR9.NT8_fmDyjRhu2x26My9IJtu2-td7NSIUIso0u_4T6D8" alt="Logística" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- SEÇÃO 6: LOCALIZAÇÃO -->
-                <section class="glass-panel p-6 rounded-[2rem]">
-                    <div class="flex flex-col md:flex-row gap-6 items-center">
-                        <div class="p-2 md:w-1/3 text-center md:text-left space-y-2">
-                            <div class="inline-block p-2 bg-plumare-blue/10 rounded-full text-plumare-blue mb-2">
-                                <i data-lucide="map-pin" class="w-6 h-6"></i>
-                            </div>
-                            <h3 class="font-bold text-xl text-plumare-dark1 dark:text-white">Nossa Fábrica</h3>
-                            <p class="text-gray-500 dark:text-gray-400 text-sm font-light">
-                                Rua K Dist. Industrial, 4<br>Tobias Barreto - SE
-                            </p>
-                            <a href="https://maps.app.goo.gl/PMV8atpNPRhSvJaE7" target="_blank" class="inline-block mt-2 text-plumare-blue font-bold text-sm hover:text-plumare-teal transition-colors">Abrir no Mapa &rarr;</a>
-                        </div>
-                        <div class="w-full md:w-2/3 h-48 rounded-2xl overflow-hidden border border-gray-200 dark:border-plumare-dark3">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3914.1716514317063!2d-37.982813199999995!3d-11.174923399999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x711b2ce7a1be4f9%3A0x289e3e4d5a74588c!2sCentro%20Industrial%20Integrado%20Governador%20Marcelo%20Deda!5e0!3m2!1spt-BR!2sbr!4v1770316332055!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                        </div>
-                    </div>
-                </section>
-
+                <!-- Botão Shopee (Branco) -->
+                <a href="#" target="_blank" class="btn-stitch bg-white text-brand-blue py-4 px-6 rounded-2xl flex items-center justify-center gap-3 font-semibold hover:bg-gray-100 transition-colors">
+                    <i class="ph-fill ph-shopping-bag text-2xl text-brand-orange"></i>
+                    Compre na Shopee
+                </a>
             </div>
-
-            <!-- VIEW: CATÁLOGO (HIDDEN BY DEFAULT) -->
-            <div id="catalog-view" class="hidden min-h-screen animate-fade-in-up">
-                <div id="react-catalog-root"></div>
-            </div>
-
-            <!-- SEÇÃO INSTAGRAM -->
-            <section class="rounded-[2rem] overflow-hidden shadow-xl border border-plumare-blue/20 bg-gradient-to-br from-white to-plumare-blue/5 dark:from-plumare-dark2 dark:to-plumare-dark1 mt-16 relative">
-                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-plumare-blue to-purple-500"></div>
-                <div class="p-10 flex flex-col items-center text-center space-y-6">
-                    <div class="w-20 h-20 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600">
-                        <div class="w-full h-full bg-white dark:bg-plumare-dark1 rounded-full flex items-center justify-center">
-                            <i data-lucide="instagram" class="w-10 h-10 text-plumare-dark1 dark:text-white"></i>
-                        </div>
-                    </div>
-                    <div class="space-y-1">
-                        <h2 class="text-2xl font-bold text-plumare-dark1 dark:text-white">@plumaretextil</h2>
-                        <p class="text-gray-500 dark:text-gray-400 text-sm">Acompanhe nossos bastidores</p>
-                    </div>
-                    <a href="https://www.instagram.com/plumaretextil/" target="_blank" class="px-8 py-3 rounded-xl bg-plumare-dark1 dark:bg-white text-white dark:text-plumare-black font-bold shadow-lg hover:scale-105 transition-all text-sm">
-                        Seguir no Instagram
-                    </a>
-                </div>
-            </section>
-
         </div>
-    </main>
+    </section>
 
-    <!-- NOTIFICAÇÃO LGPD -->
-    <div id="lgpd-banner" class="fixed bottom-4 left-4 right-4 z-50">
-        <div class="glass-panel p-4 rounded-2xl max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xl">
-            <div class="flex items-start gap-3">
-                <i data-lucide="shield-check" class="text-plumare-blue w-6 h-6 shrink-0 mt-1"></i>
-                <p class="text-xs text-gray-600 dark:text-gray-300">Utilizamos cookies para melhorar sua experiência (LGPD).</p>
-            </div>
-            <button onclick="document.getElementById('lgpd-banner').style.display='none'" class="px-6 py-2 bg-plumare-blue text-white text-xs font-bold rounded-xl hover:bg-plumare-blue-dark transition-colors">Aceitar</button>
-        </div>
-    </div>
-
-    <!-- Footer Final -->
-    <footer class="mt-12 border-t border-gray-200 dark:border-plumare-dark3 bg-white/50 dark:bg-black/20 backdrop-blur-lg">
-        <div class="max-w-6xl mx-auto px-6 py-10">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-                <div class="text-center md:text-left space-y-1">
-                    <p class="text-sm font-bold text-plumare-blue tracking-wide uppercase">Plumare Textil</p>
-                    <p class="text-[10px] text-gray-500 uppercase tracking-widest">CNPJ: 42.700.046/0001-63</p>
+    <!-- SECTION: FABRICAÇÃO PRÓPRIA -->
+    <section id="about" class="py-24 px-6 bg-[#031c42] relative">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="order-2 md:order-1 reveal relative">
+                <!-- Foto da empresa com efeito moldura futurista -->
+                <div class="relative rounded-3xl overflow-hidden aspect-square md:aspect-[4/5] shadow-2xl">
+                    <div class="absolute inset-0 bg-brand-blue mix-blend-overlay opacity-20 z-10"></div>
+                    <!-- PLACEHOLDER FOTO DA EMPRESA -->
+                    <img src="https://hcdsbawdwzmlujxnxymf.supabase.co/storage/v1/object/public/video%20lp1/Gemini_Generated_Image_q2pdseq2pdseq2pd.png" alt="Máquinas de Bordado" class="w-full h-full object-cover">
                 </div>
-                <div class="text-[10px] text-gray-400">
-                    © <script>document.write(new Date().getFullYear())</script> Todos os direitos reservados.
+                <!-- Elemento decorativo gráfico -->
+                <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brand-orange rounded-full mix-blend-multiply blur-2xl opacity-40 z-0"></div>
+            </div>
+            
+            <div class="order-1 md:order-2 reveal">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-brand-orange text-sm font-bold tracking-widest uppercase mb-6">
+                    <i class="ph-fill ph-needle"></i> Tradição e Tecnologia
+                </div>
+                <h2 class="font-heading text-4xl md:text-5xl font-black mb-6 leading-tight text-white">
+                    Fabricação <span class="text-brand-orange">Própria.</span><br>Qualidade Absoluta.
+                </h2>
+                <p class="text-lg text-brand-light/80 mb-6 leading-relaxed">
+                    Na Liberty Bordados, cada fio conta uma história. Combinamos a precisão das mais modernas máquinas industriais com o cuidado do acabamento artesanal. 
+                </p>
+                <p class="text-lg text-brand-light/80 mb-8 leading-relaxed">
+                    Nossa estrutura permite atender de pequenos pedidos a grandes produções corporativas, garantindo que a sua marca seja representada com a máxima excelência.
+                </p>
+                
+                <ul class="space-y-4 font-medium text-brand-light">
+                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-brand-orange text-xl"></i> Fios de alta durabilidade</li>
+                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-brand-orange text-xl"></i> Maquinário de última geração</li>
+                    <li class="flex items-center gap-3"><i class="ph-fill ph-check-circle text-brand-orange text-xl"></i> Controle de qualidade rigoroso</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: LOCALIZAÇÃO -->
+    <section id="location" class="py-24 px-6 bg-brand-blue text-brand-light relative overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col items-center text-center reveal">
+            <h2 class="font-heading text-4xl md:text-5xl font-black mb-4 text-white">Onde nos <span class="text-brand-orange">Encontrar</span></h2>
+            <p class="text-brand-light/70 max-w-2xl mb-12">
+                Venha nos visitar e conhecer de perto nossa linha de produção e showroom de produtos finais.
+            </p>
+
+            <div class="w-full max-w-4xl bg-white/5 backdrop-blur-md border border-white/10 p-2 md:p-4 rounded-3xl shadow-2xl">
+                <!-- MAPA PLACEHOLDER (Substituir o src pelo iframe real do Google Maps) -->
+                <div class="w-full h-[400px] rounded-2xl overflow-hidden bg-brand-light relative">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975766258416!2d-46.65649438440669!3d-23.561349567475146!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%20-%20S%C3%A3o%20Paulo%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1679000000000!5m2!1spt-BR!2sbr" 
+                        width="100%" height="100%" style="border:0; filter: grayscale(50%) contrast(1.2);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="mt-8 flex flex-col md:flex-row gap-8 text-left max-w-4xl w-full justify-center">
+                <div class="flex items-start gap-4">
+                    <div class="bg-brand-orange/20 p-3 rounded-full text-brand-orange">
+                        <i class="ph-fill ph-map-pin text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-white">Endereço</h4>
+                        <p class="text-brand-light/70">Rua Exemplo das Confecções, 123<br>Bairro Industrial - SP</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="bg-brand-orange/20 p-3 rounded-full text-brand-orange">
+                        <i class="ph-fill ph-clock text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg text-white">Horário de Funcionamento</h4>
+                        <p class="text-brand-light/70">Segunda a Sexta: 08h às 18h<br>Sábado: 08h às 12h</p>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#010e22] text-brand-light/50 py-8 text-center text-sm">
+        <p>&copy; <span id="year"></span> Liberty Bordados. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- LOGICA REACT -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-
-<script type="text/babel">
-    const { useState, useEffect } = React;
-
-    // --- CONFIGURAÇÃO SUPABASE ---
-    const SUPABASE_URL = 'https://hfqcnejztaczhxattlsx.supabase.co'; 
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmcWNuZWp6dGFjemh4YXR0bHN4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk4NzI0MjgsImV4cCI6MjA4NTQ0ODQyOH0.-ODMdiqWezn-jZvDXbbTZsuMNK6KW7A1wuskufh7NKQ';
-    
-    const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-    // ==========================================
-    // UTILS
-    // ==========================================
-
-    const getImageUrl = (url) => {
-        if (!url) return '';
-        if (url.includes('drive.google.com') || url.includes('docs.google.com')) {
-            const idMatch = url.match(/[-\w]{25,}/);
-            if (idMatch) {
-                return `https://lh3.googleusercontent.com/d/${idMatch[0]}`; 
-            }
-        }
-        return url;
-    };
-
-    // ==========================================
-    // COMPONENTES REACT
-    // ==========================================
-
-    const LoginModal = ({ isOpen, onClose, onLogin }) => {
-        const [email, setEmail] = useState('');
-        const [password, setPassword] = useState('');
-        const [showPassword, setShowPassword] = useState(false);
-        const [status, setStatus] = useState('idle');
-
-        useEffect(() => {
-            if (window.lucide) window.lucide.createIcons();
-        }, [status, showPassword]);
-
-        if (!isOpen) return null;
-
-        const handleAuth = async (e) => {
-            e.preventDefault();
-            if (status === 'loading' || status === 'success') return;
-
-            setStatus('loading');
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    <!-- ========================================== -->
+    <!-- MODAL CATÁLOGO (Interface estilo Apple Store) -->
+    <!-- ========================================== -->
+    <div id="catalogModal" class="modal fixed inset-0 z-50 flex items-center justify-center">
+        <!-- Overlay blur -->
+        <div class="absolute inset-0 glass-dark" onclick="toggleCatalog()"></div>
+        
+        <!-- Modal Content -->
+        <div class="modal-content relative w-full h-full bg-brand-light flex flex-col overflow-hidden text-brand-blue">
             
-            if (error) {
-                setStatus('error');
-                setTimeout(() => setStatus('idle'), 500);
-            } else {
-                setStatus('success');
-                setTimeout(() => {
-                    onLogin(data.session);
-                    onClose();
-                    setStatus('idle');
-                    setEmail('');
-                    setPassword('');
-                    setShowPassword(false);
-                }, 1500);
-            }
-        };
+            <!-- Header do Modal -->
+            <div class="px-6 py-4 border-b border-brand-blue/10 flex justify-between items-center bg-white/50 backdrop-blur-md sticky top-0 z-10">
+                <div class="flex items-center gap-4">
+                    <button onclick="toggleCatalog()" class="p-2 bg-brand-blue/10 hover:bg-brand-blue/20 text-brand-blue rounded-full transition-colors">
+                        <i class="ph ph-arrow-left text-xl"></i>
+                    </button>
+                    <h2 class="font-heading font-black text-2xl text-brand-blue flex items-center gap-2">
+                        <i class="ph-fill ph-books text-brand-orange"></i> Catálogo
+                    </h2>
+                </div>
+                <button onclick="toggleAdmin()" class="text-xs font-bold text-brand-blue hover:text-brand-orange transition-colors flex items-center gap-1 bg-white border border-brand-blue/10 px-4 py-2 rounded-full shadow-sm hover:shadow">
+                    <i class="ph-fill ph-lock-key"></i> Admin
+                </button>
+            </div>
 
-        const inputClass = `w-full p-4 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border text-sm outline-none focus:ring-2 focus:ring-plumare-blue transition-all ${
-            status === 'error' 
-                ? 'border-red-500 text-red-500 animate-shake focus:ring-red-500' 
-                : 'border-gray-200 dark:border-plumare-dark3'
-        }`;
+            <!-- Filtros de Categoria -->
+            <div id="category-filters" class="px-6 py-4 bg-brand-light flex gap-2 overflow-x-auto whitespace-nowrap hide-scroll">
+                <!-- Filtros injetados via JS -->
+            </div>
 
-        return (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-plumare-black/80 backdrop-blur-sm p-4">
-                <div className="glass-panel p-8 rounded-3xl w-full max-w-sm relative animate-fade-in-up">
-                    <button onClick={onClose} className="absolute top-4 right-4 text-gray-400 hover:text-red-500"><i data-lucide="x"></i></button>
-                    
-                    <h2 className="text-xl font-bold mb-6 text-plumare-blue text-center">Acesso Restrito</h2>
-                    
-                    <form onSubmit={handleAuth} className="space-y-4">
-                        <input 
-                            type="email" 
-                            placeholder="Email" 
-                            className={inputClass}
-                            value={email} 
-                            onChange={e => setEmail(e.target.value)} 
-                            disabled={status === 'loading' || status === 'success'}
-                        />
-                        <div className="relative">
-                            <input 
-                                type={showPassword ? "text" : "password"} 
-                                placeholder="Senha" 
-                                className={`${inputClass} pr-12`} // Adicionado padding-right para não sobrepor o ícone
-                                value={password} 
-                                onChange={e => setPassword(e.target.value)} 
-                                disabled={status === 'loading' || status === 'success'}
-                            />
-                            <button 
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-plumare-blue transition-colors focus:outline-none"
-                                disabled={status === 'loading' || status === 'success'}
-                            >
-                                <i data-lucide={showPassword ? "eye-off" : "eye"} className="w-5 h-5"></i>
-                            </button>
+            <!-- Grid de Produtos (Populados via JS) -->
+            <div class="p-6 overflow-y-auto flex-1 bg-brand-light" id="catalog-grid">
+                <!-- Os produtos serão injetados aqui via JS -->
+                <div class="text-center text-brand-blue/50 py-10 w-full col-span-full">Carregando catálogo...</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MODAL ADMIN (Login e Cadastro de Produto)  -->
+    <!-- ========================================== -->
+    <div id="adminModal" class="modal fixed inset-0 z-[60] flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleAdmin()"></div>
+        
+        <div class="modal-content relative w-full max-w-md bg-white text-brand-blue rounded-3xl shadow-2xl overflow-hidden">
+            
+            <!-- Admin Header -->
+            <div class="bg-brand-blue text-white p-6 relative">
+                <button onclick="toggleAdmin()" class="absolute top-4 right-4 text-white/50 hover:text-white">
+                    <i class="ph ph-x text-xl"></i>
+                </button>
+                <h3 class="font-heading font-bold text-xl flex items-center gap-2">
+                    <i class="ph-fill ph-lock-key"></i> Área Restrita
+                </h3>
+                <p class="text-sm text-white/70 mt-1">Gerenciamento do Catálogo</p>
+            </div>
+
+            <!-- Area de Login -->
+            <div id="admin-login-view" class="p-6">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-brand-blue mb-1">Senha de Acesso</label>
+                        <input type="password" id="admin-pass" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-brand-light border-2 border-transparent focus:border-brand-orange focus:outline-none transition-colors">
+                    </div>
+                    <button onclick="loginAdmin()" class="w-full bg-brand-blue text-white py-3 rounded-xl font-bold hover:bg-brand-blue/90 transition-colors">Entrar</button>
+                </div>
+            </div>
+
+            <!-- Area de Dashboard (Oculta até logar) -->
+            <div id="admin-dashboard-view" class="p-6 hidden h-[70vh] overflow-y-auto">
+                
+                <!-- Abas -->
+                <div class="flex gap-2 mb-6 border-b border-brand-blue/10 pb-2">
+                    <button onclick="switchAdminTab('add')" id="tab-add" class="text-sm font-bold text-brand-blue border-b-2 border-brand-orange pb-1">Novo Produto</button>
+                    <button onclick="switchAdminTab('manage')" id="tab-manage" class="text-sm font-bold text-brand-blue/50 hover:text-brand-blue pb-1">Gerenciar Catálogo</button>
+                </div>
+
+                <!-- Aba: Adicionar Produto/Categoria -->
+                <div id="admin-add-section">
+                    <div class="mb-6 bg-brand-orange/10 p-4 rounded-xl border border-brand-orange/20">
+                        <h5 class="text-xs font-bold text-[#d85619] mb-2">Adicionar Nova Categoria</h5>
+                        <div class="flex gap-2">
+                            <input type="text" id="nova-categoria-nome" placeholder="Ex: Jaquetas" class="w-full px-3 py-1.5 rounded-lg bg-white border border-transparent focus:border-brand-orange focus:outline-none text-sm">
+                            <button onclick="adicionarCategoria()" class="bg-brand-orange text-white px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-[#e05a1b] transition-colors">Criar</button>
                         </div>
+                    </div>
+
+                    <h4 class="font-bold text-brand-blue mb-4">Adicionar Novo Produto</h4>
+                    <form id="productForm" onsubmit="handleProductSubmit(event)" class="space-y-4">
                         
-                        <button 
-                            type="submit" 
-                            disabled={status === 'loading' || status === 'success'} 
-                            className={`w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wide shadow-lg transition-all duration-300 flex items-center justify-center gap-2
-                                ${status === 'success' 
-                                    ? 'bg-green-500 text-white animate-success-scale shadow-green-500/30' 
-                                    : 'bg-plumare-blue text-white hover:brightness-110'
-                                }`}
-                        >
-                            {status === 'loading' && (
-                                <>
-                                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                                    <span>Verificando...</span>
-                                </>
-                            )}
-                            
-                            {status === 'success' && (
-                                <span className="flex items-center gap-2 animate-pop-in">
-                                    <i data-lucide="check-circle" className="w-5 h-5"></i>
-                                    Acesso Permitido
-                                </span>
-                            )}
-                            
-                            {(status === 'idle' || status === 'error') && 'Entrar'}
+                        <div>
+                            <label class="block text-sm font-bold text-brand-blue mb-1">Nome do Produto</label>
+                            <input type="text" id="prod-nome" required placeholder="Ex: Camisa Polo Bordada" class="w-full px-4 py-2 rounded-xl bg-brand-light border-2 border-transparent focus:border-brand-orange focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-brand-blue mb-1">Categoria</label>
+                            <select id="prod-categoria" class="w-full px-4 py-2 rounded-xl bg-brand-light border-2 border-transparent focus:border-brand-orange focus:outline-none">
+                                <!-- Categorias injetadas via JS -->
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-brand-blue mb-1">Descrição</label>
+                            <textarea id="prod-descricao" rows="2" placeholder="Breve descrição do produto..." class="w-full px-4 py-2 rounded-xl bg-brand-light border-2 border-transparent focus:border-brand-orange focus:outline-none text-sm"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-brand-blue mb-1">Link da Foto (Google Drive ou URL)</label>
+                            <p class="text-[10px] text-gray-500 mb-1 leading-tight">Cole o link público da imagem.</p>
+                            <input type="url" id="prod-foto" required placeholder="https://..." class="w-full px-4 py-2 rounded-xl bg-brand-light border-2 border-transparent focus:border-brand-orange focus:outline-none text-sm">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-brand-blue mb-1">Texto do Botão / Redirecionamento</label>
+                            <input type="text" id="prod-btn-txt" required placeholder="Ex: Comprar no WhatsApp" value="Fazer Orçamento" class="w-full px-4 py-2 rounded-xl bg-brand-light border-2 border-transparent focus:border-brand-orange focus:outline-none">
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-orange text-white py-3 rounded-xl font-bold hover:bg-[#e05a1b] transition-colors mt-2">
+                            <i class="ph-bold ph-plus"></i> Salvar Produto
                         </button>
-                        
-                        {status === 'error' && (
-                            <p className="text-red-500 text-xs text-center font-bold animate-pulse">
-                                Credenciais inválidas. Tente novamente.
-                            </p>
-                        )}
                     </form>
                 </div>
-            </div>
-        );
-    };
 
-    const EditModal = ({ isOpen, product, existingCategories, onClose, onSave, onDelete }) => {
-        if (!isOpen || !product) return null;
-        const [formData, setFormData] = useState({ ...product });
-        const [status, setStatus] = useState('idle'); 
-        const isNew = !formData.id;
+                <!-- Aba: Gerenciar (Lista de exclusão) -->
+                <div id="admin-manage-section" class="hidden">
+                    <h4 class="font-bold text-brand-blue mb-4">Categorias</h4>
+                    <div id="admin-cat-list" class="space-y-2 mb-8"></div>
 
-        useEffect(() => {
-            if (isOpen) setStatus('idle');
-        }, [isOpen]);
-
-        const handleChange = (field, value) => setFormData(prev => ({ ...prev, [field]: value }));
-        const handleArrayChange = (field, value) => handleChange(field, value.split('\n').filter(i => i.trim() !== ''));
-        
-        const updateImage = (index, value) => {
-            const newImages = [...(formData.images || [])];
-            newImages[index] = value;
-            setFormData(prev => ({ ...prev, images: newImages }));
-        };
-
-        const addImageSlot = () => {
-            setFormData(prev => ({ ...prev, images: [...(prev.images || []), ''] }));
-        };
-
-        const removeImageSlot = (index) => {
-            const newImages = formData.images.filter((_, i) => i !== index);
-            setFormData(prev => ({ ...prev, images: newImages }));
-        };
-
-        const handleSaveClick = async () => {
-            if (status !== 'idle') return;
-            setStatus('saving');
-            try {
-                await onSave(formData);
-                setStatus('success');
-                setTimeout(() => {
-                    onClose();
-                }, 1500);
-            } catch (e) {
-                console.error(e);
-                alert("Erro ao salvar: " + (e.message || "Erro desconhecido"));
-                setStatus('idle');
-            }
-        };
-
-        const handleDeleteClick = async () => {
-            if (status !== 'idle') return;
-            if (window.confirm('ATENÇÃO: Deseja realmente excluir este produto? Essa ação não pode ser desfeita.')) {
-                setStatus('deleting');
-                try {
-                    await onDelete(formData.id);
-                    setStatus('deleted');
-                    setTimeout(() => {
-                        onClose();
-                    }, 1500);
-                } catch (error) {
-                    console.error("Erro no delete:", error);
-                    alert("ERRO AO EXCLUIR: " + (error.message || error.error_description || "Erro desconhecido"));
-                    setStatus('idle');
-                }
-            }
-        };
-
-        return (
-            <div className="fixed inset-0 z-[100] flex items-center justify-center bg-plumare-black/80 backdrop-blur-sm p-4">
-                <div className="glass-panel p-6 rounded-3xl w-full max-w-lg relative animate-fade-in-up my-10 max-h-[90vh] overflow-y-auto overflow-x-hidden">
-                    
-                    {status === 'idle' && (
-                        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-red-500 z-50"><i data-lucide="x"></i></button>
-                    )}
-
-                    {status !== 'idle' && (
-                        <div className="absolute inset-0 bg-white/90 dark:bg-plumare-dark2/95 z-40 flex flex-col items-center justify-center animate-fade-in">
-                            {status === 'saving' && (
-                                <div className="text-center space-y-4">
-                                    <div className="w-16 h-16 border-4 border-plumare-blue border-t-transparent rounded-full animate-spin mx-auto"></div>
-                                    <p className="font-bold text-plumare-blue animate-pulse">
-                                        {isNew ? 'Criando Produto...' : 'Salvando Alterações...'}
-                                    </p>
-                                </div>
-                            )}
-                            {status === 'deleting' && (
-                                <div className="text-center space-y-4">
-                                    <div className="w-16 h-16 border-4 border-red-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-                                    <p className="font-bold text-red-500 animate-pulse">
-                                        Apagando Produto...
-                                    </p>
-                                </div>
-                            )}
-
-                            {status === 'success' && (
-                                <div className="text-center space-y-4">
-                                    <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto animate-bounce-short shadow-lg shadow-green-500/30">
-                                        <i data-lucide="check" className="w-10 h-10 text-white stroke-[3]"></i>
-                                    </div>
-                                    <p className="font-bold text-green-600 text-lg">
-                                        {isNew ? 'Produto Criado!' : 'Salvo com Sucesso!'}
-                                    </p>
-                                </div>
-                            )}
-                            
-                            {status === 'deleted' && (
-                                <div className="text-center space-y-4">
-                                    <div className="w-20 h-20 bg-gray-500 rounded-full flex items-center justify-center mx-auto animate-bounce-short shadow-lg shadow-gray-500/30">
-                                        <i data-lucide="trash-2" className="w-10 h-10 text-white stroke-[3]"></i>
-                                    </div>
-                                    <p className="font-bold text-gray-600 dark:text-gray-300 text-lg">
-                                        Produto Excluído!
-                                    </p>
-                                </div>
-                            )}
-                        </div>
-                    )}
-
-                    <h2 className="text-xl font-bold mb-4 text-plumare-blue">{isNew ? 'Novo Produto' : 'Editar Produto'}</h2>
-                    
-                    <div className={`space-y-4 transition-opacity ${status !== 'idle' ? 'opacity-50 pointer-events-none' : ''}`}>
-                        <div>
-                            <label className="text-xs font-bold text-gray-500 uppercase">Título</label>
-                            <input disabled={status !== 'idle'} className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none" value={formData.title} onChange={e => handleChange('title', e.target.value)} placeholder="Ex: Jogo de Lençol Queen" />
-                        </div>
-                        <div>
-                            <label className="text-xs font-bold text-gray-500 uppercase">Categoria</label>
-                            <input disabled={status !== 'idle'} list="category-list" className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none" value={formData.category} onChange={e => handleChange('category', e.target.value)} placeholder="Digite ou selecione..." />
-                            <datalist id="category-list">
-                                {existingCategories.map(cat => <option key={cat} value={cat} />)}
-                            </datalist>
-                            <p className="text-[10px] text-gray-400 mt-1 ml-1">* Digite uma nova categoria para criar uma nova aba.</p>
-                        </div>
-
-                        {/* NOVO CAMPO DE TEXTO DO BOTÃO */}
-                        <div>
-                            <label className="text-xs font-bold text-gray-500 uppercase">Texto do Botão (WhatsApp)</label>
-                            <input disabled={status !== 'idle'} className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none" value={formData.button_text || ''} onChange={e => handleChange('button_text', e.target.value)} placeholder="Padrão: Consultar Disponibilidade" />
-                            <p className="text-[10px] text-gray-400 mt-1 ml-1">* Ex: Consultar Cores, Comprar Agora, Encomendar...</p>
-                        </div>
-
-                        <div>
-                            <label className="text-xs font-bold text-gray-500 uppercase">Especificações (Linha a linha)</label>
-                            <textarea disabled={status !== 'idle'} className="w-full p-3 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none h-24" defaultValue={formData.specs ? formData.specs.join('\n') : ''} onChange={e => handleArrayChange('specs', e.target.value)} placeholder="100% Algodão&#10;Fios 30/1 Penteado" />
-                        </div>
-                        
-                        <div>
-                            <div className="flex justify-between items-center mb-2">
-                                <label className="text-xs font-bold text-gray-500 uppercase">Imagens (Links)</label>
-                                <button disabled={status !== 'idle'} onClick={addImageSlot} className="text-xs text-plumare-blue font-bold hover:underline">+ Adicionar Foto</button>
-                            </div>
-                            <div className="space-y-2">
-                                {formData.images && formData.images.map((img, idx) => (
-                                    <div key={idx} className="flex gap-2 items-center">
-                                        <div className="w-8 h-8 rounded-lg bg-gray-200 shrink-0 overflow-hidden flex items-center justify-center">
-                                            {img ? <img src={getImageUrl(img)} className="w-full h-full object-cover" /> : <span className="text-[8px]">{idx+1}</span>}
-                                        </div>
-                                        <div className="flex-1 relative">
-                                            <span className="absolute -top-2 left-2 px-1 bg-white dark:bg-plumare-dark2 text-[8px] font-bold text-gray-400">Foto {idx + 1}</span>
-                                            <input 
-                                                disabled={status !== 'idle'}
-                                                className="w-full p-2.5 rounded-xl bg-plumare-softwhite dark:bg-plumare-dark3 border border-transparent focus:border-plumare-blue outline-none text-xs" 
-                                                value={img} 
-                                                onChange={e => updateImage(idx, e.target.value)}
-                                                placeholder="Link do Drive ou Imagem direta..."
-                                            />
-                                        </div>
-                                        <button disabled={status !== 'idle'} onClick={() => removeImageSlot(idx)} className="w-8 h-8 rounded-full hover:bg-red-100 text-red-400 flex items-center justify-center transition-colors">
-                                            <i data-lucide="trash-2" className="w-4 h-4"></i>
-                                        </button>
-                                    </div>
-                                ))}
-                                {(!formData.images || formData.images.length === 0) && (
-                                    <p className="text-xs text-center text-gray-400 py-2">Nenhuma imagem cadastrada.</p>
-                                )}
-                            </div>
-                        </div>
-
-                        <div className="flex gap-2 mt-4">
-                            {!isNew && (
-                                <button 
-                                    disabled={status !== 'idle'}
-                                    onClick={handleDeleteClick} 
-                                    className="flex-1 py-3 bg-red-50 text-red-500 border border-red-100 rounded-xl font-bold hover:bg-red-100 transition-colors disabled:opacity-50"
-                                >
-                                    Excluir
-                                </button>
-                            )}
-                            <button 
-                                disabled={status !== 'idle'}
-                                onClick={handleSaveClick} 
-                                className="flex-[2] py-3 bg-plumare-teal text-plumare-black rounded-xl font-bold hover:brightness-110 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-                            >
-                                {isNew ? 'Criar Produto' : 'Salvar Alterações'}
-                            </button>
-                        </div>
-                    </div>
+                    <h4 class="font-bold text-brand-blue mb-4">Produtos</h4>
+                    <div id="admin-prod-list" class="space-y-2"></div>
                 </div>
             </div>
-        );
-    };
+        </div>
+    </div>
 
-    const ProductCard = ({ product, isAdmin, onEdit }) => {
-        const [currentImgIndex, setCurrentImgIndex] = useState(0);
-
-        const nextImage = (e) => {
-            e.stopPropagation();
-            if(product.images) setCurrentImgIndex((prev) => (prev + 1) % product.images.length);
-        };
-
-        const prevImage = (e) => {
-            e.stopPropagation();
-            if(product.images) setCurrentImgIndex((prev) => (prev - 1 + product.images.length) % product.images.length);
-        };
-
-        const currentImageUrl = product.images && product.images.length > 0 ? getImageUrl(product.images[currentImgIndex]) : '';
-
-        // Texto dinâmico do botão
-        const buttonLabel = product.button_text && product.button_text.trim() !== '' ? product.button_text : 'Consultar Disponibilidade';
-
-        return (
-            <div className="glass-panel rounded-3xl p-0 flex flex-col mb-6 overflow-hidden relative group border-0 shadow-lg shadow-gray-200/50 dark:shadow-none">
-                
-                {isAdmin && (
-                    <button onClick={() => onEdit(product)} className="absolute top-4 left-4 z-30 bg-plumare-blue text-white p-2 rounded-xl shadow-lg hover:scale-110 transition-transform">
-                        <i data-lucide="pencil" className="w-4 h-4"></i>
-                    </button>
-                )}
-
-                <div className="relative w-full aspect-square bg-gray-100 dark:bg-plumare-dark2">
-                    <img src={currentImageUrl} alt={product.title} className="w-full h-full object-cover" />
-                    
-                    {product.images && product.images.length > 1 && (
-                        <>
-                            <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white text-plumare-black z-10 transition-all">
-                                <i data-lucide="chevron-left" className="w-5 h-5"></i>
-                            </button>
-                            <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center hover:bg-white text-plumare-black z-10 transition-all">
-                                <i data-lucide="chevron-right" className="w-5 h-5"></i>
-                            </button>
-                            <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
-                                {product.images.map((_, idx) => (
-                                    <div key={idx} className={`w-1.5 h-1.5 rounded-full shadow-sm transition-all ${idx === currentImgIndex ? 'bg-white scale-125' : 'bg-white/40'}`}></div>
-                                ))}
-                            </div>
-                        </>
-                    )}
-                    
-                    <div className="absolute top-4 right-4 bg-plumare-blue/90 backdrop-blur-md px-3 py-1 rounded-full z-10 shadow-lg">
-                        <span className="text-[10px] font-bold text-white uppercase tracking-wider">{product.category}</span>
-                    </div>
-                </div>
-
-                <div className="p-6 space-y-5">
-                    <div className="flex justify-between items-start gap-4">
-                        <h3 className="text-xl font-bold text-plumare-dark1 dark:text-white leading-tight">{product.title}</h3>
-                        <a href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20tenho%20interesse%20no%20${product.title}`} target="_blank"
-                            className="w-10 h-10 shrink-0 rounded-full bg-plumare-teal/20 text-plumare-teal dark:text-plumare-teal flex items-center justify-center hover:bg-plumare-teal hover:text-plumare-black transition-all">
-                            <i data-lucide="message-circle" className="w-5 h-5"></i>
-                        </a>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-2">
-                        {product.specs && product.specs.map((spec, index) => (
-                            <span key={index} className="text-[10px] font-bold uppercase tracking-wide bg-plumare-softwhite dark:bg-plumare-dark3 px-3 py-1.5 rounded-lg text-gray-500 dark:text-gray-400">
-                                {spec}
-                            </span>
-                        ))}
-                    </div>
-
-                    <a href={`https://api.whatsapp.com/send?phone=5579999999999&text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20o%20${product.title}`}
-                        target="_blank"
-                        className="block w-full py-3.5 rounded-xl bg-plumare-dark1 dark:bg-white text-white dark:text-plumare-black font-bold text-sm uppercase tracking-wider text-center hover:shadow-lg hover:-translate-y-1 transition-all">
-                        {buttonLabel}
-                    </a>
-                </div>
-            </div>
-        );
-    };
-
-    const App = () => {
-        const [view, setView] = useState('home');
-        const [products, setProducts] = useState([]);
-        const [selectedCategory, setSelectedCategory] = useState("Todos");
-        const [session, setSession] = useState(null);
-        const [isLoginOpen, setIsLoginOpen] = useState(false);
-        const [editingProduct, setEditingProduct] = useState(null);
-        const [loaded, setLoaded] = useState(false);
-
-        useEffect(() => {
-            fetchProducts();
-            supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
-            const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-                setSession(session);
-                if (session) setIsLoginOpen(false);
-            });
-            setLoaded(true);
-            setTimeout(() => { if(window.lucide) window.lucide.createIcons(); }, 500);
-            return () => subscription.unsubscribe();
-        }, []);
-
-        useEffect(() => {
-            setTimeout(() => { if(window.lucide) window.lucide.createIcons(); }, 100);
-        });
-
-        const fetchProducts = async () => {
-            let { data, error } = await supabase.from('produtos').select('*').order('id', { ascending: true });
-            if (!error && data) setProducts(data);
-        };
-
-        const handleSaveProduct = async (updatedData) => {
-            const cleanImages = (updatedData.images || []).filter(i => i && i.trim() !== '');
-            const cleanSpecs = (updatedData.specs || []).filter(i => i && i.trim() !== '');
-
-            const payload = { 
-                title: updatedData.title, 
-                category: updatedData.category, 
-                specs: cleanSpecs, 
-                images: cleanImages,
-                button_text: updatedData.button_text // Adicionado campo para salvar texto do botão
-            };
-
-            let error;
-            if (updatedData.id) {
-                const res = await supabase.from('produtos').update(payload).eq('id', updatedData.id);
-                error = res.error;
-            } else {
-                const res = await supabase.from('produtos').insert([payload]);
-                error = res.error;
-            }
-
-            if (error) {
-                throw error;
-            } else {
-                fetchProducts();
-            }
-        };
-
-        const handleDeleteProduct = async (id) => {
-            const { error } = await supabase.from('produtos').delete().eq('id', id);
-            
-            if (error) {
-                throw error;
-            }
-            setProducts(current => current.filter(p => p.id !== id));
-            fetchProducts();
-        };
-
-        const handleCreateProduct = () => {
-            setEditingProduct({
-                title: '',
-                category: '',
-                specs: [],
-                images: [''],
-                button_text: '' // Inicializa vazio
-            });
-        };
-
-        const handleLogout = async () => {
-            await supabase.auth.signOut();
-            setSession(null);
-        };
-
-        const categories = ["Todos", ...new Set(products.map(p => p.category).filter(Boolean))];
-        const filteredProducts = selectedCategory === "Todos" ? products : products.filter(p => p.category === selectedCategory);
-
-        const renderButtons = () => {
-            const buttons = [
-                { 
-                    id: 0, title: "Catálogo", subtitle: "Nossos Produtos", icon: "store", 
-                    action: (e) => { e.preventDefault(); window.showCatalog(); },
-                    textColor: "text-plumare-blue", bgColor: "bg-plumare-blue/10"
-                },
-                { id: 1, title: "Atacado", subtitle: "Falar com Vendedor", icon: "message-circle", link: "https://api.whatsapp.com/message/2RURQPNHQBRPI1", textColor: "text-whatsapp", bgColor: "bg-whatsapp/10" },
-                { id: 2, title: "Grupo VIP", subtitle: "Ofertas Exclusivas", icon: "users", link: "https://chat.whatsapp.com/I7re1TmYKaRGUVm2SUMSku", textColor: "text-plumare-blue", bgColor: "bg-plumare-blue/10" },
-                { id: 3, title: "Varejo", subtitle: "Comprar no WhatsApp", icon: "shopping-bag", link: "https://api.whatsapp.com/send?phone=5579999999999", textColor: "text-plumare-teal", bgColor: "bg-plumare-teal/10" },
-                { id: 4, title: "Quem Somos", subtitle: "Nossa história", icon: "heart", link: "#historia", textColor: "text-pink-500", bgColor: "bg-pink-500/10" }
-            ];
-
-            return (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-                    {buttons.map((btn, index) => (
-                        <a key={btn.id} href={btn.link || '#'} onClick={btn.action} target={btn.link && btn.link.startsWith('http') ? '_blank' : '_self'}
-                            className={`glass-panel p-5 rounded-2xl flex items-center gap-5 group transform transition-all duration-700 ease-out hover:scale-[1.02] cursor-pointer ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'} ${btn.id === 0 ? 'border-l-4 border-plumare-blue shadow-lg shadow-plumare-blue/10' : ''}`}
-                            style={{ transitionDelay: `${index * 100}ms` }}>
-                            <div className={`w-14 h-14 rounded-2xl ${btn.bgColor} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                                <i data-lucide={btn.icon} className={`w-7 h-7 ${btn.textColor}`}></i>
-                            </div>
-                            <div className="flex-1">
-                                <h3 className="font-bold text-lg text-plumare-dark1 dark:text-white leading-tight">{btn.title}</h3>
-                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 font-light">{btn.subtitle}</p>
-                            </div>
-                            <div className="w-8 h-8 rounded-full bg-gray-50 dark:bg-plumare-dark3 flex items-center justify-center text-gray-400 group-hover:text-plumare-blue transition-colors">
-                                <i data-lucide="chevron-right" className="w-4 h-4"></i>
-                            </div>
-                        </a>
-                    ))}
-                </div>
-            );
-        };
-
-        const renderCatalog = () => (
-            <section className="min-h-screen pb-20">
-                <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} onLogin={setSession} />
-                <EditModal 
-                    isOpen={!!editingProduct} 
-                    product={editingProduct} 
-                    existingCategories={categories.filter(c => c !== "Todos")} 
-                    onClose={() => setEditingProduct(null)} 
-                    onSave={handleSaveProduct} 
-                    onDelete={handleDeleteProduct}
-                />
-
-                <div className="sticky top-0 z-50 glass-panel border-b border-gray-100 dark:border-plumare-dark3">
-                    <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-                        <button onClick={() => window.goHome()} className="w-10 h-10 rounded-full bg-plumare-softwhite dark:bg-plumare-dark3 text-plumare-dark1 dark:text-white flex items-center justify-center hover:bg-gray-200 transition-colors">
-                            <i data-lucide="arrow-left" className="w-5 h-5"></i>
-                        </button>
-                        <span className="font-bold text-lg text-plumare-blue tracking-tight">CATÁLOGO</span>
-                        <div className="flex items-center gap-2">
-                            {session && (
-                                <button onClick={handleCreateProduct} className="w-10 h-10 rounded-full bg-plumare-blue text-white flex items-center justify-center hover:scale-110 shadow-lg transition-transform">
-                                    <i data-lucide="plus" className="w-5 h-5"></i>
-                                </button>
-                            )}
-                            {session ? (
-                                <button onClick={handleLogout} className="w-10 h-10 rounded-full bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 hover:shadow-md transition-all">
-                                    <i data-lucide="log-out" className="w-4 h-4"></i>
-                                </button>
-                            ) : (
-                                <button onClick={() => setIsLoginOpen(true)} className="w-10 h-10 rounded-full text-gray-400 hover:text-plumare-blue hover:bg-plumare-blue/5 transition-all">
-                                    <i data-lucide="lock" className="w-4 h-4"></i>
-                                </button>
-                            )}
-                        </div>
-                    </div>
-
-                    <div className="w-full overflow-x-auto no-scrollbar pb-4 px-4">
-                        <div className="flex gap-2 min-w-max mx-auto max-w-4xl">
-                            {categories.map(cat => (
-                                <button key={cat} onClick={() => setSelectedCategory(cat)} 
-                                    className={`px-6 py-2 rounded-full text-xs font-bold transition-all duration-300 border uppercase tracking-wider ${selectedCategory === cat ? 'bg-plumare-blue text-white border-plumare-blue shadow-lg shadow-plumare-blue/30' : 'bg-transparent border-gray-300 dark:border-plumare-dark3 text-gray-500 dark:text-gray-400 hover:border-plumare-blue'}`}>
-                                    {cat}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="max-w-md mx-auto px-0 md:px-0 pt-6 space-y-8 animate-fade-in-up">
-                    {filteredProducts.length > 0 ? (
-                        filteredProducts.map(product => (
-                            <ProductCard key={product.id} product={product} isAdmin={!!session} onEdit={setEditingProduct} />
-                        ))
-                    ) : (
-                        <div className="text-center py-20 mx-4 glass-panel rounded-3xl">
-                            <div className="w-20 h-20 bg-gray-100 dark:bg-plumare-dark3 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i data-lucide="package-open" className="w-8 h-8 text-gray-400"></i>
-                            </div>
-                            <h3 className="text-lg font-bold text-gray-500">Sem produtos aqui.</h3>
-                        </div>
-                    )}
-                </div>
-            </section>
-        );
-
-        return (
-            <React.Fragment>
-                {ReactDOM.createPortal(renderButtons(), document.getElementById('react-buttons-root'))}
-                {ReactDOM.createPortal(renderCatalog(), document.getElementById('react-catalog-root'))}
-            </React.Fragment>
-        );
-    };
-
-    const root = ReactDOM.createRoot(document.getElementById('root-controller'));
-    root.render(<App />);
-</script>
-
-<div id="root-controller"></div>
-
-    <!-- Scripts de Efeito -->
+    <!-- ========================================== -->
+    <!-- SCRIPT PRINCIPAL & CONFIGURAÇÃO SUPABASE   -->
+    <!-- ========================================== -->
     <script>
-        // Inicializa ícones
-        lucide.createIcons();
+        // Set current year in footer
+        document.getElementById('year').innerText = new Date().getFullYear();
 
-        // Lógica de Tema
-        function toggleTheme() {
-            const html = document.documentElement;
-            html.classList.toggle('dark');
-            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-        }
+        /*
+         =============================================================================
+         CONFIGURAÇÃO DO BANCO DE DADOS (SUPABASE) - INSTRUÇÕES PARA O DESENVOLVEDOR
+         =============================================================================
+         
+         1. Crie uma conta no Supabase (supabase.com)
+         2. Crie um novo projeto.
+         3. No menu lateral, vá em "Table Editor" e crie uma tabela chamada 'produtos'.
+         4. Adicione as seguintes colunas EXATAMENTE com estes nomes:
+            - id (tipo UUID, deixe como Primary Key e default gen_random_uuid())
+            - created_at (tipo timestamptz, default now())
+            - nome (tipo text)
+            - descricao (tipo text)
+            - categoria (tipo text)
+            - foto_url (tipo text)
+            - texto_botao (tipo text)
+         4.1. Crie também uma tabela 'categorias':
+            - id (tipo UUID)
+            - nome (tipo text)
+         5. Desative a RLS (Row Level Security) temporariamente para testar, ou crie políticas de Inserção/Leitura/Deleção.
+         
+         6. Para ligar de verdade no front-end, importe o SDK do Supabase acima adicionando:
+            <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"><\/script>
+         
+         7. Inicialize o cliente aqui abaixo substituindo pelas suas chaves:
+            const supabaseUrl = 'https://SEU_PROJETO.supabase.co';
+            const supabaseKey = 'SUA_ANON_KEY';
+            const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+         =============================================================================
+        */
 
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        }
+        // MOCK DATA (Dados fictícios para visualização enquanto não liga o Supabase)
+        let categoriesDB = [
+            { id: 1, nome: "Camisas" },
+            { id: 2, nome: "Bonés" },
+            { id: 3, nome: "Uniformes" },
+            { id: 4, nome: "Outros" }
+        ];
 
-        // Navegação
-        window.showCatalog = function() {
-            document.getElementById('main-header').classList.add('-translate-y-full');
-            document.getElementById('spacer-header').classList.add('hidden');
-            document.getElementById('home-view').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('home-view').classList.add('hidden');
-                document.getElementById('catalog-view').classList.remove('hidden');
-                window.scrollTo({ top: 0, behavior: 'instant' });
-            }, 300);
-        }
+        let productsDB = [
+            { id: 1, nome: "Polo Corporativa", descricao: "Malha premium com bordado de alta definição no peito.", categoria: "Uniformes", foto_url: "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&q=80&w=400", texto_botao: "Orçar no WhatsApp" },
+            { id: 2, nome: "Boné Trucker Logo", descricao: "Ajustável, ideal para eventos e brindes corporativos.", categoria: "Bonés", foto_url: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&q=80&w=400", texto_botao: "Pedir pelo WhatsApp" },
+            { id: 3, nome: "Avental Bordado", descricao: "Tecido resistente, perfeito para restaurantes e padarias.", categoria: "Outros", foto_url: "https://images.unsplash.com/photo-1623594248464-92742188ab1d?auto=format&fit=crop&q=80&w=400", texto_botao: "Verificar Disponibilidade" },
+            { id: 4, nome: "Camiseta Algodão Premium", descricao: "100% algodão, toque macio, com personalização nas costas e frente.", categoria: "Camisas", foto_url: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=400", texto_botao: "Comprar Agora" }
+        ];
 
-        window.goHome = function() {
-            document.getElementById('catalog-view').classList.add('hidden');
-            document.getElementById('home-view').classList.remove('hidden');
-            document.getElementById('spacer-header').classList.remove('hidden');
-            
-            setTimeout(() => {
-                document.getElementById('home-view').style.opacity = '1';
-                document.getElementById('main-header').classList.remove('-translate-y-full');
-            }, 50);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        let currentCategory = 'Todos';
 
-        // Slideshow
-        const images = document.querySelectorAll('.slider-img');
-        let currentImg = 0;
-        function nextImage() {
-            if(images.length < 2) return;
-            images[currentImg].classList.replace('opacity-100', 'opacity-0');
-            currentImg = (currentImg + 1) % images.length;
-            images[currentImg].classList.replace('opacity-0', 'opacity-100');
-        }
-        if(images.length > 1) setInterval(nextImage, 4000);
+        // --- LÓGICA DE INTERFACE ---
 
-        // Video Player
-        const video = document.getElementById('plumare-video');
-        const playPauseBtn = document.getElementById('play-pause-btn');
-
-        if(playPauseBtn && video) {
-            playPauseBtn.onclick = () => {
-                if (video.paused) {
-                    video.play();
-                    document.getElementById('play-icon').classList.add('hidden');
-                    document.getElementById('pause-icon').classList.remove('hidden');
-                    document.getElementById('video-controls').style.opacity = '0';
-                } else {
-                    video.pause();
-                    document.getElementById('play-icon').classList.remove('hidden');
-                    document.getElementById('pause-icon').classList.add('hidden');
-                    document.getElementById('video-controls').style.opacity = '1';
+        // Revelar elementos ao rolar (Scroll Animation)
+        function revealOnScroll() {
+            var reveals = document.querySelectorAll('.reveal');
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
                 }
-            };
-            
-            video.onpause = () => document.getElementById('video-controls').style.opacity = '1';
-            video.onended = () => document.getElementById('video-controls').style.opacity = '1';
+            }
         }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Trigger na carga inicial
+
+        // --- LÓGICA DO CATÁLOGO ---
+        
+        const modalCatalog = document.getElementById('catalogModal');
+        const gridCatalog = document.getElementById('catalog-grid');
+
+        function toggleCatalog() {
+            modalCatalog.classList.toggle('active');
+            if(modalCatalog.classList.contains('active')) {
+                document.body.style.overflow = 'hidden'; // Evita rolar o fundo
+                renderCategoriesUI();
+                renderCatalog();
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function setCategory(catName) {
+            currentCategory = catName;
+            renderCategoriesUI();
+            renderCatalog();
+        }
+
+        function renderCategoriesUI() {
+            const container = document.getElementById('category-filters');
+            let html = `<button onclick="setCategory('Todos')" class="px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${currentCategory === 'Todos' ? 'bg-brand-blue text-white' : 'bg-white text-brand-blue border border-brand-blue/20 hover:border-brand-orange'}">Todos</button>`;
+            
+            categoriesDB.forEach(cat => {
+                const isActive = currentCategory === cat.nome;
+                html += `<button onclick="setCategory('${cat.nome}')" class="px-4 py-1.5 rounded-full text-sm font-semibold transition-colors ${isActive ? 'bg-brand-blue text-white' : 'bg-white text-brand-blue border border-brand-blue/20 hover:border-brand-orange'}">${cat.nome}</button>`;
+            });
+            container.innerHTML = html;
+        }
+
+        // Função que desenha os produtos (simula a leitura do Supabase)
+        function renderCatalog() {
+            // Exemplo Supabase: const { data } = await supabase.from('produtos').select('*');
+            
+            let filteredProducts = productsDB;
+            if(currentCategory !== 'Todos') {
+                filteredProducts = productsDB.filter(p => p.categoria === currentCategory);
+            }
+
+            if (filteredProducts.length === 0) {
+                gridCatalog.innerHTML = `<div class="col-span-full text-center py-10 text-brand-blue/50">Nenhum produto encontrado nesta categoria.</div>`;
+                return;
+            }
+
+            let html = `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">`;
+            
+            filteredProducts.forEach(prod => {
+                let imgUrl = prod.foto_url;
+                if(imgUrl.includes("drive.google.com/file/d/")) {
+                    const id = imgUrl.split('/d/')[1].split('/')[0];
+                    imgUrl = `https://drive.google.com/uc?export=view&id=${id}`;
+                }
+
+                const numeroWhats = "5511999999999"; // Substitua pelo número real
+                const msg = encodeURIComponent(`Olá! Tenho interesse no produto: ${prod.nome} da categoria ${prod.categoria}.`);
+                const linkWhats = `https://wa.me/${numeroWhats}?text=${msg}`;
+
+                html += `
+                <div class="bg-white rounded-2xl p-3 shadow-lg hover:shadow-xl transition-shadow border border-brand-blue/5 flex flex-col group">
+                    <div class="aspect-square rounded-xl overflow-hidden mb-4 bg-gray-100 relative">
+                        <img src="${imgUrl}" alt="${prod.nome}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://via.placeholder.com/400?text=Imagem+Indisponível'">
+                        <div class="absolute top-2 right-2 bg-brand-light/90 backdrop-blur text-brand-blue text-xs font-bold px-2 py-1 rounded-full">
+                            ${prod.categoria}
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-brand-blue text-lg mb-1 leading-tight">${prod.nome}</h3>
+                    <p class="text-xs text-brand-blue/70 mb-3 line-clamp-2">${prod.descricao || ''}</p>
+                    <div class="mt-auto pt-4">
+                        <a href="${linkWhats}" target="_blank" class="w-full bg-brand-orange/10 text-brand-orange hover:bg-brand-orange hover:text-white transition-colors py-2 rounded-xl flex items-center justify-center gap-2 font-bold text-sm border border-brand-orange/20">
+                            <i class="ph-fill ph-whatsapp-logo text-lg"></i>
+                            ${prod.texto_botao}
+                        </a>
+                    </div>
+                </div>
+                `;
+            });
+            html += `</div>`;
+            gridCatalog.innerHTML = html;
+        }
+
+
+        // --- LÓGICA DA ÁREA ADMIN ---
+
+        const modalAdmin = document.getElementById('adminModal');
+        const viewLogin = document.getElementById('admin-login-view');
+        const viewDash = document.getElementById('admin-dashboard-view');
+
+        function toggleAdmin() {
+            modalAdmin.classList.toggle('active');
+            if(!modalAdmin.classList.contains('active')) {
+                document.getElementById('admin-pass').value = '';
+            } else {
+                renderAdminSelectCategories();
+                renderManageLists();
+            }
+        }
+
+        function loginAdmin() {
+            const pass = document.getElementById('admin-pass').value;
+            if (pass === 'liberty123') { 
+                viewLogin.classList.add('hidden');
+                viewDash.classList.remove('hidden');
+                renderAdminSelectCategories();
+                renderManageLists();
+            } else {
+                alert('Senha incorreta!');
+            }
+        }
+
+        function switchAdminTab(tab) {
+            const btnAdd = document.getElementById('tab-add');
+            const btnManage = document.getElementById('tab-manage');
+            const secAdd = document.getElementById('admin-add-section');
+            const secManage = document.getElementById('admin-manage-section');
+
+            if(tab === 'add') {
+                btnAdd.className = "text-sm font-bold text-brand-blue border-b-2 border-brand-orange pb-1";
+                btnManage.className = "text-sm font-bold text-brand-blue/50 hover:text-brand-blue pb-1";
+                secAdd.classList.remove('hidden');
+                secManage.classList.add('hidden');
+            } else {
+                btnManage.className = "text-sm font-bold text-brand-blue border-b-2 border-brand-orange pb-1";
+                btnAdd.className = "text-sm font-bold text-brand-blue/50 hover:text-brand-blue pb-1";
+                secManage.classList.remove('hidden');
+                secAdd.classList.add('hidden');
+                renderManageLists();
+            }
+        }
+
+        function renderAdminSelectCategories() {
+            const select = document.getElementById('prod-categoria');
+            select.innerHTML = '';
+            categoriesDB.forEach(cat => {
+                select.innerHTML += `<option value="${cat.nome}">${cat.nome}</option>`;
+            });
+        }
+
+        function renderManageLists() {
+            const catList = document.getElementById('admin-cat-list');
+            catList.innerHTML = '';
+            categoriesDB.forEach(cat => {
+                catList.innerHTML += `
+                    <div class="flex justify-between items-center bg-brand-light/50 p-3 rounded-xl border border-brand-blue/5">
+                        <span class="text-sm font-bold text-brand-blue">${cat.nome}</span>
+                        <button onclick="deletarCategoria(${cat.id})" class="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-lg transition-colors"><i class="ph ph-trash"></i></button>
+                    </div>
+                `;
+            });
+
+            const prodList = document.getElementById('admin-prod-list');
+            prodList.innerHTML = '';
+            productsDB.forEach(prod => {
+                prodList.innerHTML += `
+                    <div class="flex justify-between items-center bg-brand-light/50 p-3 rounded-xl border border-brand-blue/5">
+                        <div class="flex flex-col">
+                            <span class="text-sm font-bold text-brand-blue">${prod.nome}</span>
+                            <span class="text-xs text-brand-blue/60">${prod.categoria}</span>
+                        </div>
+                        <button onclick="deletarProduto(${prod.id})" class="text-red-500 hover:text-red-700 bg-red-100 p-2 rounded-lg transition-colors"><i class="ph ph-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function adicionarCategoria() {
+            const nomeInput = document.getElementById('nova-categoria-nome');
+            const nome = nomeInput.value.trim();
+            if(!nome) return;
+            
+            categoriesDB.push({ id: Date.now(), nome });
+            nomeInput.value = '';
+            renderAdminSelectCategories();
+            renderManageLists();
+            if(modalCatalog.classList.contains('active')) renderCategoriesUI();
+        }
+
+        function deletarCategoria(id) {
+            if(!confirm('Tem certeza que deseja deletar esta categoria? Os produtos associados não serão apagados automaticamente.')) return;
+            categoriesDB = categoriesDB.filter(c => c.id !== id);
+            renderAdminSelectCategories();
+            renderManageLists();
+            if(modalCatalog.classList.contains('active')) renderCategoriesUI();
+        }
+
+        function deletarProduto(id) {
+            if(!confirm('Tem certeza que deseja deletar este produto?')) return;
+            productsDB = productsDB.filter(p => p.id !== id);
+            renderManageLists();
+            if(modalCatalog.classList.contains('active')) renderCatalog();
+        }
+
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            
+            const novoProduto = {
+                id: Date.now(), // Fake ID
+                nome: document.getElementById('prod-nome').value,
+                descricao: document.getElementById('prod-descricao').value,
+                categoria: document.getElementById('prod-categoria').value,
+                foto_url: document.getElementById('prod-foto').value,
+                texto_botao: document.getElementById('prod-btn-txt').value
+            };
+
+            /*
+            // CÓDIGO SUPABASE REAL PARA INSERIR:
+            const inserirNoBanco = async () => {
+                const { data, error } = await supabase.from('produtos').insert([novoProduto]);
+                if(error) alert('Erro ao salvar no banco');
+            }
+            inserirNoBanco();
+            */
+
+            // Simulando salvamento local na array mock
+            productsDB.unshift(novoProduto); // adiciona no topo
+            
+            alert('Produto adicionado com sucesso! (Modo Simulação)');
+            document.getElementById('productForm').reset();
+            
+            switchAdminTab('manage'); // Vai para a aba de gestão para ver o produto
+            
+            // Se o catalogo estiver aberto, atualiza
+            if(modalCatalog.classList.contains('active')) {
+                renderCategoriesUI();
+                renderCatalog();
+            }
+        }
+
     </script>
 </body>
 </html>
